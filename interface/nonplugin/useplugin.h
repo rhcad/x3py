@@ -1,0 +1,51 @@
+#if !defined(X3_NONPLUGIN_USE_PLUGIN_H) && !defined(X3_NONPLUGIN_USE_PLUGINS_H)
+#define X3_NONPLUGIN_USE_PLUGIN_H
+
+#include <objptr.h>
+#include <utilfunc/loadmodule.h>
+
+#ifdef X3_CORE_PORTABILITY_H
+#include "../portability/portimpl.h"
+#endif
+
+// PLUGIN_PATH:         the plugin's relative folder.
+// PLUGIN_NAME:         the plugin name, no extension and path.
+// SELF_MODULE_NAME:    file name of the caller.
+
+#ifdef PLUGIN_NAME
+
+#ifndef SELF_MODULE_NAME
+    #ifdef SWIGPYTHON
+        #define SELF_PRE "_"
+    #else
+        #define SELF_PRE ""
+    #endif
+    #if defined(SWIGPYTHON) && defined(_WIN32)
+        #define SELF_EXT ".pyd"
+    #elif defined(_WIN32)
+        #define SELF_EXT ".dll"
+    #else
+        #define SELF_EXT ".so"
+    #endif
+    #define SELF_MODULE_NAME  SELF_PRE PLUGIN_NAME SELF_EXT
+#endif // SELF_MODULE_NAME
+
+#ifndef PLUGIN_PATH
+#define PLUGIN_PATH ""
+#endif
+
+namespace x3 {
+
+static LoadModuleHelper loader(PLUGIN_PATH PLUGIN_NAME ".pln", 
+                               GetModuleHandleA(SELF_MODULE_NAME));
+
+bool createObject(const char* clsid, long iid, IObject** p)
+{
+    typedef bool (*F)(const char*, long, IObject**);
+    F f = (F)loader.getFunc("x3CreateObject");
+    return f && f(clsid, iid, p);
+}
+
+} // x3
+#endif // PLUGIN_NAME
+#endif

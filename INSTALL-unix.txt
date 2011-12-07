@@ -1,0 +1,28 @@
+Compile this framework on Linux or Mac OS X as the following steps.
+
+  a. `cd' to the directory containing the file of 'Makefile'.
+  
+  b. Type `make' to compile C++ plugin-projects.
+     The plugins are outputed to './build/plugins'.
+  
+  c. If you need to use python, perl or java, then type `make swig' 
+     or `make all swig' to compile swig-projects.
+
+  d. You can remove the program object files from the source code
+     directory by typing `make clean'.
+
+You may need to customize config.mk for compiling swig-projects.
+Some possible environment variables used in config.mk:
+
+  SWIG_TYPE : Set this to python, perl5 or java.
+  
+  PYTHON_INCLUDE : Set this to the directory that contains python.h .
+  PYTHON_LIB     : Set this to the python library including path for linking.
+  PERL5_INCLUDE : Set this to the directory that contains perl.h .
+  PERL5_LIB     : Set this to the Perl library file name for linking.
+  JAVA_INCLUDE : Set this to the directory containing jni.h .
+
+Running and testing after compiling.
+
+  `cd' to the 'build' directory, type 'gdb consoledemo' to see the result number.
+  `cd' to the 'build/python' directory, type 'python testplsimple.py' or another test*.py .

@@ -1,0 +1,94 @@
+You can compile this framework using VC++ or GCC on Windows x86 or x64.
+
+1. Compiling using MS VC++ (one component of Visual Studio).
+
+  .\projects\x3c_vc90.sln: VC++ 2008
+  .\projects\x3c_vc80.sln: VC++ 2005
+  
+  You'll see core, example and swig packages in the solution file.
+  The swig package is a optional package, so you can unload projects not needed.
+  
+  If you need to use python, perl or java, then install extra softwares
+  and compile some projects in swig package.
+  Note: After setting environment variables, you may need to restart Visual Studio.
+
+2. Compiling using GNU GCC (not need VC++).
+
+  First install MinGW-GCC and MSYS on Windows.
+    GCC:  http://tdm-gcc.tdragon.net/download
+    MSYS: http://www.mingw.org/wiki/MSYS/
+
+  Then compile it under MSYS console:
+  
+  a. `cd' to the directory containing the file of 'Makefile'.
+  
+  b. Type `make' to compile plugin-projects.
+     The plugins are outputed to './build/plugins'.
+  
+  c. If you need to use python, perl or java, then install extra softwares
+     and type `make swig' or `make all swig' to compile swig-projects.
+
+  d. You can remove the program object files from the source code
+     directory by typing `make clean'.
+
+3. Installing some extra softwares for compiling swig-projects (optionally).
+
+    swigwin: http://www.swig.org/download.html (required)
+    Python:  http://downloads.activestate.com/ActivePython/releases/
+    Perl:    http://downloads.activestate.com/ActivePerl/releases/
+    JDK:     http://www.oracle.com/technetwork/java/javase/downloads/
+
+4. Environment variables setting for compiling swig-projects (optionally).
+
+  a. swigwin (required)
+  
+  SWIG_BIN : Set this to the directory (end with '\') that contains swig.exe.
+  You can add the directory to the 'PATH' variable instead of setting SWIG_BIN.
+  Example: D:\swigwin-2.0.4\
+  
+  b. Python
+  
+  PYTHON_INCLUDE : Set this to the directory that contains python.h .
+  PYTHON_LIB     : Set this to the python library including path for linking.
+  PYTHON64_INCLUDE : Like PYTHON_INCLUDE, but for Python x64 edition.
+  PYTHON64_LIB   : Like PYTHON_LIB, but for Python x64 edition.
+  
+  Example using ActivePython 2.7:
+  PYTHON_INCLUDE: D:\python27\include
+  PYTHON_LIB: D:\python27\libs
+  
+  c. Perl
+  
+  PERL5_INCLUDE : Set this to the directory that contains perl.h .
+  PERL5_LIB     : Set this to the Perl library file name for linking.
+  
+  Example using ActivePerl 5.14:
+  PERL5_INCLUDE: D:\perl\lib\CORE
+  PERL5_LIB: D:\perl\lib\CORE\perl514.lib
+  
+  d. Java
+  
+  JAVA_INCLUDE : Set this to the directory containing jni.h
+  JAVA64_INCLUDE : Like JAVA_INCLUDE, but for JDK x64 edition.
+  
+  JAVA_BIN : Set this to the bin directory (end with '\') containing javac.exe
+  You can add this directory to the 'PATH' variable instead of setting JAVA_BIN.
+  JAVA64_BIN : Like JAVA_BIN, but for JDK x64 edition.
+  JAVA_BIN is not used in makefile (GCC), so you need to change the 'PATH' variable.
+  
+  Example using JDK1.6:
+  JAVA_INCLUDE: D:\jdk1.6\include
+  JAVA_BIN: D:\jdk1.6\bin\
+
+5. Running and testing after compiling.
+
+  Run consoledemo.exe to see the result number.
+  Run test*.py in 'build/python' directory or type 'python testplsimple.py' under console.
+  
+  Debugging swig-project in VC++:
+  a. Set swig-project as startup project. 
+  b. Set swig-project's debugging properties:
+     Command: pythonw.exe
+     Command Arguments: $(TargetDir)\test$(ProjectName).py
+     Working Directory: $(TargetDir)
+  c. Start debugging, then you may see "pythonw.exe: has exited with code 0" when no error occurs.
