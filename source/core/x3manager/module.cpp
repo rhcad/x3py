@@ -5,8 +5,19 @@
 
 #include "plugins.h"
 
+BEGIN_NAMESPACE_X3
+
+class CManager : public CPlugins
+{
+    X3BEGIN_CLASS_DECLARE(CManager, clsidManager)
+        X3USE_INTERFACE_ENTRY(CPlugins)
+    X3END_CLASS_DECLARE()
+protected:
+    CManager() {}
+};
+
 XBEGIN_DEFINE_MODULE()
-    XDEFINE_CLASSMAP_ENTRY_Singleton(x3::CPlugins)
+    XDEFINE_CLASSMAP_ENTRY_Singleton(CManager)
 XEND_DEFINE_MODULE_DLL()
 
 OUTAPI bool x3InitializePlugin()
@@ -18,62 +29,64 @@ OUTAPI void x3UninitializePlugin()
 {
 }
 
-OUTAPI bool x3RegisterPlugin(x3::Creator creator, HMODULE hmod, const char** clsids)
+OUTAPI bool x3RegisterPlugin(Creator creator, HMODULE hmod, const char** clsids)
 {
-    x3::Object<x3::IRegister> reg(x3::clsidManager);
+    Object<IRegister> reg(clsidManager);
     return reg && reg->registerPlugin(creator, hmod, clsids);
 }
 
-OUTAPI void x3UnregisterPlugin(x3::Creator creator)
+OUTAPI void x3UnregisterPlugin(Creator creator)
 {
-    x3::Object<x3::IRegister> reg(x3::clsidManager);
+    Object<IRegister> reg(clsidManager);
     if (reg && creator)
         reg->unregisterPlugin(creator);
 }
 
-OUTAPI bool x3CreateObject(const char* clsid, long iid, x3::IObject** p)
+OUTAPI bool x3CreateObject(const char* clsid, long iid, IObject** p)
 {
-    x3::Object<x3::IRegister> reg(x3::clsidManager);
+    Object<IRegister> reg(clsidManager);
     return x3InternalCreate(clsid, iid, p)
         || reg && reg->createFromOthers(clsid, iid, p);
 }
 
-OUTAPI bool x3RegisterObserver(const char* type, PROC handler, x3::Creator creator)
+OUTAPI bool x3RegisterObserver(const char* type, PROC handler, Creator creator)
 {
-    x3::Object<x3::IRegister> reg(x3::clsidManager);
+    Object<IRegister> reg(clsidManager);
     return reg && reg->registerObserver(type, handler, creator);
 }
 
-OUTAPI bool x3RegisterObserverObject(const char* type, x3::ObserverObject* obj, 
-                                     x3::ON_EVENT handler, x3::Creator creator)
+OUTAPI bool x3RegisterObserverObject(const char* type, ObserverObject* obj, 
+                                     ON_EVENT handler, Creator creator)
 {
-    x3::Object<x3::IRegister> reg(x3::clsidManager);
+    Object<IRegister> reg(clsidManager);
     return reg && reg->registerObserver(type, obj, handler, creator);
 }
 
-OUTAPI void x3UnregisterObserverObject(x3::ObserverObject* obj)
+OUTAPI void x3UnregisterObserverObject(ObserverObject* obj)
 {
-    x3::Object<x3::IRegister> reg(x3::clsidManager);
+    Object<IRegister> reg(clsidManager);
     if (reg && obj)
         reg->unregisterObserver(obj);
 }
 
-OUTAPI bool x3FireEvent(const char* type, x3::EventDispatcher dispatcher, void* data)
+OUTAPI bool x3FireEvent(const char* type, EventDispatcher dispatcher, void* data)
 {
-    x3::Object<x3::IRegister> reg(x3::clsidManager);
+    Object<IRegister> reg(clsidManager);
     return reg && reg->fireEvent(type, dispatcher, data);
 }
 
-OUTAPI bool x3FireObjectEvent(const char* type, x3::ObjectEventDispatcher dispatcher, void* data)
+OUTAPI bool x3FireObjectEvent(const char* type, ObjectEventDispatcher dispatcher, void* data)
 {
-    x3::Object<x3::IRegister> reg(x3::clsidManager);
+    Object<IRegister> reg(clsidManager);
     return reg && reg->fireEvent(type, dispatcher, data);
 }
 
 #ifndef _WIN32
 OUTAPI HMODULE unixFindModule(const char* filename)
 {
-    x3::Object<x3::IRegister> reg(x3::clsidManager);
+    Object<IRegister> reg(clsidManager);
     return reg ? reg->findModuleByFileName(filename) : NULL;
 }
 #endif // UNIX
+
+END_NAMESPACE_X3

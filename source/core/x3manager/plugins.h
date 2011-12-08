@@ -41,7 +41,7 @@ class IRegister : public IObject
 class CPlugins : public IPlugins
     , public IRegister
 {
-    X3BEGIN_CLASS_DECLARE(CPlugins, clsidManager)
+    X3BEGIN_CLASS_DECLARE0(CPlugins)
         X3DEFINE_INTERFACE_ENTRY(IPlugins)
         X3DEFINE_INTERFACE_ENTRY(IRegister)
     X3END_CLASS_DECLARE()

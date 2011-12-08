@@ -12,6 +12,7 @@ BEGIN_NAMESPACE_X3
 static HMODULE  s_hmod = NULL;
 static HMODULE  s_manager = NULL;
 static bool     s_loadmgr = false;
+static long     s_refcount = 0;
 
 OUTAPI bool x3InitializePlugin();
 OUTAPI void x3UninitializePlugin();
@@ -101,6 +102,9 @@ OUTAPI bool x3InternalCreate(const char* clsid, long iid, IObject** p)
 
 OUTAPI void x3FreePlugin()
 {
+    if (--s_refcount != 0)
+        return;
+
     x3UninitializePlugin();
 
     if (s_manager && s_manager != s_hmod)
@@ -125,6 +129,9 @@ OUTAPI void x3FreePlugin()
 
 OUTAPI bool x3InitPlugin(HMODULE hmod, HMODULE hmanager)
 {
+    if (++s_refcount != 1)
+        return true;
+
     int singletonClassCount = getClassCount(MIN_SINGLETON_TYPE);
     ModuleItem::init(singletonClassCount);
 

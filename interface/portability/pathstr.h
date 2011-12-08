@@ -21,9 +21,16 @@ char* PathFindFileNameA(const char* path)
     return const_cast<char*>(p1 ? p1 + 1 : path);
 }
 
+char* PathFindExtensionA(const char* path)
+{
+    char* p = PathFindFileNameA(path);
+    char* ext = p ? strrchr(p, '.') : p;
+    return ext ? ext : p;
+}
+
 bool PathIsRelativeA(const char* path)
 {
-    return strrchr(path, ':') == NULL && path[0] != '\\' && path[0] != '/';
+    return path && strrchr(path, ':') == NULL && path[0] != '\\' && path[0] != '/';
 }
 
 void PathStripPathA(char* path)
@@ -54,7 +61,7 @@ void PathRemoveFileSpecA(char* path)
 
 void PathRemoveExtensionA(char* path)
 {
-    char* dot = strrchr(path, '.');
+    char* dot = path ? strrchr(path, '.') : NULL;
 
     if (dot)
     {
@@ -64,7 +71,7 @@ void PathRemoveExtensionA(char* path)
 
 void PathRemoveBackslashA(char* path)
 {
-    int len = strlen(path);
+    int len = path ? strlen(path) : 0;
 
     if (len > 0 && IsPathSlash(path[len - 1]))
     {
@@ -94,7 +101,7 @@ void PathAppendA(char* path, const char* more)
 
 char* PathAddBackslashA(char* path)
 {
-    int len = strlen(path);
+    int len = path ? strlen(path) : 0;
 
     if (len > 0 && !IsPathSlash(path[len - 1]))
     {
@@ -106,6 +113,7 @@ char* PathAddBackslashA(char* path)
 
 void PathRenameExtensionA(char* path, const char* more)
 {
+    ASSERT(path && more);
     char* dot = strrchr(path, '.');
 
     if (!dot)

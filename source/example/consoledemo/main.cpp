@@ -1,5 +1,5 @@
-// 1: use multiple plugins, 2: use one plugin
-// 3: raw loading mode, 4: use static library plugin
+// 1: use multiple plugins, 2: use one plugin, 3: raw loading mode
+// 4: use static library plugin, 5: find and load plugins
 //
 #ifndef LOADMODE
 #define LOADMODE  3
@@ -15,13 +15,13 @@ int test();
 #define PLUGIN_PATH  "plugins"
 #include <nonplugin/useplugins.h>
 
-static const char* plugins[] = { 
-    "x3manager.pln", "plsimple.pln", "observerex.pln", 
-    NULL };
-static x3::AutoLoadPlugins autoload(plugins);
-
 int main()
 {
+    const char* plugins[] = {
+        "x3manager.pln", "plsimple.pln", "observerex.pln", NULL
+    };
+    x3::AutoLoadPlugins autoload(plugins);
+
     return test();
 }
 
@@ -52,12 +52,16 @@ int main()
     const char* plugins[] = { 
         "plugins/x3manager.pln", 
         "plugins/plsimple.pln", 
-        "plugins/observerex.pln" };
-    int count = sizeof(plugins) / sizeof(plugins[0]);
+        "plugins/observerex.pln",
+        NULL
+    };
+    int count = 0;
 
-    for (int i = 0; i < count; i++)
+    for (int i = 0; plugins[i]; i++)
     {
-        modules[i] = x3LoadLibrary(plugins[i]);
+        modules[count] = x3LoadLibrary(plugins[i]);
+        if (modules[count])
+            count++;
     }
 
     int ret = test();
@@ -106,19 +110,77 @@ int main()
 }
 
 //---------------------------------------------------------------
+#elif LOADMODE==5   // find and load plugins
+//---------------------------------------------------------------
+
+#include <portability/portimpl.h>
+#include <utilfunc/scanfiles.h>
+
+HMODULE modules[10] = { NULL };
+int count = 0;
+
+bool filter(const char* filename, const char* ext)
+{
+    if (_stricmp(ext, ".pln") == 0)
+    {
+        modules[count] = x3LoadLibrary(filename);
+        if (modules[count])
+            count++;
+    }
+    return count < 10;
+}
+
+int main()
+{
+    char path[MAX_PATH];
+
+    GetModuleFileNameA(NULL, path, MAX_PATH);
+    PathRemoveFileSpecA(path);
+
+    x3::scanfiles(filter, path, true);
+
+    int ret = test();
+
+    while (--count >= 0)
+    {
+        x3FreeLibrary(modules[count]);
+    }
+
+    return ret;
+}
+
+namespace x3 {
+class IObject;
+bool createObject(const char* clsid, long iid, IObject** p)
+{
+    typedef bool (*F)(const char*, long, IObject**);
+    F f = (F)GetProcAddress(modules[0], "x3CreateObject");
+    return f && f(clsid, iid, p);
+}
+} // x3
+
+//---------------------------------------------------------------
 #endif
 
 #include <example/isimple.h>
+#include <stdio.h>
 
 int test()
 {
     x3::Object<ISimple> p(clsidSimple);
 
     if (!p)
-        return 1;   // plugin not loaded
+    {
+        printf("plugin not loaded\n");
+        return 1;
+    }
 
     if (p->add(1, 2) != 3)
-        return 2;   // diffrent implement
+    {
+        printf("diffrent implement\n");
+        return 2;
+    }
 
-    return 9;       // test ok
+    printf("Goodbye\n");
+    return 0;
 }

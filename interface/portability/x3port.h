@@ -16,6 +16,7 @@ bool x3FreeLibrary(HMODULE hdll);
 
 #ifndef _INC_SHLWAPI
 char* PathFindFileNameA(const char* path);
+char* PathFindExtensionA(const char* path);
 bool PathIsRelativeA(const char* path);
 void PathStripPathA(char* path);
 void PathRemoveFileSpecA(char* path);

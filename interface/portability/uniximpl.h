@@ -122,6 +122,10 @@ void* GetProcAddress(HMODULE hmod, const char* name)
 
 HMODULE GetModuleHandleA(const char* filename)
 {
+    if (!filename)
+    {
+        return NULL;
+    }
     if (PathIsRelativeA(filename)
         && 0 == strcmp(PathFindFileNameA(filename), PathFindFileNameA(_filename))
         || 0 == strcmp(filename, _filename))
