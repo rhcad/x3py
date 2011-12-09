@@ -2,22 +2,27 @@
 #define X3_EXAMPLE_MYOBSERVER_TYPES_H
 
 #include <observer/eventobserver.h>
+#include <vector>
 
-#define MYEVENT_NAMESPACE "example.myapp"
+// void func(int& result)
+X3DEFINE_EVENT(EventAdd, void, (int& result), "mypkg.x3");
 
-typedef void (*_EventAdd)(int& result);
-X3DEFINE_EVENT_TYPE(EventAdd, MYEVENT_NAMESPACE);
+// void func(int& result, int extra)
+X3DEFINE_EVENT(EventAddExtra, void, (int&, int), "mypkg.x3");
 
-typedef void (*_EventAddExtra)(int& result, int extra);
-X3DEFINE_EVENT_TYPE(EventAddExtra, MYEVENT_NAMESPACE);
+// bool func(int& result)
+X3DEFINE_EVENT(EventBreakDemo, bool, (int&), "mypkg.x3");
 
-typedef bool (*_EventBreakDemo)(int& result);
-X3DEFINE_EVENT_TYPE(EventBreakDemo, MYEVENT_NAMESPACE);
+// void YourClass::func(std::vector<void*>& objs)
+X3DEFINE_OBJEVENT(EventGather, void, (std::vector<void*>&), "mypkg.x3");
 
-typedef void (x3::ObserverObject::*_EventGather)(std::vector<void*>& objs);
-X3DEFINE_EVENT_TYPE(EventGather, MYEVENT_NAMESPACE);
+// bool YourClass::func()
+X3DEFINE_OBJEVENT(EventObjBreakDemo, bool, (void), "mypkg.x3");
 
-typedef bool (x3::ObserverObject::*_EventObjBreakDemo)(void);
-X3DEFINE_EVENT_TYPE(EventObjBreakDemo, MYEVENT_NAMESPACE);
+// void YourClass::func(std::string& text)
+X3DEFINE_OBJEVENT(EventVirtualDemo, void, (std::string&), "mypkg.x3");
+
+// void YourClass::func()
+X3DEFINE_OBJEVENT(EventSwigVoid, void, (), "mypkg.x3");
 
 #endif

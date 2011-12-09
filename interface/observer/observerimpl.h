@@ -28,11 +28,11 @@ void unregisterObserver(x3::ObserverObject* obj)
     if (f) f(obj);
 }
 
-bool fireEvent(const char* type, PROC dispatcher, void* data, bool obj)
+int fireEvent(const char* type, PROC dispatcher, void* data, bool obj)
 {
-    typedef bool (*F)(const char*, PROC, void*);
+    typedef int (*F)(const char*, PROC, void*);
     F f = (F)GetProcAddress(s_manager, obj ? "x3FireObjectEvent" : "x3FireEvent");
-    return f && f(type, dispatcher, data);
+    return f ? f(type, dispatcher, data) : 0;
 }
 
 } // x3

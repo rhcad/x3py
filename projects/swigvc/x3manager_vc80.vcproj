@@ -182,10 +182,18 @@
 	<References>
 	</References>
 	<Files>
-		<File
-			RelativePath="..\..\source\swig\plugin.i"
+		<Filter
+			Name="base_i"
 			>
-		</File>
+			<File
+				RelativePath="..\..\source\swig\observer.i"
+				>
+			</File>
+			<File
+				RelativePath="..\..\source\swig\plugin.i"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath="..\..\source\core\x3manager\swig\testx3manager.py"
 			>
@@ -195,7 +203,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Performing Custom Build Step"
-					CommandLine="if exist $(InputPath) if not exist  $(TargetDir)\$(InputName)$(InputExt) xcopy $(InputPath) $(TargetDir) /S/Q/Y/D"
+					CommandLine="if exist $(InputPath) if not exist  $(TargetDir)\$(InputName)$(InputExt) xcopy $(InputPath) $(TargetDir) /S/Q/Y/D&#x0D;&#x0A;"
 					Outputs="$(TargetDir)\$(InputName)$(InputExt)"
 				/>
 			</FileConfiguration>
@@ -205,7 +213,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Performing Custom Build Step"
-					CommandLine="if exist $(InputPath) if not exist  $(TargetDir)\$(InputName)$(InputExt) xcopy $(InputPath) $(TargetDir) /S/Q/Y/D"
+					CommandLine="if exist $(InputPath) if not exist  $(TargetDir)\$(InputName)$(InputExt) xcopy $(InputPath) $(TargetDir) /S/Q/Y/D&#x0D;&#x0A;"
 					Outputs="$(TargetDir)\$(InputName)$(InputExt)"
 				/>
 			</FileConfiguration>
@@ -219,7 +227,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating"
-					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I$(ProjectDir)..\..\interface -o &quot;$(InputDir)\$(InputName)_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)"
+					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I$(ProjectDir)..\..\interface -o &quot;$(InputDir)\$(InputName)_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
 					Outputs="$(InputDir)\$(InputName)_wrap.cxx"
 				/>
 			</FileConfiguration>
@@ -229,7 +237,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating"
-					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I$(ProjectDir)..\..\interface -o &quot;$(InputDir)\$(InputName)_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)"
+					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I$(ProjectDir)..\..\interface -o &quot;$(InputDir)\$(InputName)_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
 					Outputs="$(InputDir)\$(InputName)_wrap.cxx"
 				/>
 			</FileConfiguration>

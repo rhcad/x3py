@@ -146,7 +146,11 @@ OUTAPI bool x3InitPlugin(HMODULE hmod, HMODULE hmanager)
         hmanager = hmanager ? hmanager : GetModuleHandleA("x3manager.pln");
         if (!hmanager)
         {
+#ifdef PLUGIN_PATH
+            hmanager = x3LoadLibrary(PLUGIN_PATH "x3manager.pln");
+#else
             hmanager = x3LoadLibrary("x3manager.pln");
+#endif
             s_loadmgr = true;
         }
         s_manager = hmanager;
@@ -168,6 +172,8 @@ OUTAPI bool x3InitPlugin(HMODULE hmod, HMODULE hmanager)
     return !needInit || x3InitializePlugin();
 }
 
+#ifndef CREATEOBJECTIMPL
+#define CREATEOBJECTIMPL
 bool createObject(const char* clsid, long iid, IObject** p)
 {
     if (!x3InternalCreate(clsid, iid, p) && *clsid && s_manager)
@@ -176,9 +182,9 @@ bool createObject(const char* clsid, long iid, IObject** p)
         F f = (F)GetProcAddress(s_manager, "x3CreateObject");
         return f && f(clsid, iid, p);
     }
-
     return *p != NULL;
 }
+#endif
 
 #ifndef X3_EXCLUDE_CREATEOBJECT
 OUTAPI bool x3CreateObject(const char* clsid, long iid, IObject** p)

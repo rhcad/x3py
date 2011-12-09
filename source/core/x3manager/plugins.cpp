@@ -203,7 +203,7 @@ bool CPlugins::registerObserver(const char* type, ObserverObject* obj,
     return ret;
 }
 
-bool CPlugins::fireEvent(const char* type, EventDispatcher dispatcher, void* data)
+int CPlugins::fireEvent(const char* type, EventDispatcher dispatcher, void* data)
 {
     LockRW locker(_observers.locker);
     std::vector<PROC> observers;
@@ -232,10 +232,10 @@ bool CPlugins::fireEvent(const char* type, EventDispatcher dispatcher, void* dat
             break;
     }
 
-    return count > 0;
+    return count;
 }
 
-bool CPlugins::fireEvent(const char* type, ObjectEventDispatcher dispatcher, void* data)
+int CPlugins::fireEvent(const char* type, ObjectEventDispatcher dispatcher, void* data)
 {
     LockRW locker(_observers.locker);
     typedef std::pair<ObserverObject*, ON_EVENT> Pair;
@@ -265,7 +265,7 @@ bool CPlugins::fireEvent(const char* type, ObjectEventDispatcher dispatcher, voi
             break;
     }
 
-    return count > 0;
+    return count;
 }
 
 HMODULE CPlugins::findModuleByFileName(const char* filename)

@@ -44,9 +44,10 @@ OUTAPI void x3UnregisterPlugin(Creator creator)
 
 OUTAPI bool x3CreateObject(const char* clsid, long iid, IObject** p)
 {
+    if (x3InternalCreate(clsid, iid, p))
+        return true;
     Object<IRegister> reg(clsidManager);
-    return x3InternalCreate(clsid, iid, p)
-        || reg && reg->createFromOthers(clsid, iid, p);
+    return reg && reg->createFromOthers(clsid, iid, p);
 }
 
 OUTAPI bool x3RegisterObserver(const char* type, PROC handler, Creator creator)
@@ -69,16 +70,16 @@ OUTAPI void x3UnregisterObserverObject(ObserverObject* obj)
         reg->unregisterObserver(obj);
 }
 
-OUTAPI bool x3FireEvent(const char* type, EventDispatcher dispatcher, void* data)
+OUTAPI int x3FireEvent(const char* type, EventDispatcher dispatcher, void* data)
 {
     Object<IRegister> reg(clsidManager);
-    return reg && reg->fireEvent(type, dispatcher, data);
+    return reg ? reg->fireEvent(type, dispatcher, data) : 0;
 }
 
-OUTAPI bool x3FireObjectEvent(const char* type, ObjectEventDispatcher dispatcher, void* data)
+OUTAPI int x3FireObjectEvent(const char* type, ObjectEventDispatcher dispatcher, void* data)
 {
     Object<IRegister> reg(clsidManager);
-    return reg && reg->fireEvent(type, dispatcher, data);
+    return reg ? reg->fireEvent(type, dispatcher, data) : 0;
 }
 
 #ifndef _WIN32

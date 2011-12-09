@@ -1,0 +1,7 @@
+build
+*.ncb
+*.opt
+*.suo
+*.user
+*_wrap.cxx
+*.o

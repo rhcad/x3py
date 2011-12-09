@@ -15,6 +15,16 @@ public:
 private:
     void OnGather(std::vector<void*>& objs);
     bool OnBreakDemo();
+    virtual void OnVirtualDemo(std::string& text);
+};
+
+class CObserverTestEx : public CObserverTest
+{
+public:
+    CObserverTestEx() {}
+
+private:
+    virtual void OnVirtualDemo(std::string& text);
 };
 
 bool test();

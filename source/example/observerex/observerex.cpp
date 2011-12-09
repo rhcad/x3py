@@ -14,14 +14,14 @@ void OnEventAdd100(int& result)
 
 bool OnBreakDemo1(int& result)
 {
-    result += 1;
-    return result <= 1;
+    result += 10;
+    return result <= 10;
 }
 
 bool OnBreakDemo2(int& result)
 {
-    result += 2;
-    return result <= 2;
+    result += 20;
+    return result <= 20;
 }
 
 void registerHandlers()
@@ -37,6 +37,7 @@ CObserverTest::CObserverTest()
 {
     X3_REGISTER_OBSERVER_OBJECT(EventGather, &CObserverTest::OnGather);
     X3_REGISTER_OBSERVER_OBJECT(EventObjBreakDemo, &CObserverTest::OnBreakDemo);
+    X3_REGISTER_OBSERVER_OBJECT(EventVirtualDemo, &CObserverTest::OnVirtualDemo);
 }
 
 CObserverTest::~CObserverTest()
@@ -59,8 +60,19 @@ bool CObserverTest::OnBreakDemo()
     return false;
 }
 
+void CObserverTest::OnVirtualDemo(std::string& text)
+{
+    text = "a";
+}
+
+void CObserverTestEx::OnVirtualDemo(std::string& text)
+{
+    text = "b";
+}
+
 #include <example/myobserver.h>
 #include <example/myobserverobj.h>
+#include <example/myobsv_swig.h>
 
 bool test()
 {
@@ -72,16 +84,24 @@ bool test()
     CObserverTest objs[3];
     if (FireGatherEvent().fireEvent().param.size() != 3)
         return false;
+
     CObserverTest objextra;
-    if (FireGatherEvent().fireEvent().param.size() != 4)
+    if (FireGatherEvent().fireEvent().param.size() != 4)    // 3+1
         return false;
 
-    if (FireEventBreak(1).fireEvent().param != 2)
+    if (FireEventBreak(1).fireEvent().param != 11)  // call OnBreakDemo1 once.
         return false;
-    if (FireEventBreak(0).fireEvent().param != 3)
+    if (FireEventBreak(0).fireEvent().param != 30)  // call OnBreakDemo2 too.
         return false;
 
-    FireObjBreakEvent().fireEvent();
+    if (FireObjBreakEvent().fireEvent().nhandled != 1)  // only once.
+        return false;
+
+    if (FireVirtualDemoEvent().fireEvent().param != "a")
+        return false;
+    CObserverTestEx testVirtual;
+    if (FireVirtualDemoEvent().fireEvent().param != "b")
+        return false;
 
     return true;
 }

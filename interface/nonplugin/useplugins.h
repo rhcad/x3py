@@ -41,12 +41,15 @@ BEGIN_NAMESPACE_X3
 static LoadModuleHelper* s_plugins[10] = { NULL };
 static int s_nplugin = 0;
 
+#ifndef CREATEOBJECTIMPL
+#define CREATEOBJECTIMPL
 bool createObject(const char* clsid, long iid, IObject** p)
 {
     typedef bool (*F)(const char*, long, IObject**);
     F f = !s_plugins[0] ? NULL : (F)s_plugins[0]->getFunc("x3CreateObject");
     return f && f(clsid, iid, p);
 }
+#endif
 
 void loadPlugins(const char* const* plugins)
 {

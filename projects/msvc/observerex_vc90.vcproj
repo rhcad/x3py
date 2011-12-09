@@ -377,6 +377,10 @@
 				RelativePath="..\..\interface\example\myobserverobj.h"
 				>
 			</File>
+			<File
+				RelativePath="..\..\interface\example\myobsv_swig.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

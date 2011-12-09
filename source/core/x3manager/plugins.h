@@ -34,8 +34,8 @@ class IRegister : public IObject
     virtual bool registerObserver(const char* type, ObserverObject* obj, 
         ON_EVENT handler, Creator creator) = 0;
     virtual void unregisterObserver(ObserverObject* obj) = 0;
-    virtual bool fireEvent(const char* type, EventDispatcher dispatcher, void* data) = 0;
-    virtual bool fireEvent(const char* type, ObjectEventDispatcher dispatcher, void* data) = 0;
+    virtual int fireEvent(const char* type, EventDispatcher dispatcher, void* data) = 0;
+    virtual int fireEvent(const char* type, ObjectEventDispatcher dispatcher, void* data) = 0;
 };
 
 class CPlugins : public IPlugins
@@ -59,8 +59,8 @@ private:
     virtual bool registerObserver(const char* type, ObserverObject* obj, 
         ON_EVENT handler, Creator creator);
     virtual void unregisterObserver(ObserverObject* obj);
-    virtual bool fireEvent(const char* type, EventDispatcher dispatcher, void* data);
-    virtual bool fireEvent(const char* type, ObjectEventDispatcher dispatcher, void* data);
+    virtual int fireEvent(const char* type, EventDispatcher dispatcher, void* data);
+    virtual int fireEvent(const char* type, ObjectEventDispatcher dispatcher, void* data);
 
     virtual int getPluginCount() const;
     virtual void getPluginFiles(std::vector<std::string>& files) const;

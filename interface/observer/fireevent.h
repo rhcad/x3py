@@ -8,16 +8,18 @@ namespace x3 {
 template <class EventType> class FireEventBase
 {
 public:
-    bool    handled;
+    int     nhandled;
+
+    bool handled() const { return nhandled > 0; }
 
 protected:
-    FireEventBase() : handled(false) {}
+    FireEventBase() : nhandled(0) {}
 
     typedef bool (*EventDispatcher)(PROC handler, void* data);
 
     template <typename Dispatcher>
     void _fireEvent(Dispatcher dispatcher) {
-        handled = fireEvent(EventType::getType(), 
+        nhandled = fireEvent(EventType::getType(), 
             (PROC)static_cast<EventDispatcher>(dispatcher), this, false);
     }
 };

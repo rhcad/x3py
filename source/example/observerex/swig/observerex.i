@@ -1,7 +1,9 @@
-%module observerex
+%module(directors="1") observerex
+%include "../../../swig/observer.i"
+
 %{
-#ifndef PLUGIN_NAME
-#define PLUGIN_NAME "observerex"
-#endif
+#include <example/myobsv_swig.h>
 %}
-%include "../../../swig/plugin.i"
+
+%feature("director") ObserverDemo;
+%include <example/myobsv_swig.h>

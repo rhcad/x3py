@@ -8,16 +8,18 @@ namespace x3 {
 template <class EventType> class FireObjEventBase
 {
 public:
-    bool    handled;
+    int     nhandled;
+
+    bool handled() const { return nhandled > 0; }
 
 protected:
-    FireObjEventBase() : handled(false) {}
+    FireObjEventBase() : nhandled(0) {}
 
     typedef bool (*EventDispatcher)(ObserverObject*, ON_EVENT, void* data);
 
     template <typename Dispatcher>
     void _fireEvent(Dispatcher dispatcher) {
-        handled = fireEvent(EventType::getType(), 
+        nhandled = fireEvent(EventType::getType(), 
             (PROC)static_cast<EventDispatcher>(dispatcher), this, true);
     }
 
@@ -49,7 +51,7 @@ struct FireObjectEvent0Break {
     }
 };
 
-template <class EventType, class Break = FireEvent0NotBreak >
+template <class EventType, class Break = FireObjectEvent0NotBreak >
 class FireObjectEvent0 : public FireObjEventBase<EventType>
 {
 public:
@@ -89,7 +91,7 @@ public:
     ParamT  param;
 
     FireObjectEvent1() {}
-    FireObjectEvent1(ParamT& p) : param(p) {}
+    FireObjectEvent1(const ParamT& p) : param(p) {}
     This& fireEvent() { _fireEvent(dispatcher); return *this; }
 
 private:
