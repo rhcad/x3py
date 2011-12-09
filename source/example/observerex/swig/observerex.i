@@ -2,8 +2,8 @@
 %include "../../../swig/observer.i"
 
 %{
-#include <example/myobsv_swig.h>
+#include "observerex.h"
 %}
 
 %feature("director") ObserverDemo;
-%include <example/myobsv_swig.h>
+%include "observerex.h"

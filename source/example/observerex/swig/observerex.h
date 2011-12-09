@@ -1,5 +1,5 @@
-#ifndef X3_EXAMPLE_MYOBSERVER_SWIG_H
-#define X3_EXAMPLE_MYOBSERVER_SWIG_H
+#ifndef X3_EXAMPLE_OBSERVEREX_SWIG_H
+#define X3_EXAMPLE_OBSERVEREX_SWIG_H
 
 #include <observer/eventobserver.h>
 

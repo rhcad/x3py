@@ -72,7 +72,6 @@ void CObserverTestEx::OnVirtualDemo(std::string& text)
 
 #include <example/myobserver.h>
 #include <example/myobserverobj.h>
-#include <example/myobsv_swig.h>
 
 bool test()
 {
