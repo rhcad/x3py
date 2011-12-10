@@ -4,17 +4,17 @@
 #define PLUGIN_NAME "x3manager"
 #endif
 %}
-%include "../../../swig/plugin.i"
+%include "../../../public/swig/plugin.i"
 
 %{
-#include <core/iplugins.h>
+#include <manager/iplugins.h>
 %}
 
 %include std_vector.i
 %include std_string.i
 %template(Strings) std::vector<std::string>;
 
-%include <core/iplugins.h>
+%include <manager/iplugins.h>
 %template(Plugins) x3::Object<x3::IPlugins>;
 
-%include <core/x3manager.h>
+%include <manager/x3manager.h>

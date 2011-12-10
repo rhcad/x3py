@@ -1,7 +1,9 @@
 ROOTDIR  = ../../..
+PKGNAME  = example
+PROJNAME = observerex
+
 include $(ROOTDIR)/config.mk
 
-PROJNAME = observerex
 TARGET   = $(PLUGINS_DIR)/$(PROJNAME).pln
 SOURCES  = $(wildcard *.cpp)
 

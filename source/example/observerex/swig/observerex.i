@@ -1,9 +1,9 @@
 %module(directors="1") observerex
-%include "../../../swig/observer.i"
+%include "../../../public/swig/observer.i"
 
 %{
-#include "observerex.h"
+#include <observerex/observerswig.h>
 %}
 
 %feature("director") ObserverDemo;
-%include "observerex.h"
+%include <observerex/observerswig.h>

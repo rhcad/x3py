@@ -10,8 +10,8 @@
 #include <observer/observerimpl.h>
 XDEFINE_EMPTY_MODULE()
 
-#include <example/myobserver.h>
-#include <example/myobserverobj.h>
+#include <observerex/myobserver.h>
+#include <observerex/myobserverobj.h>
 %}
 
 %include <observer/observerobject.h>

@@ -45,7 +45,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface;&quot;$(PYTHON_INCLUDE)&quot;"
+				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example;&quot;$(PYTHON_INCLUDE)&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -125,7 +125,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface;&quot;$(PYTHON64_INCLUDE)&quot;"
+				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example;&quot;$(PYTHON64_INCLUDE)&quot;"
 				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -183,10 +183,6 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\..\source\example\observerex\swig\observerex.h"
-			>
-		</File>
-		<File
 			RelativePath="..\..\source\example\observerex\swig\observerex.i"
 			>
 			<FileConfiguration
@@ -195,7 +191,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating"
-					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I$(ProjectDir)..\..\interface -o &quot;$(InputDir)\$(InputName)_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
+					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I$(ProjectDir)..\..\interface\core -I$(ProjectDir)..\..\interface\example -o &quot;$(InputDir)\$(InputName)_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
 					Outputs="$(InputDir)\$(InputName)_wrap.cxx"
 				/>
 			</FileConfiguration>
@@ -205,7 +201,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating"
-					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I$(ProjectDir)..\..\interface -o &quot;$(InputDir)\$(InputName)_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
+					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I$(ProjectDir)..\..\interface\core -I$(ProjectDir)..\..\interface\example -o &quot;$(InputDir)\$(InputName)_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
 					Outputs="$(InputDir)\$(InputName)_wrap.cxx"
 				/>
 			</FileConfiguration>
@@ -229,6 +225,10 @@
 					WarningLevel="2"
 				/>
 			</FileConfiguration>
+		</File>
+		<File
+			RelativePath="..\..\interface\example\observerex\observerswig.h"
+			>
 		</File>
 		<File
 			RelativePath="..\..\source\example\observerex\swig\testobserverex.py"

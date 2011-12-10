@@ -45,7 +45,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface;&quot;$(PYTHON_INCLUDE)&quot;"
+				AdditionalIncludeDirectories="..\..\interface\core;&quot;$(PYTHON_INCLUDE)&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -125,7 +125,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface;&quot;$(PYTHON64_INCLUDE)&quot;"
+				AdditionalIncludeDirectories="..\..\interface\core;&quot;$(PYTHON64_INCLUDE)&quot;"
 				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -186,11 +186,11 @@
 			Name="base_i"
 			>
 			<File
-				RelativePath="..\..\source\swig\observer.i"
+				RelativePath="..\..\source\public\swig\observer.i"
 				>
 			</File>
 			<File
-				RelativePath="..\..\source\swig\plugin.i"
+				RelativePath="..\..\source\public\swig\plugin.i"
 				>
 			</File>
 		</Filter>
@@ -227,7 +227,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating"
-					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I$(ProjectDir)..\..\interface -o &quot;$(InputDir)\$(InputName)_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
+					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I$(ProjectDir)..\..\interface\core -o &quot;$(InputDir)\$(InputName)_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
 					Outputs="$(InputDir)\$(InputName)_wrap.cxx"
 				/>
 			</FileConfiguration>
@@ -237,7 +237,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating"
-					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I$(ProjectDir)..\..\interface -o &quot;$(InputDir)\$(InputName)_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
+					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I$(ProjectDir)..\..\interface\core -o &quot;$(InputDir)\$(InputName)_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
 					Outputs="$(InputDir)\$(InputName)_wrap.cxx"
 				/>
 			</FileConfiguration>

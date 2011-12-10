@@ -36,8 +36,12 @@ SWIGSO_FLAGS  =$(C_FLAGS_SO) -L$(SWIG_LIB) -l$(SWIG_TYPE)
 endif
 endif
 
-SWIGCC        =$(SWIG_BIN)swig -c++ -$(SWIG_TYPE) -I$(INTERFACE_DIR) -outdir $(SWIGOUTDIR)
+SWIGCC        =$(SWIG_BIN)swig -c++ -$(SWIG_TYPE) -I$(INTERFACE_DIR)/core -outdir $(SWIGOUTDIR)
 SWIG_CFLAGS   =$(CFLAGS_SO) -I$(SWIG_INCLUDE)
+ifdef PKGNAME
+SWIGCC       += -I$(INTERFACE_DIR)/$(PKGNAME)
+SWIG_CFLAGS  += -I$(INTERFACE_DIR)/$(PKGNAME)
+endif
 
 ifdef USE_PYTHON
 SWIG_PRE      =_

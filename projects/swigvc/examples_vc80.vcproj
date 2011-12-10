@@ -45,7 +45,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface;&quot;$(PYTHON_INCLUDE)&quot;"
+				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example;&quot;$(PYTHON_INCLUDE)&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -125,7 +125,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface;&quot;$(PYTHON64_INCLUDE)&quot;"
+				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example;&quot;$(PYTHON64_INCLUDE)&quot;"
 				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -183,7 +183,7 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\..\source\swig\examples\examples.i"
+			RelativePath="..\..\source\public\swigtest\examples.i"
 			>
 			<FileConfiguration
 				Name="Release|Win32"
@@ -191,7 +191,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating"
-					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I$(ProjectDir)..\..\interface -o &quot;$(InputDir)\$(InputName)_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)"
+					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I$(ProjectDir)..\..\interface\core -I$(ProjectDir)..\..\interface\example -o &quot;$(InputDir)\$(InputName)_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)"
 					Outputs="$(InputDir)\$(InputName)_wrap.cxx"
 				/>
 			</FileConfiguration>
@@ -201,13 +201,13 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating"
-					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I$(ProjectDir)..\..\interface -o &quot;$(InputDir)\$(InputName)_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)"
+					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I$(ProjectDir)..\..\interface\core -I$(ProjectDir)..\..\interface\example -o &quot;$(InputDir)\$(InputName)_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)"
 					Outputs="$(InputDir)\$(InputName)_wrap.cxx"
 				/>
 			</FileConfiguration>
 		</File>
 		<File
-			RelativePath="..\..\source\swig\examples\examples_wrap.cxx"
+			RelativePath="..\..\source\public\swigtest\examples_wrap.cxx"
 			>
 			<FileConfiguration
 				Name="Release|Win32"
@@ -227,7 +227,7 @@
 			</FileConfiguration>
 		</File>
 		<File
-			RelativePath="..\..\source\swig\examples\testexamples.py"
+			RelativePath="..\..\source\public\swigtest\testexamples.py"
 			>
 			<FileConfiguration
 				Name="Release|Win32"

@@ -1,5 +1,6 @@
-ROOTDIR = ../../../..
+ROOTDIR  = ../../../..
+PKGNAME  = example
 PROJNAME = observerex
 
 include $(ROOTDIR)/config.mk
-include ../../../swig/Makefile.swig
+include ../../../public/swig/Makefile.swig

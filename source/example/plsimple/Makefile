@@ -1,7 +1,9 @@
 ROOTDIR  = ../../..
+PKGNAME  = example
+PROJNAME = plsimple
+
 include $(ROOTDIR)/config.mk
 
-PROJNAME = plsimple
 TARGET   = $(PLUGINS_DIR)/$(PROJNAME).pln
 SOURCES  = $(wildcard *.cpp)
 

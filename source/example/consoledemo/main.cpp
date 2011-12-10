@@ -162,7 +162,7 @@ bool createObject(const char* clsid, long iid, IObject** p)
 //---------------------------------------------------------------
 #endif
 
-#include <example/isimple.h>
+#include <plsimple/isimple.h>
 #include <stdio.h>
 
 int test()

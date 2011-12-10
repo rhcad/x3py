@@ -1,7 +1,8 @@
 ROOTDIR  = ../../..
+PROJNAME = x3manager
+
 include $(ROOTDIR)/config.mk
 
-PROJNAME = x3manager
 TARGET   = $(PLUGINS_DIR)/$(PROJNAME).pln
 SOURCES  = $(wildcard *.cpp)
 

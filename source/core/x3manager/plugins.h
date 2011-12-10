@@ -2,7 +2,7 @@
 #define X3_CORE_PLUGINS_IMPL_H
 
 #include <module/classmacro.h>
-#include <core/iplugins.h>
+#include <manager/iplugins.h>
 #include <observer/observerobject.h>
 #include <utilfunc/lockrw.h>
 #include <utilfunc/vecfunc.h>

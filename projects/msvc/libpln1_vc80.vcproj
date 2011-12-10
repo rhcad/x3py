@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\interface"
+				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -107,7 +107,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\interface"
+				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example"
 				PreprocessorDefinitions="_WIN64;_DEBUG;_WINDOWS;_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -168,7 +168,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface"
+				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_LIB"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -229,7 +229,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface"
+				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example"
 				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_LIB"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -298,7 +298,7 @@
 			UniqueIdentifier="{517625E8-3653-47B2-8F30-C4B355E1120B}"
 			>
 			<File
-				RelativePath="..\..\interface\example\isimple.h"
+				RelativePath="..\..\interface\example\plsimple\isimple.h"
 				>
 			</File>
 		</Filter>

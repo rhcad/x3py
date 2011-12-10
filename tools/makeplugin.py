@@ -63,7 +63,7 @@ def makeproj(projname, pkgname, baseproj, basepkg):
     pairs = {baseproj:projname, basepkg:pkgname}
     
     def matchfile(filename, pairs):
-        if filename.find("_wrap.cxx") > 0:
+        if filename.find("_wrap.cxx") > 0 or filename.find("_wrap.h") > 0:
             return False
         return True
     copyfiles(basepath, destdir, pairs, matchfile)

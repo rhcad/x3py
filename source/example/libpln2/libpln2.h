@@ -2,7 +2,7 @@
 #define X3_EXAMPLE_SIMPLE_IMPL_H
 
 #include <module/classmacro.h>
-#include <example/isimple2.h>
+#include <plsimple/isimple2.h>
 
 const char* const clsidSimpleB = "73458821-16d7-4671-959d-c17b43c9e6de";
 

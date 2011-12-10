@@ -1,5 +1,6 @@
 ROOTDIR = ../../../..
+PKGNAME  = example
 PROJNAME = plsimple
 
 include $(ROOTDIR)/config.mk
-include ../../../swig/Makefile.swig
+include ../../../public/swig/Makefile.swig

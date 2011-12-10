@@ -1,13 +1,15 @@
 # Included by Makefile. You can customize it.
 
 INTERFACE_DIR =$(ROOTDIR)/interface
-
 INSTALL_DIR   =$(ROOTDIR)/build
 PLUGINS_DIR   =$(INSTALL_DIR)/plugins
 
 CC            = g++
-CFLAGS       += -g -I$(INTERFACE_DIR)
+CFLAGS       += -g -I$(INTERFACE_DIR)/core
 C_FLAGS      += -g -Wall
+ifdef PKGNAME
+CFLAGS       += -I$(INTERFACE_DIR)/$(PKGNAME)
+endif
 
 CFLAGS_SO     = $(CFLAGS) -fPIC -D_USRDLL
 C_FLAGS_SO    = $(C_FLAGS) -shared -fPIC
@@ -15,7 +17,7 @@ C_FLAGS_SO    = $(C_FLAGS) -shared -fPIC
 #SWIG_TYPE: python, perl5, java, ruby (no space after =)
 SWIG_TYPE    ?=python
 
-# Environment variables used by source/swig/Makefile.swig
+# Environment variables used by source/public/swig/Makefile.swig
 PYTHON_INCLUDE ?=/usr/include/python2.6
 PYTHON_LIB     ?=/usr/lib
 PERL5_INCLUDE  ?=/usr/include/perl5

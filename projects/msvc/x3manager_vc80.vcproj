@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\interface"
+				AdditionalIncludeDirectories="..\..\interface\core"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -121,7 +121,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\interface"
+				AdditionalIncludeDirectories="..\..\interface\core"
 				PreprocessorDefinitions="_WIN64;_DEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -196,7 +196,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface"
+				AdditionalIncludeDirectories="..\..\interface\core"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -275,7 +275,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface"
+				AdditionalIncludeDirectories="..\..\interface\core"
 				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -362,54 +362,54 @@
 			UniqueIdentifier="{517625E8-3653-47B2-8F30-C4B355E1120B}"
 			>
 			<File
-				RelativePath="..\..\interface\core\iplugins.h"
+				RelativePath="..\..\interface\core\manager\iplugins.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\interface\core\x3manager.h"
+				RelativePath="..\..\interface\core\manager\x3manager.h"
 				>
 			</File>
 			<Filter
 				Name="module"
 				>
 				<File
-					RelativePath="..\..\interface\module\classentry.h"
+					RelativePath="..\..\interface\core\module\classentry.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\interface\module\classmacro.h"
+					RelativePath="..\..\interface\core\module\classmacro.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\interface\iobject.h"
+					RelativePath="..\..\interface\core\iobject.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\interface\module\moduleitem.h"
+					RelativePath="..\..\interface\core\module\moduleitem.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\interface\module\modulemacro.h"
+					RelativePath="..\..\interface\core\module\modulemacro.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\interface\module\normalobject.h"
+					RelativePath="..\..\interface\core\module\normalobject.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\interface\objptr.h"
+					RelativePath="..\..\interface\core\objptr.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\interface\module\pluginimpl.h"
+					RelativePath="..\..\interface\core\module\pluginimpl.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\interface\module\plugininc.h"
+					RelativePath="..\..\interface\core\module\plugininc.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\interface\module\singletonobj.h"
+					RelativePath="..\..\interface\core\module\singletonobj.h"
 					>
 				</File>
 			</Filter>

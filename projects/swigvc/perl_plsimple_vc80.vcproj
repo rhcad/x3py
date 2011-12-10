@@ -41,7 +41,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface;&quot;$(PERL5_INCLUDE)&quot;"
+				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example;&quot;$(PERL5_INCLUDE)&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -108,7 +108,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating"
-					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -perl5 -I$(ProjectDir)..\..\interface -o &quot;$(InputDir)\$(InputName)_perl_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
+					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -perl5 -I$(ProjectDir)..\..\interface\core -I$(ProjectDir)..\..\interface\example -o &quot;$(InputDir)\$(InputName)_perl_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
 					Outputs="$(InputDir)\$(InputName)_perl_wrap.cxx"
 				/>
 			</FileConfiguration>
@@ -126,7 +126,7 @@
 			</FileConfiguration>
 		</File>
 		<File
-			RelativePath="..\..\source\swig\examples\testplsimple.pl"
+			RelativePath="..\..\source\public\swigtest\testplsimple.pl"
 			>
 			<FileConfiguration
 				Name="Release|Win32"

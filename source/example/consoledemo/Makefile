@@ -1,7 +1,9 @@
 ROOTDIR  = ../../..
+PKGNAME  = example
+PROJNAME = consoledemo
+
 include $(ROOTDIR)/config.mk
 
-PROJNAME = consoledemo
 TARGET   = $(INSTALL_DIR)/$(PROJNAME)$(EXE)
 SOURCES  = $(wildcard *.cpp)
 

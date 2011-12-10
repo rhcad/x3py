@@ -3,10 +3,10 @@
 #include <module/modulemacro.h>
 #include <observer/observerimpl.h>
 
-#include "observerex.h"
-
 XBEGIN_DEFINE_MODULE()
 XEND_DEFINE_MODULE_DLL()
+
+bool test();
 
 OUTAPI bool x3InitializePlugin()
 {

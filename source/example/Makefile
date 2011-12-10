@@ -1,4 +1,4 @@
-# Makefile
+# Makefile of projects in a package
 
 ROOTDIR = ../..
 include $(ROOTDIR)/config.mk

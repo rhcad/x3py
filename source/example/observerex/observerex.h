@@ -3,6 +3,7 @@
 
 #include <observer/observerobject.h>
 #include <vector>
+#include <string>
 
 class CObserverTest : x3::ObserverObject
 {
@@ -26,7 +27,5 @@ public:
 private:
     virtual void OnVirtualDemo(std::string& text);
 };
-
-bool test();
 
 #endif

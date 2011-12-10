@@ -2,7 +2,7 @@
 #define X3_EXAMPLE_SIMPLE_IMPL_H
 
 #include <module/classmacro.h>
-#include <example/isimple3.h>
+#include <plsimple/isimple3.h>
 
 class CSimple3 : public ISimple3
 {

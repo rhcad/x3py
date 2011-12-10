@@ -1,6 +1,6 @@
 #include <module/plugininc.h>
 #include "observerex.h"
-#include <example/myevents.h>
+#include <observerex/myevents.h>
 
 void OnEventAdd10(int& result)
 {
@@ -70,8 +70,8 @@ void CObserverTestEx::OnVirtualDemo(std::string& text)
     text = "b";
 }
 
-#include <example/myobserver.h>
-#include <example/myobserverobj.h>
+#include <observerex/myobserver.h>
+#include <observerex/myobserverobj.h>
 
 bool test()
 {
