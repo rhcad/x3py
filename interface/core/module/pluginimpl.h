@@ -146,11 +146,7 @@ OUTAPI bool x3InitPlugin(HMODULE hmod, HMODULE hmanager)
         hmanager = hmanager ? hmanager : GetModuleHandleA("x3manager.pln");
         if (!hmanager)
         {
-#ifdef PLUGIN_PATH
-            hmanager = x3LoadLibrary(PLUGIN_PATH "x3manager.pln");
-#else
             hmanager = x3LoadLibrary("x3manager.pln");
-#endif
             s_loadmgr = true;
         }
         s_manager = hmanager;
