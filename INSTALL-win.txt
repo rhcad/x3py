@@ -27,7 +27,7 @@ You can compile this framework using VC++ or GCC on Windows x86 or x64.
   
   c. If you need to use python, perl or java, then install extra softwares
      and type `make swig' or `make all swig' to compile swig-projects.
-     Type 'make all python perl java' can compile more targets.
+     Type 'make all python java perl5' can compile more targets.
 
   d. You can remove the program object files from the source code
      directory by typing `make clean'.

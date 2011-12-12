@@ -4,10 +4,10 @@
 #ifndef X3_PLUGIN_SWIGI
 #define X3_PLUGIN_SWIGI
 %{
-#include <portability/portimpl.h>
 #ifndef PLUGIN_PATH
 #define PLUGIN_PATH "../plugins/"
 #endif
+#include <portability/portimpl.h>
 #include <nonplugin/useplugin.h>
 %}
 

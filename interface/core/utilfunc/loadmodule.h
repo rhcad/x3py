@@ -49,13 +49,12 @@ public:
                 PathRemoveFileSpecA(fullname);
                 PathAppendA(fullname, folder);
                 PathAppendA(fullname, filename);
-                filename = fullname;
+                _hmod = x3LoadLibrary(fullname);
             }
-            _hmod = x3LoadLibrary(filename);
             if (!_hmod)
-            {
+                _hmod = x3LoadLibrary(filename);
+            if (!_hmod)
                 _hmod = x3LoadLibrary(PathFindFileNameA(filename));
-            }
         }
         if (_assign)
         {
