@@ -58,7 +58,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="&quot;$(PERL5_LIB)&quot;"
+				AdditionalDependencies="&quot;$(PERL5_LIBFILE)&quot;"
 				OutputFile="$(OutDir)\plsimple.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories=""

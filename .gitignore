@@ -6,3 +6,5 @@ build
 *_wrap.cxx
 *_wrap.h
 *.o
+*~
+*.DS_Store

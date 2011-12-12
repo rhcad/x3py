@@ -60,11 +60,11 @@ You can compile this framework using VC++ or GCC on Windows x86 or x64.
   c. Perl
   
   PERL5_INCLUDE : Set this to the directory that contains perl.h .
-  PERL5_LIB     : Set this to the Perl library file name for linking.
+  PERL5_LIBFILE : Set this to the Perl library file name for linking.
   
   Example using ActivePerl 5.14:
   PERL5_INCLUDE: D:\perl\lib\CORE
-  PERL5_LIB: D:\perl\lib\CORE\perl514.lib
+  PERL5_LIBFILE: D:\perl\lib\CORE\perl514.lib
   
   d. Java
   

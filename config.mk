@@ -14,20 +14,22 @@ endif
 CFLAGS_SO     = $(CFLAGS) -fPIC -D_USRDLL
 C_FLAGS_SO    = $(C_FLAGS) -shared -fPIC
 
-#SWIG_TYPE: python, perl5, java, ruby (no space after =)
-SWIG_TYPE    ?=python
-
-# Environment variables used by source/public/swig/Makefile.swig
-PYTHON_INCLUDE ?=/usr/include/python2.6
-PYTHON_LIB     ?=/usr/lib
-PERL5_INCLUDE  ?=/usr/include/perl5
-PERL5_LIB      ?=perl5.a
-JAVA_INCLUDE   ?=/Library/Java/Home/include
-RUBY_INCLUDE   ?=/usr/include/ruby
-RUBY_LIB       ?=ruby.a
-
 OS           ?=$(shell uname -s)
 IS_WIN       :=$(shell echo $(OS)|grep -i Windows)
+
+# Environment variables used by source/public/swig/Makefile.swig
+# You may change the default values or set environment variables.
+
+#SWIG_TYPE: python, perl5, java, ruby, csharp, php, r (no space after =)
+SWIG_TYPE      ?=python
+
+PYTHON_INCLUDE ?=/usr/include/python2.7
+PYTHON_LIBFILE ?=python2.7
+PERL5_INCLUDE  ?=/usr/include/perl5
+PERL5_LIBFILE  ?=perl5
+JAVA_INCLUDE   ?=/Library/Java/Home/include
+RUBY_INCLUDE   ?=/usr/include/ruby
+RUBY_LIBFILE   ?=ruby
 
 ifdef IS_WIN
 EXE           =.exe

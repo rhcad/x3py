@@ -7,12 +7,14 @@ USE_RUBY     :=$(shell echo $(SWIG_TYPE)|grep -i ruby)
 
 ifdef USE_PYTHON
 SWIG_INCLUDE ?=$(PYTHON_INCLUDE)
-SWIG_LIB     ?=$(PYTHON_LIB)
+SWIG_LIBPATH :=$(PYTHON_LIB)
+SWIG_LIBFILE :=$(PYTHON_LIBFILE)
 endif
 
 ifdef USE_PERL
 SWIG_INCLUDE ?=$(PERL5_INCLUDE)
-SWIG_LIBFILE ?=$(PERL5_LIB)
+SWIG_LIBPATH :=$(PERL5_LIB)
+SWIG_LIBFILE :=$(PERL5_LIBFILE)
 endif
 
 ifdef USE_JAVA
@@ -21,18 +23,22 @@ endif
 
 ifdef USE_RUBY
 SWIG_INCLUDE ?=$(RUBY_INCLUDE)
-SWIG_LIBFILE ?=$(RUBY_LIB)
+SWIG_LIBPATH :=$(RUBY_LIB)
+SWIG_LIBFILE :=$(RUBY_LIBFILE)
 endif
 
+SWIGSO_FLAGS  =$(C_FLAGS_SO)
 ifdef USE_JAVA
 SWIGOUTDIR    =$(INSTALL_DIR)/$(SWIG_TYPE)_$(PROJNAME)
-SWIGSO_FLAGS  =$(C_FLAGS_SO)
 else
 SWIGOUTDIR    =$(INSTALL_DIR)/$(SWIG_TYPE)
+ifdef SWIG_LIBPATH
+SWIGSO_FLAGS +=-L$(SWIG_LIBPATH)
+endif
 ifdef SWIG_LIBFILE
-SWIGSO_FLAGS  =$(C_FLAGS_SO) -l$(SWIG_LIBFILE)
+SWIGSO_FLAGS +=-l$(SWIG_LIBFILE)
 else
-SWIGSO_FLAGS  =$(C_FLAGS_SO) -L$(SWIG_LIB) -l$(SWIG_TYPE)
+SWIGSO_FLAGS +=-l$(SWIG_TYPE)
 endif
 endif
 
@@ -81,15 +87,10 @@ $(WRAPFILE).o: $(WRAPFILE).cxx
 clean:
 	rm -rf *.o
 	rm -rf *_wrap.cxx
+	rm -rf *_wrap.h
 	rm -rf $(TARGET)
-ifdef USE_PYTHON
 	rm -rf $(SWIGOUTDIR)/$(PROJNAME).py*
 	rm -rf $(SWIGOUTDIR)/test$(PROJNAME).py
-endif
-ifdef USE_PERL
 	rm -rf $(SWIGOUTDIR)/$(PROJNAME).pm
-endif
-ifdef USE_JAVA
 	rm -rf $(SWIGOUTDIR)/*.java
 	rm -rf $(SWIGOUTDIR)/*.class
-endif

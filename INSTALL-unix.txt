@@ -15,11 +15,10 @@ You may need to customize config.mk for compiling swig-projects.
 Some possible environment variables used in config.mk:
 
   SWIG_TYPE : Set this to python, perl5 or java.
-  
   PYTHON_INCLUDE : Set this to the directory that contains python.h .
-  PYTHON_LIB     : Set this to the python library including path for linking.
+  PYTHON_LIBFILE : Set this to the python library file name for linking.
   PERL5_INCLUDE : Set this to the directory that contains perl.h .
-  PERL5_LIB     : Set this to the Perl library file name for linking.
+  PERL5_LIBFILE : Set this to the Perl library file name for linking.
   JAVA_INCLUDE : Set this to the directory containing jni.h .
 
 Running and testing after compiling.
