@@ -2,16 +2,15 @@
 #ifndef X3_OBSERVER_PLUGIN_SWIGI
 #define X3_OBSERVER_PLUGIN_SWIGI
 
+%{
+#ifndef PLUGIN_NAME
+#define PLUGIN_NAME "x3manager"
+#endif
+%}
 %include "plugin.i"
 
 %{
-#include <module/modulemacro.h>
-#include <module/pluginimpl.h>
 #include <observer/observerimpl.h>
-XDEFINE_EMPTY_MODULE()
-
-#include <observerex/myobserver.h>
-#include <observerex/myobserverobj.h>
 %}
 
 %include <observer/observerobject.h>

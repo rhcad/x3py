@@ -10,7 +10,7 @@
 ROOTDIR = .
 include $(ROOTDIR)/config.mk
 
-.PHONY:	source  swig  clean
+.PHONY:	source swig clean python perl5 java ruby php r
 
 #==============================================================================
 # The default build target.
@@ -25,6 +25,9 @@ source:
 swig:
 	-@mkdir build
 	@$(MAKE) -C source swig
+
+python perl5 java ruby php r:
+	export SWIG_TYPE=$@; $(MAKE) -C source swig
 
 #==============================================================================
 # Clean up the targets built by 'make all'.

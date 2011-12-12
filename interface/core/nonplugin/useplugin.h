@@ -27,7 +27,11 @@
     #else
         #define SELF_EXT ".so"
     #endif
-    #define SELF_MODULE_NAME  SELF_PRE PLUGIN_NAME SELF_EXT
+    #ifdef SELF_MODULE
+        #define SELF_MODULE_NAME  SELF_PRE SELF_MODULE SELF_EXT
+    #else
+        #define SELF_MODULE_NAME  SELF_PRE PLUGIN_NAME SELF_EXT
+    #endif
 #endif // SELF_MODULE_NAME
 
 #ifndef PLUGIN_PATH
@@ -38,6 +42,11 @@ namespace x3 {
 
 static LoadModuleHelper loader(PLUGIN_PATH PLUGIN_NAME ".pln", 
                                GetModuleHandleA(SELF_MODULE_NAME));
+
+HMODULE getManagerModule()
+{
+    return loader.getModule();
+}
 
 bool createObject(const char* clsid, long iid, IObject** p)
 {

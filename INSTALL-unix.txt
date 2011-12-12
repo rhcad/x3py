@@ -7,6 +7,7 @@ Compile this framework on Linux or Mac OS X as the following steps.
   
   c. If you need to use python, perl or java, then type `make swig' 
      or `make all swig' to compile swig-projects.
+     Type 'make all python perl java' can compile more targets.
 
   d. You can remove the program object files from the source code
      directory by typing `make clean'.

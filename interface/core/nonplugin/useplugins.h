@@ -41,6 +41,11 @@ BEGIN_NAMESPACE_X3
 static LoadModuleHelper* s_plugins[10] = { NULL };
 static int s_nplugin = 0;
 
+HMODULE getManagerModule()
+{
+    return s_plugins[0] ? s_plugins[0]->getModule() : NULL;
+}
+
 #ifndef CREATEOBJECTIMPL
 #define CREATEOBJECTIMPL
 bool createObject(const char* clsid, long iid, IObject** p)

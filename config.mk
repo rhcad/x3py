@@ -16,18 +16,24 @@ C_FLAGS_SO    = $(C_FLAGS) -shared -fPIC
 
 OS           ?=$(shell uname -s)
 IS_WIN       :=$(shell echo $(OS)|grep -i Windows)
+IS_MACOSX    :=$(shell echo $(OS)|grep -i Darwin)
 
 # Environment variables used by source/public/swig/Makefile.swig
-# You may change the default values or set environment variables.
+# You may change the default values or set environment variables (must do this on Windows).
 
-#SWIG_TYPE: python, perl5, java, ruby, csharp, php, r (no space after =)
+#SWIG_TYPE: python, perl5, java, ruby, php, r (no space after =)
 SWIG_TYPE      ?=python
 
+ifdef IS_MACOSX
+PYTHON_INCLUDE ?=/usr/include/python2.6
+JAVA_INCLUDE   ?=/Library/Java/Home/include
+else # Linux
 PYTHON_INCLUDE ?=/usr/include/python2.7
 PYTHON_LIBFILE ?=python2.7
+JAVA_INCLUDE   ?=/usr/include/java
+endif
 PERL5_INCLUDE  ?=/usr/include/perl5
 PERL5_LIBFILE  ?=perl5
-JAVA_INCLUDE   ?=/Library/Java/Home/include
 RUBY_INCLUDE   ?=/usr/include/ruby
 RUBY_LIBFILE   ?=ruby
 
