@@ -30,10 +30,10 @@ JAVA_INCLUDE   ?=/Library/Java/Home/include
 else # Linux
 PYTHON_INCLUDE ?=/usr/include/python2.7
 PYTHON_LIBFILE ?=python2.7
-JAVA_INCLUDE   ?=/usr/include/java
+JAVA_INCLUDE   ?=/usr/lib/jvm/java-6-openjdk/include
 endif
-PERL5_INCLUDE  ?=/usr/include/perl5
-PERL5_LIBFILE  ?=perl5
+PERL5_INCLUDE  ?=/usr/lib/perl/5.12.4/CORE
+PERL5_LIBFILE  ?=perl
 RUBY_INCLUDE   ?=/usr/include/ruby
 RUBY_LIBFILE   ?=ruby
 

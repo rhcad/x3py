@@ -3,6 +3,7 @@
 
 #include <observer/eventobserver.h>
 #include <vector>
+#include <string>
 
 // void func(int& result)
 X3DEFINE_EVENT(EventAdd, void, (int& result), "mypkg.x3");
