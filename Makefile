@@ -27,6 +27,7 @@ swig:
 	@$(MAKE) -C source swig
 
 python perl5 java ruby php r:
+	-@mkdir build
 	export SWIG_TYPE=$@; $(MAKE) -C source swig
 
 #==============================================================================

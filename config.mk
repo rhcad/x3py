@@ -34,8 +34,8 @@ JAVA_INCLUDE   ?=/usr/lib/jvm/java-6-openjdk/include
 endif
 PERL5_INCLUDE  ?=/usr/lib/perl/5.12.4/CORE
 PERL5_LIBFILE  ?=perl
-RUBY_INCLUDE   ?=/usr/include/ruby
-RUBY_LIBFILE   ?=ruby
+RUBY_INCLUDE   ?=/usr/include/ruby-1.9.1
+RUBY_LIBFILE   ?=ruby-1.9.1
 
 ifdef IS_WIN
 EXE           =.exe
