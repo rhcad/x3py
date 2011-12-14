@@ -8,13 +8,14 @@ Usage:      python makeplugin.py projname [pkgname] [baseproj] [basepkg]
 
             projname: name of the new project.
             pkgname: package name of the new project, the default value is 'example'.
-            baseproj: project name, the default value is 'plsimple'.
+            baseproj: project name, the default value is 'pltempl'.
             basepkg: package name of the template project, the default value is 'example'.
 
 Creator:    ooyg <rhcad@hotmail.com>
 Date:       2011.11.14
 ChangeList:
     1. Implemented the function: multireplace, copyfiles, makeproj
+    2. Auto copy interface files and skip swig files. [2011.12.14]
 """
 
 import os, sys, re
@@ -25,9 +26,9 @@ def multireplace(text, adict):
         return adict[match.group(0)]
     return rx.sub(xlat, text)
 
-def copyfiles(srcdir, destdir, pairs, callback=None):
-    if srcdir.find(".svn") > 0:
-        return
+def copyfiles(srcdir, destdir, pairs, callback=None, needswig=False):
+    if ".svn" in srcdir: return
+    if not needswig and "swig" in srcdir: return
     if not os.path.exists(destdir):
         os.makedirs(destdir)
     
@@ -36,7 +37,8 @@ def copyfiles(srcdir, destdir, pairs, callback=None):
         destfile = os.path.join(destdir, multireplace(fn, pairs))
         
         if os.path.isdir(srcfile):
-            copyfiles(srcfile, destfile, pairs, callback)
+            copyfiles(srcfile, destfile, pairs, callback, needswig)
+        
         if os.path.isfile(srcfile) and not os.path.exists(destfile) \
                 and (not callback or callback(fn, pairs)):
             open(destfile, "wb").write(open(srcfile, "rb").read())
@@ -48,7 +50,7 @@ def copyfiles(srcdir, destdir, pairs, callback=None):
             else:
                 print(destfile)
 
-def makeproj(projname, pkgname, baseproj, basepkg):
+def makeproj(projname, pkgname, baseproj, basepkg, needswig):
     codepath = os.path.abspath('../source')
     basepath = os.path.join(codepath, basepkg, baseproj)
     
@@ -66,15 +68,20 @@ def makeproj(projname, pkgname, baseproj, basepkg):
         if filename.find("_wrap.cxx") > 0 or filename.find("_wrap.h") > 0:
             return False
         return True
-    copyfiles(basepath, destdir, pairs, matchfile)
+    copyfiles(basepath, destdir, pairs, matchfile, needswig)
+
+    codepath = os.path.abspath('../interface')
+    basepath = os.path.join(codepath, basepkg, baseproj)
+    destdir = os.path.join(codepath, pkgname, projname)
+    copyfiles(basepath, destdir, pairs, matchfile, needswig)
 
     def matchproj(filename, pairs):
-        if filename.find(".user") > 0: return False
+        if ".user" in filename: return False
         for key in pairs.keys():
             if filename.startswith(key): return True
         return False
     projects = os.path.abspath('../projects')
-    copyfiles(projects, projects, pairs, matchproj)
+    copyfiles(projects, projects, pairs, matchproj, needswig)
 
 if __name__=="__main__":
     def inputparam(index, prompt, default=''):
@@ -85,7 +92,8 @@ if __name__=="__main__":
     
     projname = inputparam(1, 'Project name: ')
     pkgname  = inputparam(2, 'Target package name (example): ', 'example')
-    baseproj = inputparam(3, 'Template project name (plsimple): ', 'plsimple')
+    baseproj = inputparam(3, 'Template project name (pltempl): ', 'pltempl')
     basepkg  = inputparam(4, 'Template package name (example): ', 'example')
+    needswig = inputparam(5, 'Need swig (y/n) ? (n): ', 'n')
     
-    makeproj(projname, pkgname, baseproj, basepkg)
+    makeproj(projname, pkgname, baseproj, basepkg, 'y' in needswig)
