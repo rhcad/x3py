@@ -1,4 +1,4 @@
-Compile this framework on Linux or Mac OS X as the following steps.
+Compile this framework on Linux, MacOSX or Unix as the following steps.
 
   a. `cd' to the directory containing the file of 'Makefile'.
   
@@ -7,7 +7,7 @@ Compile this framework on Linux or Mac OS X as the following steps.
   
   c. If you need to use python, perl or java, then type `make swig' 
      or `make all swig' to compile swig-projects.
-     Type 'make all python java perl5' can compile more targets.
+     Type 'make all python java perl5 ruby' can compile more targets.
 
   d. You can remove the program object files from the source code
      directory by typing `make clean'.
@@ -15,7 +15,7 @@ Compile this framework on Linux or Mac OS X as the following steps.
 You may need to customize config.mk for compiling swig-projects.
 Some possible environment variables used in config.mk:
 
-  SWIG_TYPE : Set this to python, perl5 or java.
+  SWIG_TYPE : Set this to python, perl5, java, ruby or php.
   PYTHON_INCLUDE : Set this to the directory that contains python.h .
   PYTHON_LIBFILE : Set this to the python library file name for linking.
   PERL5_INCLUDE : Set this to the directory that contains perl.h .
