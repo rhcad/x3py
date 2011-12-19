@@ -56,13 +56,13 @@ bool createObject(const char* clsid, long iid, IObject** p)
 }
 #endif
 
-void loadPlugins(const char* const* plugins)
+void loadPlugins(const char* const* plugins, const char* folder = PLUGIN_PATH)
 {
     HMODULE basemod = GetModuleHandleA(SELF_MODULE_NAME);
     for (int i = 0; s_nplugin < 10 - 1 && plugins[i]; ++i, ++s_nplugin)
     {
         s_plugins[s_nplugin] = new LoadModuleHelper();
-        s_plugins[s_nplugin]->load(plugins[i], basemod, PLUGIN_PATH);
+        s_plugins[s_nplugin]->load(plugins[i], basemod, folder);
     }
 }
 
@@ -83,8 +83,14 @@ void unloadPlugins()
  */
 struct AutoLoadPlugins
 {
-    AutoLoadPlugins(const char* const* plugins) { loadPlugins(plugins); }
-    ~AutoLoadPlugins() { unloadPlugins(); }
+    AutoLoadPlugins(const char* const* plugins, const char* folder = PLUGIN_PATH)
+    {
+        loadPlugins(plugins, folder);
+    }
+    ~AutoLoadPlugins()
+    {
+        unloadPlugins();
+    }
 };
 
 END_NAMESPACE_X3

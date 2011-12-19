@@ -12,7 +12,6 @@ int test();
 //---------------------------------------------------------------
 
 #include <portability/x3port.h>
-#define PLUGIN_PATH  "plugins"
 #include <nonplugin/useplugins.h>
 
 int main()
@@ -20,7 +19,7 @@ int main()
     const char* plugins[] = {
         "x3manager.pln", "plsimple.pln", "observerex.pln", NULL
     };
-    x3::AutoLoadPlugins autoload(plugins);
+    x3::AutoLoadPlugins autoload(plugins, "plugins");
 
     return test();
 }
