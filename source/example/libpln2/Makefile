@@ -10,11 +10,12 @@ SOURCES  = $(wildcard *.cpp)
 $(TARGET): $(SOURCES:.cpp=.o)
 	$(AR) $(ARFLAGS) $@ $(SOURCES:.cpp=.o)
 
-module.o: module.cpp $(PROJNAME).h
-	$(CC) $(CFLAGS_SO) -D _LIB -c $<
-$(PROJNAME).o: $(PROJNAME).cpp $(PROJNAME).h
-	$(CC) $(CFLAGS_SO) -D _LIB -c $<
+%.d: %.cpp
+	$(CC) -MM $(CFLAGS_SO) $< -MF $@
+	@echo -e "\t$(CC) $(CFLAGS_SO) -c $<" >> $@
+
+include $(SOURCES:.cpp=.d)
 
 clean:
-	rm -rf *.o
+	rm -rf *.d *.o
 	rm -rf $(TARGET)

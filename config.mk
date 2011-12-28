@@ -5,7 +5,7 @@ INSTALL_DIR   =$(ROOTDIR)/build
 PLUGINS_DIR   =$(INSTALL_DIR)/plugins
 
 CC            = g++
-CFLAGS       += -g -I$(INTERFACE_DIR)/core
+CFLAGS       += -g -Wall -I$(INTERFACE_DIR)/core
 C_FLAGS      += -g -Wall
 ifdef PKGNAME
 CFLAGS       += -I$(INTERFACE_DIR)/$(PKGNAME)

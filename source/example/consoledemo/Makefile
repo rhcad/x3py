@@ -10,9 +10,12 @@ SOURCES  = $(wildcard *.cpp)
 $(TARGET): $(SOURCES:.cpp=.o)
 	$(CC) $(C_FLAGS) -o $@ $(SOURCES:.cpp=.o) $(L_DL)
 
-main.o: main.cpp
-	$(CC) $(CFLAGS) -D_CONSOLE -c $<
+%.d: %.cpp
+	$(CC) -MM $(CFLAGS_SO) $< -MF $@
+	@echo -e "\t$(CC) $(CFLAGS_SO) -c $<" >> $@
+
+include $(SOURCES:.cpp=.d)
 
 clean:
-	rm -rf *.o
+	rm -rf *.d *.o
 	rm -rf $(TARGET)
