@@ -48,7 +48,7 @@
 #define XEND_DEFINE_MODULE_MFCEXTDLL()
 #define XEND_DEFINE_MODULE_MFCDLL()
 #else
-#define XEND_DEFINE_MODULE_LIB(moduleName)
+#define XEND_DEFINE_MODULE_LIB(moduleName)  x3::ClassEntry() };
 
 #ifdef _MSC_VER
 #pragma warning(disable:4710)   // inline function not expanded

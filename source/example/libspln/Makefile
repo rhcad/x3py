@@ -11,10 +11,10 @@ $(TARGET): $(SOURCES:.cpp=.o) $(PLUGINS_DIR)/libpln1.a $(PLUGINS_DIR)/libpln2.a
 	$(CC) $(C_FLAGS_SO) -o $@ $(SOURCES:.cpp=.o) $(L_DL) -L $(PLUGINS_DIR) -lpln1 -lpln2
 
 %.d: %.cpp
-	$(CC) -MM $(CFLAGS_SO) $< -MF $@
-	@echo -e "\t$(CC) $(CFLAGS_SO) -c $<" >> $@
+	$(CC) -MM $(CFLAGS) $< -MF $@
 
 include $(SOURCES:.cpp=.d)
+CPPFLAGS = $(CFLAGS_SO)
 
 clean:
 	rm -rf *.d *.o

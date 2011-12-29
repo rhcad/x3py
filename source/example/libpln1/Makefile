@@ -11,10 +11,10 @@ $(TARGET): $(SOURCES:.cpp=.o)
 	$(AR) $(ARFLAGS) $@ $(SOURCES:.cpp=.o)
 
 %.d: %.cpp
-	$(CC) -MM $(CFLAGS_SO) $< -MF $@
-	@echo -e "\t$(CC) $(CFLAGS_SO) -c $<" >> $@
+	$(CC) -MM $(CFLAGS) $< -MF $@
 
 include $(SOURCES:.cpp=.d)
+CPPFLAGS = $(CFLAGS_SO) -D_LIB -Wno-unused
 
 clean:
 	rm -rf *.d *.o

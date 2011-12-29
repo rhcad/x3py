@@ -11,12 +11,17 @@ ifdef PKGNAME
 CFLAGS       += -I$(INTERFACE_DIR)/$(PKGNAME)
 endif
 
-CFLAGS_SO     = $(CFLAGS) -fPIC -D_USRDLL
-C_FLAGS_SO    = $(C_FLAGS) -shared -fPIC
-
 OS           ?=$(shell uname -s)
 IS_WIN       :=$(shell echo $(OS)|grep -i Windows)
 IS_MACOSX    :=$(shell echo $(OS)|grep -i Darwin)
+
+ifdef IS_WIN
+CFLAGS_SO     = $(CFLAGS) -D_USRDLL
+C_FLAGS_SO    = $(C_FLAGS) -shared
+else
+CFLAGS_SO     = $(CFLAGS) -fPIC
+C_FLAGS_SO    = $(C_FLAGS) -shared -fPIC
+endif
 
 # Environment variables used by source/public/swig/Makefile.swig
 # You may change the default values or set environment variables (must do this on Windows).
