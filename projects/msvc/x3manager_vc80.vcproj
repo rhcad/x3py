@@ -413,6 +413,58 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="nonplugin"
+				>
+				<File
+					RelativePath="..\..\interface\core\utilfunc\loadmodule.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\interface\core\nonplugin\useplugin.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\interface\core\nonplugin\useplugins.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="portability"
+				>
+				<File
+					RelativePath="..\..\interface\core\portability\func_s.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\interface\core\portability\pathstr.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\interface\core\portability\portimpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\interface\core\portability\uniximpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\interface\core\portability\winimpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\interface\core\portability\x3port.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\interface\core\portability\x3unix.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\interface\core\portability\x3win.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>
