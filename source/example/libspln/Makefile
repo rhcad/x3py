@@ -13,9 +13,13 @@ $(TARGET): $(SOURCES:.cpp=.o) $(PLUGINS_DIR)/libpln1.a $(PLUGINS_DIR)/libpln2.a
 %.d: %.cpp
 	$(CC) -MM $(CFLAGS) $< -MF $@
 
+ifndef clean
 include $(SOURCES:.cpp=.d)
+endif
 CPPFLAGS = $(CFLAGS_SO)
 
 clean:
 	rm -rf *.d *.o
+ifdef cleanall
 	rm -rf $(TARGET)
+endif

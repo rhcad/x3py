@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="java_examples"
+	Name="examples"
 	ProjectGUID="{651F7A14-5642-4EA2-94E3-A732DA6D6137}"
 	RootNamespace="java_examples"
 	Keyword="Win32Proj"
@@ -21,7 +21,7 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\build\$(ConfigurationName)\$(ProjectName)"
+			OutputDirectory="..\..\build\$(ConfigurationName)\java"
 			IntermediateDirectory="..\..\build\$(ConfigurationName)\obj\_$(ProjectName)"
 			ConfigurationType="2"
 			CharacterSet="1"
@@ -29,8 +29,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Delete $(OutDir)\*.java *.class"
-				CommandLine="if exist $(OutDir)\*.java del /Q $(OutDir)\*.java $(OutDir)\*.class"
+				Description="Delete $(OutDir)\$(ProjectName).jar"
+				CommandLine="if exist $(OutDir)\$(ProjectName).jar del /Q $(OutDir)\$(ProjectName).jar&#x0D;&#x0A;if exist $(IntDir)\*.java del /Q $(IntDir)\*.java&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -98,12 +98,12 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Java compile post-build step"
-				CommandLine="if exist $(OutDir)\*.java &quot;%JAVA_BIN%javac&quot; $(OutDir)\*.java&#x0D;&#x0A;"
+				CommandLine="if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA_BIN%jar&quot; cvfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
-			OutputDirectory="..\..\build\$(ConfigurationName)64\$(ProjectName)"
+			OutputDirectory="..\..\build\$(ConfigurationName)64\java"
 			IntermediateDirectory="..\..\build\$(ConfigurationName)64\obj\_$(ProjectName)"
 			ConfigurationType="2"
 			CharacterSet="1"
@@ -111,8 +111,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Delete $(OutDir)\*.java *.class"
-				CommandLine="if exist $(OutDir)\*.java del /Q $(OutDir)\*.java $(OutDir)\*.class"
+				Description="Delete $(OutDir)\$(ProjectName).jar"
+				CommandLine="if exist $(OutDir)\$(ProjectName).jar del /Q $(OutDir)\$(ProjectName).jar&#x0D;&#x0A;if exist $(IntDir)\*.java del /Q $(IntDir)\*.java&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -181,7 +181,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Java compile post-build step"
-				CommandLine="if exist $(OutDir)\*.java &quot;%JAVA64_BIN%javac&quot; $(OutDir)\*.java&#x0D;&#x0A;"
+				CommandLine="if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA64_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA64_BIN%jar&quot; cvfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)"
 			/>
 		</Configuration>
 	</Configurations>
@@ -197,7 +197,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating"
-					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I$(ProjectDir)..\..\interface\core -I$(ProjectDir)..\..\interface\example -o &quot;$(InputDir)\$(InputName)_java_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
+					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I$(ProjectDir)..\..\interface\core -I$(ProjectDir)..\..\interface\example -o &quot;$(InputDir)\$(InputName)_java_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;"
 					Outputs="$(InputDir)\$(InputName)_java_wrap.cxx"
 				/>
 			</FileConfiguration>
@@ -207,7 +207,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating"
-					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I$(ProjectDir)..\..\interface\core -I$(ProjectDir)..\..\interface\example -o &quot;$(InputDir)\$(InputName)_java_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
+					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I$(ProjectDir)..\..\interface\core -I$(ProjectDir)..\..\interface\example -o &quot;$(InputDir)\$(InputName)_java_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;"
 					Outputs="$(InputDir)\$(InputName)_java_wrap.cxx"
 				/>
 			</FileConfiguration>

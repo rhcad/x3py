@@ -14,8 +14,10 @@ $(SUBDIRS):
 swig:
 	@$(MAKE) -C core swig
 	@$(MAKE) -C example swig
+	@$(MAKE) -C public/swigtest
 
 clean:	$(CLEANSUBDIRS)
+	@$(MAKE) -C public/swigtest clean
 
 $(CLEANSUBDIRS):
 	@$(MAKE) -C $(basename $@) clean

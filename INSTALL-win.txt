@@ -26,7 +26,7 @@ You can compile this framework using VC++ or GCC on Windows x86 or x64.
      The plugins are outputed to './build/plugins'.
   
   c. If you need to use python, perl or java, then install extra softwares
-     and type `make swig' or `make all swig' to compile swig-projects.
+     and type `make python' or `make all python' to compile swig-projects.
      Type 'make all python java perl5' can compile more targets.
 
   d. You can remove the program object files from the source code

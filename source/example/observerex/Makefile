@@ -13,9 +13,13 @@ $(TARGET): $(SOURCES:.cpp=.o)
 %.d: %.cpp
 	$(CC) -MM $(CFLAGS) $< -MF $@
 
+ifndef clean
 include $(SOURCES:.cpp=.d)
+endif
 CPPFLAGS = $(CFLAGS_SO) -Wno-unused
 
 clean:
 	rm -rf *.d *.o
+ifdef cleanall
 	rm -rf $(TARGET)
+endif

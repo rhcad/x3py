@@ -25,9 +25,7 @@ endif
 
 # Environment variables used by source/public/swig/Makefile.swig
 # You may change the default values or set environment variables (must do this on Windows).
-
-#SWIG_TYPE: python, perl5, java, ruby, php, r (no space after =)
-SWIG_TYPE      ?=python
+# SWIG_TYPE: python, perl5, java, ruby, php, r (no space after =)
 
 ifdef IS_MACOSX
 PYTHON_INCLUDE ?=/usr/include/python2.6

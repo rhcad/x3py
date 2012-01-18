@@ -9,16 +9,19 @@ ifdef USE_PYTHON
 SWIG_INCLUDE ?=$(PYTHON_INCLUDE)
 SWIG_LIBPATH :=$(PYTHON_LIB)
 SWIG_LIBFILE :=$(PYTHON_LIBFILE)
+SWIG_TESTEXT :=.py
 endif
 
 ifdef USE_PERL
 SWIG_INCLUDE ?=$(PERL5_INCLUDE)
 SWIG_LIBPATH :=$(PERL5_LIB)
 SWIG_LIBFILE :=$(PERL5_LIBFILE)
+SWIG_TESTEXT :=.pm
 endif
 
 ifdef USE_JAVA
 SWIG_INCLUDE ?=$(JAVA_INCLUDE)
+SWIG_TESTEXT :=.java
 endif
 
 ifdef USE_RUBY
@@ -27,22 +30,22 @@ SWIG_LIBPATH :=$(RUBY_LIB)
 SWIG_LIBFILE :=$(RUBY_LIBFILE)
 endif
 
-SWIGSO_FLAGS  =$(C_FLAGS_SO)
-ifdef USE_JAVA
-SWIGOUTDIR    =$(INSTALL_DIR)/$(SWIG_TYPE)_$(PROJNAME)
-else
 SWIGOUTDIR    =$(INSTALL_DIR)/$(SWIG_TYPE)
+SWIGSO_FLAGS  =$(C_FLAGS_SO)
 ifdef SWIG_LIBPATH
 SWIGSO_FLAGS +=-L$(SWIG_LIBPATH)
 endif
 ifdef SWIG_LIBFILE
 SWIGSO_FLAGS +=-l$(SWIG_LIBFILE)
-else
-SWIGSO_FLAGS +=-l$(SWIG_TYPE)
-endif
 endif
 
-SWIGCC        =$(SWIG_BIN)swig -c++ -$(SWIG_TYPE) -I$(INTERFACE_DIR)/core -outdir $(SWIGOUTDIR)
+SWIGCC        =$(SWIG_BIN)swig -c++ -$(SWIG_TYPE) -I$(INTERFACE_DIR)/core
+ifdef USE_JAVA
+SWIGCC       += -outdir java
+else
+SWIGCC       += -outdir $(SWIGOUTDIR)
+endif
+
 SWIG_CFLAGS   =$(CFLAGS_SO) -I$(SWIG_INCLUDE)
 ifdef PKGNAME
 SWIGCC       += -I$(INTERFACE_DIR)/$(PKGNAME)
@@ -69,29 +72,31 @@ TARGET   =$(SWIGOUTDIR)/$(SWIG_PRE)$(PROJNAME)$(SWIG_EXT)
 WRAPFILE =$(PROJNAME)_$(SWIG_TYPE)_wrap
 
 $(TARGET): $(WRAPFILE).cxx $(WRAPFILE).o
-	-@mkdir $(SWIGOUTDIR)
+	-@test -d $(SWIGOUTDIR) || mkdir $(SWIGOUTDIR)
 	$(CC) $(SWIGSO_FLAGS) -o $@ $(WRAPFILE).o $(L_DL)
-ifdef USE_PYTHON
-	-@cp test$(PROJNAME).py $(SWIGOUTDIR)
-endif
-ifdef USE_JAVA
-	javac $(SWIGOUTDIR)/*.java
+ifdef SWIG_TESTEXT
+	-@cp test$(PROJNAME)$(SWIG_TESTEXT) $(SWIGOUTDIR)
 endif
 
 $(WRAPFILE).cxx: $(PROJNAME).i
-	-@mkdir $(SWIGOUTDIR)
+	-@test -d $(SWIGOUTDIR) || mkdir $(SWIGOUTDIR)
+ifdef USE_JAVA
+	-@test -d java || mkdir java
+endif
 	$(SWIGCC) -o $(WRAPFILE).cxx $<
+ifdef USE_JAVA
+	javac java/*.java
+	cd java; jar cvfM ../$(SWIGOUTDIR)/$(PROJNAME).jar *.class
+	rm -rf java/*.class
+endif
 
 $(WRAPFILE).o: $(WRAPFILE).cxx
 	$(CC) $(SWIG_CFLAGS) -c $<
 
 clean:
-	rm -rf *.o
-	rm -rf *_wrap.cxx
-	rm -rf *_wrap.h
+	rm -rf *.o  *_wrap.cxx *_wrap.h  java
+ifdef cleanall
 	rm -rf $(TARGET)
-	rm -rf $(SWIGOUTDIR)/$(PROJNAME).py*
-	rm -rf $(SWIGOUTDIR)/test$(PROJNAME).py
-	rm -rf $(SWIGOUTDIR)/$(PROJNAME).pm
-	rm -rf $(SWIGOUTDIR)/*.java
-	rm -rf $(SWIGOUTDIR)/*.class
+	rm -rf $(SWIGOUTDIR)python/$(PROJNAME).py* $(SWIGOUTDIR)python/$(SWIG_PRE)$(PROJNAME)$(SWIG_EXT)
+	rm -rf $(SWIGOUTDIR)java/$(PROJNAME).jar $(SWIGOUTDIR)java/$(PROJNAME)$(SWIG_EXT)
+endif
