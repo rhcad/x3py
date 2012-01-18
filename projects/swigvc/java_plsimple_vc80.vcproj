@@ -22,7 +22,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="..\..\build\$(ConfigurationName)\java"
-			IntermediateDirectory="..\..\build\$(ConfigurationName)\obj\_$(ProjectName)"
+			IntermediateDirectory="..\..\build\$(ConfigurationName)\obj\java_$(ProjectName)"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -98,13 +98,13 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Java compile post-build step"
-				CommandLine="if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA_BIN%jar&quot; cvfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)"
+				CommandLine="if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA_BIN%jar&quot; cvfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
 			OutputDirectory="..\..\build\$(ConfigurationName)64\java"
-			IntermediateDirectory="..\..\build\$(ConfigurationName)64\obj\_$(ProjectName)"
+			IntermediateDirectory="..\..\build\$(ConfigurationName)64\obj\java_$(ProjectName)"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -181,7 +181,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Java compile post-build step"
-				CommandLine="if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA64_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA64_BIN%jar&quot; cvfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)"
+				CommandLine="if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA64_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA64_BIN%jar&quot; cvfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
