@@ -117,7 +117,7 @@ public: \
 #elif defined(_USRDLL) && defined(APIENTRY)
 #define XEND_DEFINE_MODULE_DLL()    \
         XEND_DEFINE_MODULE()        \
-BOOL APIENTRY DllMain(HANDLE hmod, DWORD dwReason, LPVOID)   \
+extern "C" BOOL APIENTRY DllMain(HANDLE hmod, DWORD dwReason, LPVOID)   \
 {   \
     if (dwReason == DLL_PROCESS_ATTACH) \
     {   \
