@@ -29,6 +29,7 @@ endif
 
 ifdef IS_MACOSX
 PYTHON_INCLUDE ?=/usr/include/python2.6
+PYTHON_LIBFILE ?=python
 JAVA_INCLUDE   ?=/Library/Java/Home/include
 else # Linux
 PYTHON_INCLUDE ?=/usr/include/python2.7
