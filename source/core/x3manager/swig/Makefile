@@ -1,5 +1,5 @@
-ROOTDIR = ../../../..
-PROJNAME = x3manager
+ROOTDIR =../../../..
+PROJNAME =x3manager
 
 include $(ROOTDIR)/config.mk
 include ../../../public/swig/Makefile.swig

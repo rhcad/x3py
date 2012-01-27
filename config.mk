@@ -4,9 +4,9 @@ INTERFACE_DIR =$(ROOTDIR)/interface
 INSTALL_DIR   =$(ROOTDIR)/build
 PLUGINS_DIR   =$(INSTALL_DIR)/plugins
 
-CC            = g++
+CC            =g++
 CFLAGS       += -g -Wall -I$(INTERFACE_DIR)/core
-C_FLAGS      += -g -Wall
+LNKFLAGS     += -g -Wall
 ifdef PKGNAME
 CFLAGS       += -I$(INTERFACE_DIR)/$(PKGNAME)
 endif
@@ -16,11 +16,11 @@ IS_WIN       :=$(shell echo $(OS)|grep -i Windows)
 IS_MACOSX    :=$(shell echo $(OS)|grep -i Darwin)
 
 ifdef IS_WIN
-CFLAGS_SO     = $(CFLAGS) -D_USRDLL
-C_FLAGS_SO    = $(C_FLAGS) -shared
+CFLAGS_SO     =$(CFLAGS) -D_USRDLL
+LNKFLAGS_SO   =$(LNKFLAGS) -shared
 else
-CFLAGS_SO     = $(CFLAGS) -fPIC
-C_FLAGS_SO    = $(C_FLAGS) -shared -fPIC
+CFLAGS_SO     =$(CFLAGS) -fPIC
+LNKFLAGS_SO   =$(LNKFLAGS) -shared -fPIC
 endif
 
 # Environment variables used by source/public/swig/Makefile.swig
@@ -43,5 +43,5 @@ RUBY_LIBFILE   ?=ruby-1.9.1
 ifdef IS_WIN
 EXE           =.exe
 else
-L_DL          =-ldl
+LIBS         += -ldl
 endif

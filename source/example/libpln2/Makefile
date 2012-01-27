@@ -1,11 +1,11 @@
-ROOTDIR  = ../../..
-PKGNAME  = example
-PROJNAME = libpln2
+ROOTDIR  =../../..
+PKGNAME  =example
+PROJNAME =libpln2
 
 include $(ROOTDIR)/config.mk
 
-TARGET   = $(PLUGINS_DIR)/$(PROJNAME).a
-SOURCES  = $(wildcard *.cpp)
+TARGET   =$(PLUGINS_DIR)/$(PROJNAME).a
+SOURCES  =$(wildcard *.cpp)
 
 $(TARGET): $(SOURCES:.cpp=.o)
 	$(AR) $(ARFLAGS) $@ $(SOURCES:.cpp=.o)
@@ -16,7 +16,7 @@ $(TARGET): $(SOURCES:.cpp=.o)
 ifndef clean
 include $(SOURCES:.cpp=.d)
 endif
-CPPFLAGS = $(CFLAGS_SO) -D_LIB -Wno-unused
+CPPFLAGS =$(CFLAGS_SO) -D_LIB -Wno-unused
 
 clean:
 	rm -rf *.d *.o

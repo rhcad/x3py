@@ -203,8 +203,8 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Performing Custom Build Step"
-					CommandLine="if exist $(InputPath) if not exist  $(TargetDir)\$(InputName)$(InputExt) xcopy $(InputPath) $(TargetDir) /S/Q/Y/D&#x0D;&#x0A;"
-					Outputs="$(TargetDir)\$(InputName)$(InputExt)"
+					CommandLine="if exist $(InputPath) if not exist $(TargetDir)\$(InputFileName) xcopy $(InputPath) $(TargetDir) /S/Q/Y/D&#x0D;&#x0A;"
+					Outputs="$(TargetDir)\$(InputFileName)"
 				/>
 			</FileConfiguration>
 			<FileConfiguration
@@ -213,8 +213,8 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Performing Custom Build Step"
-					CommandLine="if exist $(InputPath) if not exist  $(TargetDir)\$(InputName)$(InputExt) xcopy $(InputPath) $(TargetDir) /S/Q/Y/D&#x0D;&#x0A;"
-					Outputs="$(TargetDir)\$(InputName)$(InputExt)"
+					CommandLine="if exist $(InputPath) if not exist $(TargetDir)\$(InputFileName) xcopy $(InputPath) $(TargetDir) /S/Q/Y/D&#x0D;&#x0A;"
+					Outputs="$(TargetDir)\$(InputFileName)"
 				/>
 			</FileConfiguration>
 		</File>

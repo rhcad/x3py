@@ -1,14 +1,14 @@
-ROOTDIR  = ../../..
-PKGNAME  = example
-PROJNAME = observerex
+ROOTDIR  =../../..
+PKGNAME  =example
+PROJNAME =observerex
 
 include $(ROOTDIR)/config.mk
 
-TARGET   = $(PLUGINS_DIR)/$(PROJNAME).pln
-SOURCES  = $(wildcard *.cpp)
+TARGET   =$(PLUGINS_DIR)/$(PROJNAME).pln
+SOURCES  =$(wildcard *.cpp)
 
 $(TARGET): $(SOURCES:.cpp=.o)
-	$(CC) $(C_FLAGS_SO) -o $@ $(SOURCES:.cpp=.o) $(L_DL)
+	$(CC) $(LNKFLAGS_SO) -o $@ $(SOURCES:.cpp=.o) $(LIBS)
 
 %.d: %.cpp
 	$(CC) -MM $(CFLAGS) $< -MF $@
@@ -16,7 +16,7 @@ $(TARGET): $(SOURCES:.cpp=.o)
 ifndef clean
 include $(SOURCES:.cpp=.d)
 endif
-CPPFLAGS = $(CFLAGS_SO) -Wno-unused
+CPPFLAGS =$(CFLAGS_SO) -Wno-unused
 
 clean:
 	rm -rf *.d *.o

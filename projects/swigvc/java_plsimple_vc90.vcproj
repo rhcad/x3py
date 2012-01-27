@@ -98,7 +98,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Java compile post-build step"
-				CommandLine="if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA_BIN%jar&quot; cvfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
+				CommandLine="if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA_BIN%jar&quot; cvfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;if exist $(TargetDir)\test$(ProjectName).java (&#x0D;&#x0A;&quot;%JAVA_BIN%javac&quot; -cp $(TargetDir)\$(ProjectName).jar $(TargetDir)\test$(ProjectName).java&#x0D;&#x0A;)"
 			/>
 		</Configuration>
 		<Configuration
@@ -181,7 +181,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Java compile post-build step"
-				CommandLine="if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA64_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA64_BIN%jar&quot; cvfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
+				CommandLine="if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA64_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA64_BIN%jar&quot; cvfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;if exist $(TargetDir)\test$(ProjectName).java (&#x0D;&#x0A;&quot;%JAVA64_BIN%javac&quot; -cp $(TargetDir)\$(ProjectName).jar $(TargetDir)\test$(ProjectName).java&#x0D;&#x0A;)"
 			/>
 		</Configuration>
 	</Configurations>
@@ -217,15 +217,15 @@
 			>
 		</File>
 		<File
-			RelativePath="..\..\source\public\swigtest\testplsimple.java"
+			RelativePath="..\..\source\example\plsimple\swig\testplsimple.java"
 			>
 			<FileConfiguration
 				Name="Release|Win32"
 				>
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="if exist $(InputPath) if not exist  $(TargetDir)\$(InputName)$(InputExt) xcopy $(InputPath) $(TargetDir) /S/Q/Y/D&#x0D;&#x0A;"
-					Outputs="$(TargetDir)\$(InputName)$(InputExt)"
+					CommandLine="if exist $(InputPath) if not exist $(TargetDir)\$(InputFileName) xcopy $(InputPath) $(TargetDir) /S/Q/Y&#x0D;&#x0A;"
+					Outputs="$(TargetDir)\$(InputFileName)"
 				/>
 			</FileConfiguration>
 			<FileConfiguration
@@ -233,8 +233,8 @@
 				>
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="if exist $(InputPath) if not exist  $(TargetDir)\$(InputName)$(InputExt) xcopy $(InputPath) $(TargetDir) /S/Q/Y/D&#x0D;&#x0A;"
-					Outputs="$(TargetDir)\$(InputName)$(InputExt)"
+					CommandLine="if exist $(InputPath) if not exist $(TargetDir)\$(InputFileName) xcopy $(InputPath) $(TargetDir) /S/Q/Y&#x0D;&#x0A;"
+					Outputs="$(TargetDir)\$(InputFileName)"
 				/>
 			</FileConfiguration>
 		</File>

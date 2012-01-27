@@ -1,4 +1,10 @@
 // This example illustrates how C++ interfaces can be used from Java.
+// 
+// 1. `cd' to the output directory (may be './build/java').
+// 2. Type the following commands to run this program:
+//       javac -cp   plsimple.jar   testplsimple.java
+//       java  -cp ./plsimple.jar:. testplsimple
+//
 
 public class testplsimple {
   static {

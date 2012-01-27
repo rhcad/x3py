@@ -127,8 +127,7 @@ HMODULE GetModuleHandleA(const char* filename)
         return NULL;
     }
     if (PathIsRelativeA(filename)
-        && 0 == strcmp(PathFindFileNameA(filename), PathFindFileNameA(_filename))
-        || 0 == strcmp(filename, _filename))
+        && 0 == strcmp(PathFindFileNameA(filename), PathFindFileNameA(_filename)))
     {
         return _hmod;
     }

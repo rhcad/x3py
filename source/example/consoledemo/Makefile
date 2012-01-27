@@ -1,14 +1,14 @@
-ROOTDIR  = ../../..
-PKGNAME  = example
-PROJNAME = consoledemo
+ROOTDIR  =../../..
+PKGNAME  =example
+PROJNAME =consoledemo
 
 include $(ROOTDIR)/config.mk
 
-TARGET   = $(INSTALL_DIR)/$(PROJNAME)$(EXE)
-SOURCES  = $(wildcard *.cpp)
+TARGET   =$(INSTALL_DIR)/$(PROJNAME)$(EXE)
+SOURCES  =$(wildcard *.cpp)
 
 $(TARGET): $(SOURCES:.cpp=.o)
-	$(CC) $(C_FLAGS) -o $@ $(SOURCES:.cpp=.o) $(L_DL)
+	$(CC) $(LNKFLAGS) -o $@ $(SOURCES:.cpp=.o) $(LIBS)
 
 %.d: %.cpp
 	$(CC) -MM $(CFLAGS) $< -MF $@
@@ -16,7 +16,7 @@ $(TARGET): $(SOURCES:.cpp=.o)
 ifndef clean
 include $(SOURCES:.cpp=.d)
 endif
-CPPFLAGS = $(CFLAGS_SO)
+CPPFLAGS =$(CFLAGS_SO)
 
 clean:
 	rm -rf *.d *.o
