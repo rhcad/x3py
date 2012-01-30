@@ -23,9 +23,14 @@ CFLAGS_SO     =$(CFLAGS) -fPIC
 LNKFLAGS_SO   =$(LNKFLAGS) -shared -fPIC
 endif
 
+ifdef IS_WIN
+EXE           =.exe
+else
+LIBS         += -ldl
+endif
+
 # Environment variables used by source/public/swig/Makefile.swig
-# You may change the default values or set environment variables (must do this on Windows).
-# SWIG_TYPE: python, perl5, java, ruby, php, r (no space after =)
+# You may change the default values or set environment variables (must set them on Windows).
 
 ifdef IS_MACOSX
 PYTHON_INCLUDE ?=/usr/include/python2.6
@@ -40,9 +45,3 @@ PERL5_INCLUDE  ?=/usr/lib/perl/5.12.4/CORE
 PERL5_LIBFILE  ?=perl
 RUBY_INCLUDE   ?=/usr/include/ruby-1.9.1
 RUBY_LIBFILE   ?=ruby-1.9.1
-
-ifdef IS_WIN
-EXE           =.exe
-else
-LIBS         += -ldl
-endif

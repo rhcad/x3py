@@ -87,12 +87,12 @@ endif
 ifdef USE_JAVA
 	javac java/*.java
 	cd java; jar cvfM ../$(SWIGOUTDIR)/$(PROJNAME).jar *.class
-	rm -rf java/*.class
+	@rm -rf java/*.class
 	@!(test -e $(TESTFILE)) || javac -cp $(SWIGOUTDIR)/$(PROJNAME).jar $(SWIGOUTDIR)/$(TESTFILE)
 endif
 
 $(WRAPFILE).o: $(WRAPFILE).cxx
-	$(CC) $(CFLAGS_SO) -c $<
+	$(CC) $(subst -Wall ,,$(CFLAGS_SO)) -c $<
 
 clean:
 	rm -rf *.o  *_wrap.cxx *_wrap.h  java

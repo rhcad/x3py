@@ -21,12 +21,12 @@ include $(ROOTDIR)/config.mk
 all:	source
 
 source:
-	@test -d build || mkdir build
+	@test -d $(INSTALL_DIR) || mkdir $(INSTALL_DIR)
 	@test -d $(PLUGINS_DIR) || mkdir $(PLUGINS_DIR)
 	@$(MAKE) -C source
 
 python perl5 java ruby php r:
-	@test -d build || mkdir build
+	@test -d $(INSTALL_DIR) || mkdir $(INSTALL_DIR)
 	@export SWIG_TYPE=$@; $(MAKE) -C source swig
 
 #==============================================================================
