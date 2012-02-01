@@ -1,30 +1,34 @@
 # Included by Makefile. You can customize it.
+# Readme for variables: https://github.com/rhcad/x3py/wiki/MakeVars
 
 INTERFACE_DIR =$(ROOTDIR)/interface
 INSTALL_DIR   =$(ROOTDIR)/build
 PLUGINS_DIR   =$(INSTALL_DIR)/plugins
 
 CC            =g++
-CFLAGS       += -g -Wall -I$(INTERFACE_DIR)/core
-LNKFLAGS     += -g -Wall
+LINK          =g++
+CPPFLAGS     += -g -Wall -Wno-unused -I$(INTERFACE_DIR)/core
+LDFLAGS      += -g -Wall
 ifdef PKGNAME
-CFLAGS       += -I$(INTERFACE_DIR)/$(PKGNAME)
+CPPFLAGS     += -I$(INTERFACE_DIR)/$(PKGNAME)
 endif
 
 OS           ?=$(shell uname -s)
 IS_WIN       :=$(shell echo $(OS)|grep -i Windows)
 IS_MACOSX    :=$(shell echo $(OS)|grep -i Darwin)
 
+ifndef EXETYPE
 ifdef IS_WIN
-CFLAGS_SO     =$(CFLAGS) -D_USRDLL
-LNKFLAGS_SO   =$(LNKFLAGS) -shared
+CPPFLAGS     += -D_USRDLL
+LDFLAGS      += -shared
 else
-CFLAGS_SO     =$(CFLAGS) -fPIC
-LNKFLAGS_SO   =$(LNKFLAGS) -shared -fPIC
+CPPFLAGS     += -fPIC
+LDFLAGS      += -shared -fPIC
+endif
 endif
 
 ifdef IS_WIN
-EXE           =.exe
+APPEXT        =.exe
 else
 LIBS         += -ldl
 endif

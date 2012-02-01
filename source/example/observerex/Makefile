@@ -6,17 +6,17 @@ include $(ROOTDIR)/config.mk
 
 TARGET   =$(PLUGINS_DIR)/$(PROJNAME).pln
 SOURCES  =$(wildcard *.cpp)
+OBJS     =$(SOURCES:.cpp=.o)
 
-$(TARGET): $(SOURCES:.cpp=.o)
-	$(CC) $(LNKFLAGS_SO) -o $@ $(SOURCES:.cpp=.o) $(LIBS)
+$(TARGET): $(OBJS)
+	$(LINK) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
 
 %.d: %.cpp
-	$(CC) -MM $(CFLAGS) $< -MF $@
+	$(CC) -MM $(CPPFLAGS) $< -MF $@
 
 ifndef clean
 include $(SOURCES:.cpp=.d)
 endif
-CPPFLAGS =$(CFLAGS_SO) -Wno-unused
 
 clean:
 	rm -rf *.d *.o

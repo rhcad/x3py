@@ -30,24 +30,24 @@ SWIG_LIBPATH :=$(RUBY_LIB)
 SWIG_LIBFILE :=$(RUBY_LIBFILE)
 endif
 
-SWIGOUTDIR    =$(INSTALL_DIR)/$(SWIG_TYPE)
-SWIGSO_FLAGS  =$(LNKFLAGS_SO)
+SWIG_OUTDIR   =$(INSTALL_DIR)/$(SWIG_TYPE)
+
 ifdef SWIG_LIBPATH
-SWIGSO_FLAGS += -L$(SWIG_LIBPATH)
+LIBS         += -L$(SWIG_LIBPATH)
 endif
 ifdef SWIG_LIBFILE
-SWIGSO_FLAGS += -l$(SWIG_LIBFILE)
+LIBS         += -l$(SWIG_LIBFILE)
 endif
-CFLAGS_SO    += -I$(SWIG_INCLUDE)
+CPPFLAGS     += -I$(SWIG_INCLUDE)
 
-SWIGCC        =$(SWIG_BIN)swig -c++ -$(SWIG_TYPE) -I$(INTERFACE_DIR)/core
+SWIG_CC       =$(SWIG_BIN)swig -c++ -$(SWIG_TYPE) -I$(INTERFACE_DIR)/core
 ifdef USE_JAVA
-SWIGCC       += -outdir java
+SWIG_CC      += -outdir java
 else
-SWIGCC       += -outdir $(SWIGOUTDIR)
+SWIG_CC      += -outdir $(SWIG_OUTDIR)
 endif
 ifdef PKGNAME
-SWIGCC       += -I$(INTERFACE_DIR)/$(PKGNAME)
+SWIG_CC      += -I$(INTERFACE_DIR)/$(PKGNAME)
 endif
 
 ifdef USE_PYTHON
@@ -66,38 +66,39 @@ endif
 
 #------------------------------------------
 
-TARGET   =$(SWIGOUTDIR)/$(SWIG_PRE)$(PROJNAME)$(SWIG_EXT)
+TARGET   =$(SWIG_OUTDIR)/$(SWIG_PRE)$(PROJNAME)$(SWIG_EXT)
 WRAPFILE =$(PROJNAME)_$(SWIG_TYPE)_wrap
 TESTFILE :=test$(PROJNAME)$(SWIG_TESTEXT)
+OBJS     =$(WRAPFILE).o
 
-$(TARGET): $(WRAPFILE).cxx $(WRAPFILE).o
-	-@test -d $(SWIGOUTDIR) || mkdir $(SWIGOUTDIR)
-	$(CC) $(SWIGSO_FLAGS) -o $@ $(WRAPFILE).o $(LIBS)
+$(TARGET): $(WRAPFILE).cxx $(OBJS)
+	-@test -d $(SWIG_OUTDIR) || mkdir $(SWIG_OUTDIR)
+	$(LINK) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
 
 $(WRAPFILE).cxx: $(PROJNAME).i
 	@echo --Making $(SWIG_TYPE) project $(PROJNAME)...
-	-@test -d $(SWIGOUTDIR) || mkdir $(SWIGOUTDIR)
+	-@test -d $(SWIG_OUTDIR) || mkdir $(SWIG_OUTDIR)
 ifdef USE_JAVA
 	-@test -d java || mkdir java
 endif
-	$(SWIGCC) -o $(WRAPFILE).cxx $<
+	$(SWIG_CC) -o $(WRAPFILE).cxx $<
 ifdef SWIG_TESTEXT
-	-@!(test -e $(TESTFILE)) || cp $(TESTFILE) $(SWIGOUTDIR)
+	-@!(test -e $(TESTFILE)) || cp $(TESTFILE) $(SWIG_OUTDIR)
 endif
 ifdef USE_JAVA
 	javac java/*.java
-	cd java; jar cvfM ../$(SWIGOUTDIR)/$(PROJNAME).jar *.class
+	cd java; jar cvfM ../$(SWIG_OUTDIR)/$(PROJNAME).jar *.class
 	@rm -rf java/*.class
-	@!(test -e $(TESTFILE)) || javac -cp $(SWIGOUTDIR)/$(PROJNAME).jar $(SWIGOUTDIR)/$(TESTFILE)
+	@!(test -e $(TESTFILE)) || javac -cp $(SWIG_OUTDIR)/$(PROJNAME).jar $(SWIG_OUTDIR)/$(TESTFILE)
 endif
 
 $(WRAPFILE).o: $(WRAPFILE).cxx
-	$(CC) $(subst -Wall ,,$(CFLAGS_SO)) -c $<
+	$(CC) $(subst -Wall ,,$(CPPFLAGS)) -c $<
 
 clean:
 	rm -rf *.o  *_wrap.cxx *_wrap.h  java
 ifdef cleanall
 	rm -rf $(TARGET)
-	rm -rf $(SWIGOUTDIR)python/$(PROJNAME).py* $(SWIGOUTDIR)python/$(SWIG_PRE)$(PROJNAME)$(SWIG_EXT)
-	rm -rf $(SWIGOUTDIR)java/$(PROJNAME).jar $(SWIGOUTDIR)java/$(PROJNAME)$(SWIG_EXT)
+	rm -rf $(SWIG_OUTDIR)python/$(PROJNAME).py* $(SWIG_OUTDIR)python/$(SWIG_PRE)$(PROJNAME)$(SWIG_EXT)
+	rm -rf $(SWIG_OUTDIR)java/$(PROJNAME).jar $(SWIG_OUTDIR)java/$(PROJNAME)$(SWIG_EXT)
 endif
