@@ -1,31 +1,60 @@
 # Included by Makefile. You can customize it.
-# Readme for variables: https://github.com/rhcad/x3py/wiki/MakeVars
+# Readme about variables: https://github.com/rhcad/x3py/wiki/MakeVars
 
 INTERFACE_DIR =$(ROOTDIR)/interface
 INSTALL_DIR   =$(ROOTDIR)/build
 PLUGINS_DIR   =$(INSTALL_DIR)/plugins
 
-CC            =g++
-LINK          =g++
-CPPFLAGS     += -g -Wall -Wno-unused -I$(INTERFACE_DIR)/core
-LDFLAGS      += -g -Wall
+INCLUDES     += -I$(INTERFACE_DIR)/core
 ifdef PKGNAME
-CPPFLAGS     += -I$(INTERFACE_DIR)/$(PKGNAME)
+INCLUDES     += -I$(INTERFACE_DIR)/$(PKGNAME)
 endif
+
+#-------------------------------------------------------------------
+# Flags for GCC and VC++
+
+ifdef VCBIN
+CPP           ="$(VCBIN)cl"
+LINK          ="$(VCBIN)link"
+AR            ="$(VCBIN)lib"
+ARFLAGS       =-out:
+OUTFLAG       =-out:
+LIBPATHFLAG   =-libpath:
+LIBPRE        =lib
+LIBEND        =.lib
+OBJ           =obj
+LIB           =lib
+
+else
+CPP           =g++
+LINK          =g++
+CPPFLAGS     += -g -Wall -Wno-unused
+LDFLAGS      += -g -Wall
+OUTFLAG       =-o #space
+ARFLAGS      += #space
+LIBPATHFLAG   =-L
+LIBFLAG       =-l
+OBJ           =o
+LIB           =a
+endif
+
+#-------------------------------------------------------------------
 
 OS           ?=$(shell uname -s)
 IS_WIN       :=$(shell echo $(OS)|grep -i Windows)
 IS_MACOSX    :=$(shell echo $(OS)|grep -i Darwin)
 
-ifndef EXETYPE
+ifndef EXETYPE # dll or lib
 ifdef IS_WIN
 CPPFLAGS     += -D_USRDLL
+ifndef VCBIN
 LDFLAGS      += -shared
-else
+endif
+else # unix library
 CPPFLAGS     += -fPIC
 LDFLAGS      += -shared -fPIC
-endif
-endif
+endif #IS_WIN
+endif #EXETYPE
 
 ifdef IS_WIN
 APPEXT        =.exe
@@ -33,6 +62,28 @@ else
 LIBS         += -ldl
 endif
 
+#-------------------------------------------------------------------
+# VC++ link options
+
+IS_CONSOLE   :=$(shell echo $(EXETYPE)|grep -i console)
+IS_LIB       :=$(shell echo $(CPPFLAGS)|grep -i D_LIB)
+
+ifdef VCBIN
+INCLUDES     += $(VCINC)
+CPPFLAGS     += -nologo $(WINSDKINC)
+LDFLAGS      += -nologo $(VCLIBS)
+ifdef EXETYPE # application
+ifdef IS_CONSOLE
+LDFLAGS      += -subsystem:console
+endif
+else
+ifndef IS_LIB # dll
+LDFLAGS      += -subsystem:windows -dll
+endif
+endif #EXETYPE
+endif #VCBIN
+
+#-------------------------------------------------------------------
 # Environment variables used by source/public/swig/Makefile.swig
 # You may change the default values or set environment variables (must set them on Windows).
 

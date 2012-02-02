@@ -1,26 +1,28 @@
 ROOTDIR  =../../..
 PKGNAME  =example
 PROJNAME =libpln2
+CPPFLAGS += -D_LIB
 
 include $(ROOTDIR)/config.mk
 
-TARGET   =$(PLUGINS_DIR)/$(PROJNAME).a
+TARGET   =$(PLUGINS_DIR)/$(PROJNAME).$(LIB)
 SOURCES  =$(wildcard *.cpp)
-OBJS     =$(SOURCES:.cpp=.o)
+OBJS     =$(SOURCES:.cpp=.$(OBJ))
 
 $(TARGET): $(OBJS)
-	$(AR) $(ARFLAGS) $@ $(OBJS)
+	$(AR) $(ARFLAGS)$@ $(OBJS)
 
 %.d: %.cpp
-	$(CC) -MM $(CPPFLAGS) $< -MF $@
+	g++ -MM $(INCLUDES) $< -MF $@
+%.$(OBJ): %.cpp
+	$(CPP) $(CPPFLAGS) $(INCLUDES) -c $<
 
 ifndef clean
 include $(SOURCES:.cpp=.d)
 endif
-CPPFLAGS += -D_LIB
 
 clean:
-	rm -rf *.d *.o
+	rm -rf *.d *.$(OBJ)
 ifdef cleanall
 	rm -rf $(TARGET)
 endif

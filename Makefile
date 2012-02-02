@@ -13,7 +13,7 @@
 ROOTDIR =.
 include $(ROOTDIR)/config.mk
 
-.PHONY:	source clean cleanall python perl5 java ruby php r
+.PHONY:	source clean cleanall rebuild python perl5 java ruby php r
 
 #==============================================================================
 # The default build target.
@@ -36,3 +36,5 @@ clean:
 	@export clean=1; $(MAKE) -C source clean
 cleanall:
 	@export cleanall=1; $(MAKE) clean
+rebuild:
+	@$(MAKE) cleanall all

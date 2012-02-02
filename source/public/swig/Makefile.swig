@@ -33,21 +33,18 @@ endif
 SWIG_OUTDIR   =$(INSTALL_DIR)/$(SWIG_TYPE)
 
 ifdef SWIG_LIBPATH
-LIBS         += -L$(SWIG_LIBPATH)
+LIBS         += $(LIBPATHFLAG)"$(SWIG_LIBPATH)"
 endif
 ifdef SWIG_LIBFILE
-LIBS         += -l$(SWIG_LIBFILE)
+LIBS         += $(LIBFLAG)$(SWIG_LIBFILE)$(LIBEND)
 endif
-CPPFLAGS     += -I$(SWIG_INCLUDE)
+INCLUDES     += -I"$(SWIG_INCLUDE)"
 
-SWIG_CC       =$(SWIG_BIN)swig -c++ -$(SWIG_TYPE) -I$(INTERFACE_DIR)/core
+SWIG_CC       =$(SWIG_BIN)swig -c++ -$(SWIG_TYPE)
 ifdef USE_JAVA
 SWIG_CC      += -outdir java
 else
 SWIG_CC      += -outdir $(SWIG_OUTDIR)
-endif
-ifdef PKGNAME
-SWIG_CC      += -I$(INTERFACE_DIR)/$(PKGNAME)
 endif
 
 ifdef USE_PYTHON
@@ -69,11 +66,11 @@ endif
 TARGET   =$(SWIG_OUTDIR)/$(SWIG_PRE)$(PROJNAME)$(SWIG_EXT)
 WRAPFILE =$(PROJNAME)_$(SWIG_TYPE)_wrap
 TESTFILE :=test$(PROJNAME)$(SWIG_TESTEXT)
-OBJS     =$(WRAPFILE).o
+OBJS     =$(WRAPFILE).$(OBJ)
 
 $(TARGET): $(WRAPFILE).cxx $(OBJS)
 	-@test -d $(SWIG_OUTDIR) || mkdir $(SWIG_OUTDIR)
-	$(LINK) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
+	$(LINK) $(LDFLAGS) $(OUTFLAG)$@ $(OBJS) $(LIBS)
 
 $(WRAPFILE).cxx: $(PROJNAME).i
 	@echo --Making $(SWIG_TYPE) project $(PROJNAME)...
@@ -81,7 +78,7 @@ $(WRAPFILE).cxx: $(PROJNAME).i
 ifdef USE_JAVA
 	-@test -d java || mkdir java
 endif
-	$(SWIG_CC) -o $(WRAPFILE).cxx $<
+	$(SWIG_CC) -o $(WRAPFILE).cxx $(INCLUDES) $<
 ifdef SWIG_TESTEXT
 	-@!(test -e $(TESTFILE)) || cp $(TESTFILE) $(SWIG_OUTDIR)
 endif
@@ -92,11 +89,11 @@ ifdef USE_JAVA
 	@!(test -e $(TESTFILE)) || javac -cp $(SWIG_OUTDIR)/$(PROJNAME).jar $(SWIG_OUTDIR)/$(TESTFILE)
 endif
 
-$(WRAPFILE).o: $(WRAPFILE).cxx
-	$(CC) $(subst -Wall ,,$(CPPFLAGS)) -c $<
+$(WRAPFILE).$(OBJ): $(WRAPFILE).cxx
+	$(CPP) $(subst -Wall ,,$(subst -W4 ,,$(CPPFLAGS))) $(INCLUDES) -c $<
 
 clean:
-	rm -rf *.o  *_wrap.cxx *_wrap.h  java
+	rm -rf *.$(OBJ)  *_wrap.cxx *_wrap.h  java
 ifdef cleanall
 	rm -rf $(TARGET)
 	rm -rf $(SWIG_OUTDIR)python/$(PROJNAME).py* $(SWIG_OUTDIR)python/$(SWIG_PRE)$(PROJNAME)$(SWIG_EXT)

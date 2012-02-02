@@ -6,22 +6,26 @@ include $(ROOTDIR)/config.mk
 
 TARGET   =$(PLUGINS_DIR)/$(PROJNAME).pln
 SOURCES  =$(wildcard *.cpp)
-OBJS     =$(SOURCES:.cpp=.o)
+OBJS     =$(SOURCES:.cpp=.$(OBJ))
 
-LIBS    += -L $(PLUGINS_DIR) -lpln1 -lpln2
+LIBS    += $(LIBPATHFLAG)$(PLUGINS_DIR) \
+           $(LIBFLAG)$(LIBPRE)pln1$(LIBEND) \
+           $(LIBFLAG)$(LIBPRE)pln2$(LIBEND)
 
-$(TARGET): $(OBJS) $(PLUGINS_DIR)/libpln1.a $(PLUGINS_DIR)/libpln2.a
-	$(LINK) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
+$(TARGET): $(OBJS) $(PLUGINS_DIR)/libpln1.$(LIB) $(PLUGINS_DIR)/libpln2.$(LIB)
+	$(LINK) $(LDFLAGS) $(OUTFLAG)$@ $(OBJS) $(LIBS)
 
 %.d: %.cpp
-	$(CC) -MM $(CPPFLAGS) $< -MF $@
+	g++ -MM $(INCLUDES) $< -MF $@
+%.$(OBJ): %.cpp
+	$(CPP) $(CPPFLAGS) $(INCLUDES) -c $<
 
 ifndef clean
 include $(SOURCES:.cpp=.d)
 endif
 
 clean:
-	rm -rf *.d *.o
+	rm -rf *.d *.$(OBJ)
 ifdef cleanall
 	rm -rf $(TARGET)
 endif

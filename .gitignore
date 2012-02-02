@@ -6,6 +6,8 @@ build
 *_wrap.cxx
 *_wrap.h
 *.o
+*.obj
+*.d
 *~
 *.DS_Store
 ._*
