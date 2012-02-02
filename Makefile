@@ -1,4 +1,5 @@
-# The simplest way to compile x3c on Linux, Mac OS X or Unix is:
+# The simplest way to compile x3c on MinGW, Linux, Mac OS X or Unix is:
+#
 # 1. `cd' to the directory containing the file of 'Makefile'.
 # 2. Type `make' to compile C++ plugins.
 #    The program binaries files are outputed to './build/plugins'.
@@ -8,6 +9,8 @@
 # 
 # 4. You can remove the program object files from the source code
 #    directory by typing `make clean'.
+#
+# Readme about variables: https://github.com/rhcad/x3py/wiki/MakeVars
 #
 
 ROOTDIR =.

@@ -40,7 +40,7 @@ LIBS         += $(LIBFLAG)$(SWIG_LIBFILE)$(LIBEND)
 endif
 INCLUDES     += -I"$(SWIG_INCLUDE)"
 
-SWIG_CC       =$(SWIG_BIN)swig -c++ -$(SWIG_TYPE)
+SWIG_CC       ="$(SWIG_BIN)swig" -c++ -$(SWIG_TYPE)
 ifdef USE_JAVA
 SWIG_CC      += -outdir java
 else
