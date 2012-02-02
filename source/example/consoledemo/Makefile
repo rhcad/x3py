@@ -1,13 +1,13 @@
 ROOTDIR  =../../..
 PKGNAME  =example
 PROJNAME =consoledemo
-EXETYPE  =console
+APPTYPE  =console
 
 include $(ROOTDIR)/config.mk
 
 TARGET   =$(INSTALL_DIR)/$(PROJNAME)$(APPEXT)
 SOURCES  =$(wildcard *.cpp)
-OBJS     =$(SOURCES:.cpp=.$(OBJ))
+OBJS     =$(SOURCES:.cpp=$(OBJEXT))
 
 CPPFLAGS += -DCONSOLE
 
@@ -16,7 +16,7 @@ $(TARGET): $(OBJS)
 
 %.d: %.cpp
 	g++ -MM $(INCLUDES) $< -MF $@
-%.$(OBJ): %.cpp
+%$(OBJEXT): %.cpp
 	$(CPP) $(CPPFLAGS) $(INCLUDES) -c $<
 
 ifndef clean
@@ -24,7 +24,7 @@ include $(SOURCES:.cpp=.d)
 endif
 
 clean:
-	rm -rf *.d *.$(OBJ)
+	rm -rf *.d *.o *.obj
 ifdef cleanall
 	rm -rf $(TARGET)
 endif

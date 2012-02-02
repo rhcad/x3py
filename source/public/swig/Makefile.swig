@@ -66,7 +66,7 @@ endif
 TARGET   =$(SWIG_OUTDIR)/$(SWIG_PRE)$(PROJNAME)$(SWIG_EXT)
 WRAPFILE =$(PROJNAME)_$(SWIG_TYPE)_wrap
 TESTFILE :=test$(PROJNAME)$(SWIG_TESTEXT)
-OBJS     =$(WRAPFILE).$(OBJ)
+OBJS     =$(WRAPFILE)$(OBJEXT)
 
 $(TARGET): $(WRAPFILE).cxx $(OBJS)
 	-@test -d $(SWIG_OUTDIR) || mkdir $(SWIG_OUTDIR)
@@ -89,11 +89,11 @@ ifdef USE_JAVA
 	@!(test -e $(TESTFILE)) || javac -cp $(SWIG_OUTDIR)/$(PROJNAME).jar $(SWIG_OUTDIR)/$(TESTFILE)
 endif
 
-$(WRAPFILE).$(OBJ): $(WRAPFILE).cxx
+$(WRAPFILE)$(OBJEXT): $(WRAPFILE).cxx
 	$(CPP) $(subst -Wall ,,$(subst -W4 ,,$(CPPFLAGS))) $(INCLUDES) -c $<
 
 clean:
-	rm -rf *.$(OBJ)  *_wrap.cxx *_wrap.h  java
+	rm -rf *$(OBJEXT)  *_wrap.cxx *_wrap.h  java
 ifdef cleanall
 	rm -rf $(TARGET)
 	rm -rf $(SWIG_OUTDIR)python/$(PROJNAME).py* $(SWIG_OUTDIR)python/$(SWIG_PRE)$(PROJNAME)$(SWIG_EXT)

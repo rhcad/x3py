@@ -22,8 +22,8 @@ OUTFLAG       =-out:
 LIBPATHFLAG   =-libpath:
 LIBPRE        =lib
 LIBEND        =.lib
-OBJ           =obj
-LIB           =lib
+OBJEXT        =.obj
+LIBEXT        =.lib
 
 else
 CPP           =g++
@@ -34,8 +34,8 @@ OUTFLAG       =-o #space
 ARFLAGS      += #space
 LIBPATHFLAG   =-L
 LIBFLAG       =-l
-OBJ           =o
-LIB           =a
+OBJEXT        =.o
+LIBEXT        =.a
 endif
 
 #-------------------------------------------------------------------
@@ -44,7 +44,7 @@ OS           ?=$(shell uname -s)
 IS_WIN       :=$(shell echo $(OS)|grep -i Windows)
 IS_MACOSX    :=$(shell echo $(OS)|grep -i Darwin)
 
-ifndef EXETYPE # dll or lib
+ifndef APPTYPE # dll or lib
 ifdef IS_WIN
 CPPFLAGS     += -D_USRDLL
 ifndef VCBIN
@@ -54,7 +54,7 @@ else # unix library
 CPPFLAGS     += -fPIC
 LDFLAGS      += -shared -fPIC
 endif #IS_WIN
-endif #EXETYPE
+endif #APPTYPE
 
 ifdef IS_WIN
 APPEXT        =.exe
@@ -65,14 +65,14 @@ endif
 #-------------------------------------------------------------------
 # VC++ link options
 
-IS_CONSOLE   :=$(shell echo $(EXETYPE)|grep -i console)
+IS_CONSOLE   :=$(shell echo $(APPTYPE)|grep -i console)
 IS_LIB       :=$(shell echo $(CPPFLAGS)|grep -i D_LIB)
 
 ifdef VCBIN
 INCLUDES     += $(VCINC)
 CPPFLAGS     += -nologo $(WINSDKINC)
 LDFLAGS      += -nologo $(VCLIBS)
-ifdef EXETYPE # application
+ifdef APPTYPE # application
 ifdef IS_CONSOLE
 LDFLAGS      += -subsystem:console
 endif
@@ -80,7 +80,7 @@ else
 ifndef IS_LIB # dll
 LDFLAGS      += -subsystem:windows -dll
 endif
-endif #EXETYPE
+endif #APPTYPE
 endif #VCBIN
 
 #-------------------------------------------------------------------

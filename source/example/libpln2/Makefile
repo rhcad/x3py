@@ -5,16 +5,16 @@ CPPFLAGS += -D_LIB
 
 include $(ROOTDIR)/config.mk
 
-TARGET   =$(PLUGINS_DIR)/$(PROJNAME).$(LIB)
+TARGET   =$(PLUGINS_DIR)/$(PROJNAME)$(LIBEXT)
 SOURCES  =$(wildcard *.cpp)
-OBJS     =$(SOURCES:.cpp=.$(OBJ))
+OBJS     =$(SOURCES:.cpp=$(OBJEXT))
 
 $(TARGET): $(OBJS)
 	$(AR) $(ARFLAGS)$@ $(OBJS)
 
 %.d: %.cpp
 	g++ -MM $(INCLUDES) $< -MF $@
-%.$(OBJ): %.cpp
+%$(OBJEXT): %.cpp
 	$(CPP) $(CPPFLAGS) $(INCLUDES) -c $<
 
 ifndef clean
@@ -22,7 +22,7 @@ include $(SOURCES:.cpp=.d)
 endif
 
 clean:
-	rm -rf *.d *.$(OBJ)
+	rm -rf *.d *.o *.obj
 ifdef cleanall
 	rm -rf $(TARGET)
 endif
