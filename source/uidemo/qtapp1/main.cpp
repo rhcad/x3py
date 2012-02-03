@@ -1,5 +1,5 @@
-#include <QtGui/QApplication>
-#include <QtGui/QLabel>
+#include <QApplication>
+#include <QLabel>
 
 #include <portability/x3port.h>
 #include <nonplugin/useplugins.h>

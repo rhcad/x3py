@@ -9,6 +9,7 @@ TARGET   =$(PLUGINS_DIR)/$(PROJNAME)$(LIBEXT)
 SOURCES  =$(wildcard *.cpp)
 OBJS     =$(SOURCES:.cpp=$(OBJEXT))
 
+all:       $(TARGET)
 $(TARGET): $(OBJS)
 	$(AR) $(ARFLAGS)$@ $(OBJS)
 

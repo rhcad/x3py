@@ -68,6 +68,7 @@ WRAPFILE =$(PROJNAME)_$(SWIG_TYPE)_wrap
 TESTFILE :=test$(PROJNAME)$(SWIG_TESTEXT)
 OBJS     =$(WRAPFILE)$(OBJEXT)
 
+all:       $(TARGET)
 $(TARGET): $(WRAPFILE).cxx $(OBJS)
 	-@test -d $(SWIG_OUTDIR) || mkdir $(SWIG_OUTDIR)
 	$(LINK) $(LDFLAGS) $(OUTFLAG)$@ $(OBJS) $(LIBS)

@@ -8,13 +8,17 @@ TARGET   =$(INSTALL_DIR)/$(PROJNAME)$(APPEXT)
 SOURCES  =$(wildcard *.cpp)
 OBJS     =$(SOURCES:.cpp=$(OBJEXT))
 
+ifdef QTDIR
+
 INCLUDES += -I$(INTERFACE_DIR)/example \
-            -I"$(QTDIR)/include"
+            -I"$(QTDIR)/include" \
+            -I"$(QTDIR)/include/QtGui"
 
 LIBS     += $(LIBPATHFLAG)"$(QTDIR)/lib" \
             $(LIBFLAG)QtCore4$(LIBEND) \
             $(LIBFLAG)QtGui4$(LIBEND)
 
+all:       $(TARGET)
 $(TARGET): $(OBJS)
 	$(LINK) $(LDFLAGS) $(OUTFLAG)$@ $(OBJS) $(LIBS)
 
@@ -26,6 +30,8 @@ $(TARGET): $(OBJS)
 ifndef clean
 include $(SOURCES:.cpp=.d)
 endif
+
+endif #QTDIR
 
 clean:
 	rm -rf *.d *.o *.obj

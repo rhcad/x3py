@@ -12,6 +12,7 @@ LIBS    += $(LIBPATHFLAG)$(PLUGINS_DIR) \
            $(LIBFLAG)$(LIBPRE)pln1$(LIBEND) \
            $(LIBFLAG)$(LIBPRE)pln2$(LIBEND)
 
+all:       $(TARGET)
 $(TARGET): $(OBJS) $(PLUGINS_DIR)/libpln1$(LIBEXT) $(PLUGINS_DIR)/libpln2$(LIBEXT)
 	$(LINK) $(LDFLAGS) $(OUTFLAG)$@ $(OBJS) $(LIBS)
 

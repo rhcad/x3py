@@ -8,6 +8,7 @@ TARGET   =$(PLUGINS_DIR)/$(PROJNAME).pln
 SOURCES  =$(wildcard *.cpp)
 OBJS     =$(SOURCES:.cpp=$(OBJEXT))
 
+all:       $(TARGET)
 $(TARGET): $(OBJS)
 	$(LINK) $(LDFLAGS) $(OUTFLAG)$@ $(OBJS) $(LIBS)
 
