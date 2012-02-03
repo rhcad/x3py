@@ -12,6 +12,7 @@ endif
 
 #-------------------------------------------------------------------
 # Flags for GCC and VC++
+# LIBS    += $(LIBPATHFLAG)yourlibpath  $(LIBFLAG)yourlibname$(LIBEND)
 
 ifdef VCBIN
 CPP           ="$(VCBIN)cl"
