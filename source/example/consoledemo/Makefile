@@ -13,7 +13,7 @@ $(TARGET): $(OBJS)
 	$(LINK) $(LDFLAGS) $(OUTFLAG)$@ $(OBJS) $(LIBS)
 
 %.d: %.cpp
-	g++ -MM $(INCLUDES) $< -MF $@
+	$(DEPEND_CC) $@ $(INCLUDES) $<
 %$(OBJEXT): %.cpp
 	$(CPP) $(CPPFLAGS) $(INCLUDES) -c $<
 

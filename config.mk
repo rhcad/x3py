@@ -87,6 +87,13 @@ ifdef IS_CONSOLE
 CPPFLAGS     += -DCONSOLE
 endif
 
+# for generating dependency file (*.d)
+DEPEND_CC     =g++ -MM
+ifdef VCBIN
+DEPEND_CC    += -D_M_IX86
+endif
+DEPEND_CC    += -MF
+
 #-------------------------------------------------------------------
 # Environment variables used by source/public/swig/Makefile.swig
 # You may change the default values or set environment variables (must set them on Windows).
