@@ -75,7 +75,6 @@ You can compile this framework using VC++ or GCC on Windows x86 or x64.
   JAVA_BIN : Set this to the bin directory (end with '\') containing javac.exe
   You can add this directory to the 'PATH' variable instead of setting JAVA_BIN.
   JAVA64_BIN : Like JAVA_BIN, but for JDK x64 edition.
-  JAVA_BIN is not used in makefile (GCC), so you need to change the 'PATH' variable.
   
   Example using JDK1.6:
   JAVA_INCLUDE: D:\jdk1.6\include

@@ -83,10 +83,10 @@ ifdef SWIG_TESTEXT
 	-@!(test -e $(TESTFILE)) || cp $(TESTFILE) $(SWIG_OUTDIR)
 endif
 ifdef USE_JAVA
-	javac java/*.java
-	cd java; jar cvfM ../$(SWIG_OUTDIR)/$(PROJNAME).jar *.class
+	"$(JAVA_BIN)javac" java/*.java
+	cd java; "$(JAVA_BIN)jar" cvfM ../$(SWIG_OUTDIR)/$(PROJNAME).jar *.class
 	@rm -rf java/*.class
-	@!(test -e $(TESTFILE)) || javac -cp $(SWIG_OUTDIR)/$(PROJNAME).jar $(SWIG_OUTDIR)/$(TESTFILE)
+	@!(test -e $(TESTFILE)) || "$(JAVA_BIN)javac" -cp $(SWIG_OUTDIR)/$(PROJNAME).jar $(SWIG_OUTDIR)/$(TESTFILE)
 endif
 
 $(WRAPFILE)$(OBJEXT): $(WRAPFILE).cxx

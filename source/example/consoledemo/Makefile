@@ -9,8 +9,6 @@ TARGET   =$(INSTALL_DIR)/$(PROJNAME)$(APPEXT)
 SOURCES  =$(wildcard *.cpp)
 OBJS     =$(SOURCES:.cpp=$(OBJEXT))
 
-CPPFLAGS += -DCONSOLE
-
 $(TARGET): $(OBJS)
 	$(LINK) $(LDFLAGS) $(OUTFLAG)$@ $(OBJS) $(LIBS)
 

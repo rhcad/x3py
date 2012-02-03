@@ -83,6 +83,10 @@ endif
 endif #APPTYPE
 endif #VCBIN
 
+ifdef IS_CONSOLE
+CPPFLAGS     += -DCONSOLE
+endif
+
 #-------------------------------------------------------------------
 # Environment variables used by source/public/swig/Makefile.swig
 # You may change the default values or set environment variables (must set them on Windows).
