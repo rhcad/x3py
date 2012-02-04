@@ -2,7 +2,7 @@
 // 4: use static library plugin, 5: find and load plugins
 //
 #ifndef LOADMODE
-#define LOADMODE  3
+#define LOADMODE  5
 #endif
 
 int test();
@@ -112,51 +112,18 @@ int main()
 #elif LOADMODE==5   // find and load plugins
 //---------------------------------------------------------------
 
-#include <portability/portimpl.h>
-#include <utilfunc/scanfiles.h>
-
-HMODULE modules[10] = { NULL };
-int count = 0;
-
-bool filter(const char* filename, const char* ext)
-{
-    if (_stricmp(ext, ".pln") == 0)
-    {
-        modules[count] = x3LoadLibrary(filename);
-        if (modules[count])
-            count++;
-    }
-    return count < 10;
-}
+#include <nonplugin/scanplugins.h>
 
 int main()
 {
-    char path[MAX_PATH];
-
-    GetModuleFileNameA(NULL, path, MAX_PATH);
-    PathRemoveFileSpecA(path);
-
-    x3::scanfiles(filter, path, true);
+    x3::loadPlugins();
 
     int ret = test();
 
-    while (--count >= 0)
-    {
-        x3FreeLibrary(modules[count]);
-    }
+    x3::unloadPlugins();
 
     return ret;
 }
-
-namespace x3 {
-class IObject;
-bool createObject(const char* clsid, long iid, IObject** p)
-{
-    typedef bool (*F)(const char*, long, IObject**);
-    F f = (F)GetProcAddress(modules[0], "x3CreateObject");
-    return f && f(clsid, iid, p);
-}
-} // x3
 
 //---------------------------------------------------------------
 #endif
