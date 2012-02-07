@@ -61,7 +61,7 @@
 				AdditionalDependencies="&quot;$(PERL5_LIBFILE)&quot;"
 				OutputFile="$(OutDir)\plsimple.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories=""
+				AdditionalLibraryDirectories="&quot;$(PERL5_LIB)&quot;"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(IntDir)\$(ProjectName).pdb"

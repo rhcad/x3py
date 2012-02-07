@@ -91,7 +91,7 @@ endif
 # for generating dependency file (*.d)
 DEPEND_CC     =g++ -MM
 ifdef VCBIN
-DEPEND_CC    += -D_M_IX86
+DEPEND_CC    += -D_MSC_VER=1400 -D_M_IX86
 endif
 DEPEND_CC    += -MF
 
