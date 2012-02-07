@@ -99,6 +99,7 @@ DEPEND_CC    += -MF
 # Environment variables used by source/public/swig/Makefile.swig
 # You may change the default values or set environment variables (must set them on Windows).
 
+ifndef IS_WIN
 ifdef IS_MACOSX
 PYTHON_INCLUDE ?=/usr/include/python2.6
 PYTHON_LIBFILE ?=python
@@ -107,8 +108,12 @@ else # Linux
 PYTHON_INCLUDE ?=/usr/include/python2.7
 PYTHON_LIBFILE ?=python2.7
 JAVA_INCLUDE   ?=/usr/lib/jvm/java-6-openjdk/include
+QT4_INCLUDE    ?=/usr/include/qt4
+QT4_LIB        ?=/usr/lib/x86_64-linux-gnu
 endif
 PERL5_INCLUDE  ?=/usr/lib/perl/5.12.4/CORE
 PERL5_LIBFILE  ?=perl
 RUBY_INCLUDE   ?=/usr/include/ruby-1.9.1
 RUBY_LIBFILE   ?=ruby-1.9.1
+endif
+
