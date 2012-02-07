@@ -1,7 +1,7 @@
 #ifndef X3_EXAMPLE_OBSERVEREX_SWIG_H
 #define X3_EXAMPLE_OBSERVEREX_SWIG_H
 
-#include <observer/eventobserver.h>
+#include <observerex/myevents.h>
 
 class ObserverDemo : public x3::ObserverObject
 {
@@ -13,7 +13,7 @@ public:
         x3::unregisterObserver(this);
     }
     static int fireEvent() {
-        return FireSwigVoidEvent().fireEvent().nhandled;
+        return FireEventSwigVoid().fireEvent().nhandled;
     }
 
 protected:

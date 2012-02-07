@@ -37,6 +37,13 @@ int loadPlugins(const char* folder = "plugins")
     PathRemoveFileSpecA(path);
     PathAppendA(path, folder);
 
+    if (!GetModuleHandleA("x3manager.pln"))
+    {
+        PathAppendA(path, "x3manager.pln");
+        loadfilter(path, ".pln");
+        PathRemoveFileSpecA(path);
+    }
+
     x3::scanfiles(loadfilter, path, true);
     return s_nplugin;
 }

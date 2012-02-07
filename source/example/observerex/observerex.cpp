@@ -60,46 +60,52 @@ bool CObserverTest::OnBreakDemo()
     return false;
 }
 
-void CObserverTest::OnVirtualDemo(std::string& text)
+void CObserverTest::OnVirtualDemo(std::string& text, const std::string& intest)
 {
-    text = "a";
+    text = "a" + intest;
 }
 
-void CObserverTestEx::OnVirtualDemo(std::string& text)
+void CObserverTestEx::OnVirtualDemo(std::string& text, const std::string& intest)
 {
-    text = "b";
+    text = "b" + intest;
 }
-
-#include <observerex/myobserver.h>
-#include <observerex/myobserverobj.h>
 
 bool test()
 {
     registerHandlers();
 
-    if (FireEventAdd(0).fireEvent().param != 310)  // 10 + 100 + 200
+    int addvalue = 0;
+    if (FireEventAdd(addvalue).fireEvent().param != 310)  // 10 + 100 + 200
         return false;
 
     CObserverTest objs[3];
-    if (FireGatherEvent().fireEvent().param.size() != 3)
+    std::vector<void*> objsv;
+    if (FireEventGather(objsv).fireEvent().param.size() != 3)
         return false;
 
     CObserverTest objextra;
-    if (FireGatherEvent().fireEvent().param.size() != 4)    // 3+1
+    std::vector<void*> objsv2;
+    if (FireEventGather(objsv2).fireEvent().param.size() != 4)    // 3+1
         return false;
 
-    if (FireEventBreak(1).fireEvent().param != 11)  // call OnBreakDemo1 once.
-        return false;
-    if (FireEventBreak(0).fireEvent().param != 30)  // call OnBreakDemo2 too.
-        return false;
-
-    if (FireObjBreakEvent().fireEvent().nhandled != 1)  // only once.
+    int demovalue = 1;
+    if (FireEventBreakDemo(demovalue).fireEvent().param != 11)  // call OnBreakDemo1 once.
         return false;
 
-    if (FireVirtualDemoEvent().fireEvent().param != "a")
+    int demovalue2 = 0;
+    if (FireEventBreakDemo(demovalue2).fireEvent().param != 30)  // call OnBreakDemo2 too.
         return false;
+
+    if (FireEventObjBreakDemo().fireEvent().nhandled != 1)  // only once.
+        return false;
+
+    std::string text;
+    if (FireEventVirtualDemo(text, "-").fireEvent().param1 != "a-")
+        return false;
+
     CObserverTestEx testVirtual;
-    if (FireVirtualDemoEvent().fireEvent().param != "b")
+    std::string text2;
+    if (FireEventVirtualDemo(text2, "-").fireEvent().param1 != "b-")
         return false;
 
     return true;

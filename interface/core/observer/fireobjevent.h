@@ -3,6 +3,35 @@
 
 #include <observer/eventobserver.h>
 
+#define X3DEFINE_OBJEVENT_0(TypeName, Namespace)   \
+    X3DEFINE_OBJEVENT(TypeName, void, (), Namespace);  \
+    typedef x3::FireObjectEvent0<TypeName> Fire ## TypeName
+
+#define X3DEFINE_OBJEVENT_0Break(TypeName, Namespace)   \
+    X3DEFINE_OBJEVENT(TypeName, bool, (), Namespace);  \
+    typedef x3::FireObjectEvent0<TypeName, \
+        x3::FireObjectEvent0Break> Fire ## TypeName
+
+#define X3DEFINE_OBJEVENT_1(TypeName, ParamT, Namespace)   \
+    X3DEFINE_OBJEVENT(TypeName, void, (ParamT), Namespace);  \
+    typedef x3::FireObjectEvent1<TypeName, ParamT> Fire ## TypeName
+
+#define X3DEFINE_OBJEVENT_1Break(TypeName, ParamT, Namespace)   \
+    X3DEFINE_OBJEVENT(TypeName, bool, (ParamT), Namespace);  \
+    typedef x3::FireObjectEvent1<TypeName, ParamT, \
+        x3::FireObjectEvent1Break> Fire ## TypeName
+
+#define X3DEFINE_OBJEVENT_2(TypeName, Param1, Param2, Namespace)   \
+    X3DEFINE_OBJEVENT(TypeName, void, (Param1, Param2), Namespace);  \
+    typedef x3::FireObjectEvent2<TypeName, Param1, Param2> Fire ## TypeName
+
+#define X3DEFINE_OBJEVENT_2Break(TypeName, Param1, Param2, Namespace)   \
+    X3DEFINE_OBJEVENT(TypeName, bool, (Param1, Param2), Namespace);  \
+    typedef x3::FireObjectEvent2<TypeName, Param1, Param2, \
+        x3::FireObjectEvent2Break> Fire ## TypeName
+
+// ----------------------------------------
+
 namespace x3 {
 
 template <class EventType> class FireObjEventBase
@@ -71,15 +100,15 @@ private:
 
 struct FireObjectEvent1NotBreak {
     template <typename Handler, typename ParamT>
-    static bool call(ObserverObject* obj, Handler hd, ParamT& param) {
-        (obj->*hd)(param); return true;
+    static bool call(ObserverObject* obj, Handler hd, ParamT* param) {
+        (obj->*hd)(*param); return true;
     }
 };
 
 struct FireObjectEvent1Break {
     template <typename Handler, typename ParamT>
-    static bool call(ObserverObject* obj, Handler hd, ParamT& param) {
-        return !!(obj->*hd)(param);
+    static bool call(ObserverObject* obj, Handler hd, ParamT* param) {
+        return !!(obj->*hd)(*param);
     }
 };
 
@@ -90,18 +119,18 @@ public:
     typedef FireObjectEvent1<EventType, ParamT, Break> This;
     ParamT  param;
 
-    FireObjectEvent1() {}
-    FireObjectEvent1(const ParamT& p) : param(p) {}
+    FireObjectEvent1(ParamT p) : param(p) {}
     This& fireEvent() { _fireEvent(dispatcher); return *this; }
 
 private:
     FireObjectEvent1(const This&);
     This& operator=(const This&);
+    FireObjectEvent1();
 
     static bool dispatcher(ObserverObject* obj, ON_EVENT hd, void* data) {
         typename EventType::Handler handler;
         cast(handler, hd);
-        return Break::call(obj, handler, ((This*)data)->param);
+        return Break::call(obj, handler, &((This*)data)->param);
     }
 };
 
@@ -109,15 +138,15 @@ private:
 
 struct FireObjectEvent2NotBreak {
     template <typename Handler, typename Param1, typename Param2>
-    static bool call(ObserverObject* obj, Handler hd, Param1& p1, Param2& p2) {
-        (obj->*hd)(p1, p2); return true;
+    static bool call(ObserverObject* obj, Handler hd, Param1* p1, Param2* p2) {
+        (obj->*hd)(*p1, *p2); return true;
     }
 };
 
 struct FireObjectEvent2Break {
     template <typename Handler, typename Param1, typename Param2>
-    static bool call(ObserverObject* obj, Handler hd, Param1& p1, Param2& p2) {
-        return !!(obj->*hd)(p1, p2);
+    static bool call(ObserverObject* obj, Handler hd, Param1* p1, Param2* p2) {
+        return !!(obj->*hd)(*p1, *p2);
     }
 };
 
@@ -130,13 +159,13 @@ public:
     Param1  param1;
     Param2  param2;
 
-    FireObjectEvent2() {}
-    FireObjectEvent2(const Param1& p1, const Param2& p2) : param1(p1), param2(p2) {}
+    FireObjectEvent2(Param1 p1, Param2 p2) : param1(p1), param2(p2) {}
     This& fireEvent() { _fireEvent(dispatcher); return *this; }
 
 private:
     FireObjectEvent2(const This&);
     This& operator=(const This&);
+    FireObjectEvent2();
 
     static bool dispatcher(ObserverObject* obj, ON_EVENT hd, void* data)
     {
@@ -144,7 +173,7 @@ private:
         typename EventType::Handler handler;
 
         cast(handler, hd);
-        return Break::call(obj, handler, p->param1, p->param2);
+        return Break::call(obj, handler, &p->param1, &p->param2);
     }
 };
 

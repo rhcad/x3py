@@ -7,8 +7,6 @@
 %include "../../../public/swig/observer.i"
 
 %{
-#include <observerex/myobserver.h>
-#include <observerex/myobserverobj.h>
 #include <observerex/observerswig.h>
 %}
 

@@ -3,6 +3,34 @@
 
 #include <observer/eventobserver.h>
 
+#define X3DEFINE_EVENT_0(TypeName, Namespace)   \
+    X3DEFINE_EVENT(TypeName, void, (), Namespace);  \
+    typedef x3::FireEvent0<TypeName> Fire ## TypeName
+
+#define X3DEFINE_EVENT_0Break(TypeName, Namespace)   \
+    X3DEFINE_EVENT(TypeName, bool, (), Namespace);  \
+    typedef x3::FireEvent0<TypeName, x3::FireEvent0Break> Fire ## TypeName
+
+#define X3DEFINE_EVENT_1(TypeName, ParamT, Namespace)   \
+    X3DEFINE_EVENT(TypeName, void, (ParamT), Namespace);  \
+    typedef x3::FireEvent1<TypeName, ParamT> Fire ## TypeName
+
+#define X3DEFINE_EVENT_1Break(TypeName, ParamT, Namespace)   \
+    X3DEFINE_EVENT(TypeName, bool, (ParamT), Namespace);  \
+    typedef x3::FireEvent1<TypeName, ParamT, \
+        x3::FireEvent1Break> Fire ## TypeName
+
+#define X3DEFINE_EVENT_2(TypeName, Param1, Param2, Namespace)   \
+    X3DEFINE_EVENT(TypeName, void, (Param1, Param2), Namespace);  \
+    typedef x3::FireEvent2<TypeName, Param1, Param2> Fire ## TypeName
+
+#define X3DEFINE_EVENT_2Break(TypeName, Param1, Param2, Namespace)   \
+    X3DEFINE_EVENT(TypeName, bool, (Param1, Param2), Namespace);  \
+    typedef x3::FireEvent2<TypeName, Param1, Param2, \
+        x3::FireEvent2Break> Fire ## TypeName
+
+// ----------------------------------------
+
 namespace x3 {
 
 template <class EventType> class FireEventBase
@@ -54,15 +82,15 @@ private:
 
 struct FireEvent1NotBreak {
     template <typename Handler, typename ParamT>
-    static bool call(Handler handler, ParamT& param) {
-        handler(param); return true;
+    static bool call(Handler handler, ParamT* param) {
+        handler(*param); return true;
     }
 };
 
 struct FireEvent1Break {
     template <typename Handler, typename ParamT>
-    static bool call(Handler handler, ParamT& param) {
-        return !!handler(param);
+    static bool call(Handler handler, ParamT* param) {
+        return !!handler(*param);
     }
 };
 
@@ -73,16 +101,16 @@ public:
     typedef FireEvent1<EventType, ParamT, Break> This;
     ParamT  param;
 
-    FireEvent1() {}
-    FireEvent1(const ParamT& p) : param(p) {}
+    FireEvent1(ParamT p) : param(p) {}
     This& fireEvent() { _fireEvent(dispatcher); return *this; }
 
 private:
     FireEvent1(const This&);
     This& operator=(const This&);
+    FireEvent1();
 
     static bool dispatcher(PROC handler, void* data) {
-        return Break::call((typename EventType::Handler)handler, ((This*)data)->param);
+        return Break::call((typename EventType::Handler)handler, &((This*)data)->param);
     }
 };
 
@@ -90,15 +118,15 @@ private:
 
 struct FireEvent2NotBreak {
     template <typename Handler, typename Param1, typename Param2>
-    static bool call(Handler handler, Param1& param1, Param2& param2) {
-        handler(param1, param2); return true;
+    static bool call(Handler handler, Param1* param1, Param2* param2) {
+        handler(*param1, *param2); return true;
     }
 };
 
 struct FireEvent2Break {
     template <typename Handler, typename Param1, typename Param2>
-    static bool call(Handler handler, Param1& param1, Param2& param2) {
-        return !!handler(param1, param2);
+    static bool call(Handler handler, Param1* param1, Param2* param2) {
+        return !!handler(*param1, *param2);
     }
 };
 
@@ -111,17 +139,17 @@ public:
     Param1  param1;
     Param2  param2;
 
-    FireEvent2() {}
-    FireEvent2(const Param1& p1, const Param2& p2) : param1(p1), param2(p2) {}
+    FireEvent2(Param1 p1, Param2 p2) : param1(p1), param2(p2) {}
     This& fireEvent() { _fireEvent(dispatcher); return *this; }
 
 private:
     FireEvent2(const This&);
     This& operator=(const This&);
+    FireEvent2();
 
     static bool dispatcher(PROC handler, void* data) {
         This* p = (This*)data;
-        return Break::call((typename EventType::Handler)handler, p->param1, p->param2);
+        return Break::call((typename EventType::Handler)handler, &p->param1, &p->param2);
     }
 };
 

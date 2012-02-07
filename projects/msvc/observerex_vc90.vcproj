@@ -365,14 +365,6 @@
 				RelativePath="..\..\interface\example\observerex\myevents.h"
 				>
 			</File>
-			<File
-				RelativePath="..\..\interface\example\observerex\myobserver.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\interface\example\observerex\myobserverobj.h"
-				>
-			</File>
 			<Filter
 				Name="observer"
 				>

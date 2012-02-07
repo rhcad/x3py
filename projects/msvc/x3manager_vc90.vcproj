@@ -421,6 +421,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\interface\core\nonplugin\scanplugins.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\interface\core\nonplugin\useplugin.h"
 					>
 				</File>
