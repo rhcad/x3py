@@ -1,3 +1,4 @@
+// x3py framework: https://github.com/rhcad/x3py
 // Need to include <observer/observerimpl.h> in module.cpp
 //
 #ifndef X3_CORE_EVENTOBSERVER_H

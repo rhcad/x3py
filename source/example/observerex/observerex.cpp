@@ -28,9 +28,16 @@ void registerHandlers()
 {
     X3_REGISTER_OBSERVER(EventAdd, OnEventAdd10);
     X3_REGISTER_OBSERVER(EventAdd, OnEventAdd100);
-    X3_REGISTER_OBSERVER(EventAdd, &CObserverTest::OnEventAdd);
     X3_REGISTER_OBSERVER(EventBreakDemo, OnBreakDemo1);
     X3_REGISTER_OBSERVER(EventBreakDemo, OnBreakDemo2);
+
+    CObserverTest::registerHandlers();
+}
+
+void CObserverTest::registerHandlers()
+{
+    X3_REGISTER_OBSERVER(EventAdd, &CObserverTest::OnEventAdd);
+    X3_REGISTER_OBSERVER(EventAdd, &CObserverTest::OnEventAdd2);
 }
 
 CObserverTest::CObserverTest()
@@ -48,6 +55,11 @@ CObserverTest::~CObserverTest()
 void CObserverTest::OnEventAdd(int& result)
 {
     result += 200;
+}
+
+void CObserverTest::OnEventAdd2(int& result)
+{
+    result += 0;
 }
 
 void CObserverTest::OnGather(std::vector<void*>& objs)
@@ -85,7 +97,7 @@ bool test()
 
     CObserverTest objextra;
     std::vector<void*> objsv2;
-    if (FireEventGather(objsv2).fireEvent().param.size() != 4)    // 3+1
+    if (FireEventGather(objsv2).fireEvent().param.size() != 4)  // 3+1
         return false;
 
     int demovalue = 1;
@@ -93,10 +105,10 @@ bool test()
         return false;
 
     int demovalue2 = 0;
-    if (FireEventBreakDemo(demovalue2).fireEvent().param != 30)  // call OnBreakDemo2 too.
+    if (FireEventBreakDemo(demovalue2).fireEvent().param != 30) // call OnBreakDemo2 too.
         return false;
 
-    if (FireEventObjBreakDemo().fireEvent().nhandled != 1)  // only once.
+    if (FireEventObjBreakDemo().fireEvent().nhandled != 1)      // only once.
         return false;
 
     std::string text;

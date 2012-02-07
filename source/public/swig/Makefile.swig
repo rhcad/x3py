@@ -1,4 +1,5 @@
 # Included by Makefile of swig project.
+# x3py framework: https://github.com/rhcad/x3py
 
 USE_PYTHON   :=$(shell echo $(SWIG_TYPE)|grep -i python)
 USE_PERL     :=$(shell echo $(SWIG_TYPE)|grep -i perl)

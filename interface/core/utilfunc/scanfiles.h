@@ -1,3 +1,4 @@
+// x3py framework: https://github.com/rhcad/x3py
 #ifndef X3_UTILFUNC_SCANDIR_H
 #define X3_UTILFUNC_SCANDIR_H
 

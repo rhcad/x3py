@@ -1,3 +1,4 @@
+// x3py framework: https://github.com/rhcad/x3py
 #ifndef X3_EXAMPLE_OBSERVEREX_SWIG_H
 #define X3_EXAMPLE_OBSERVEREX_SWIG_H
 

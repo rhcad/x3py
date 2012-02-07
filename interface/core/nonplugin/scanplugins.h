@@ -1,3 +1,4 @@
+// x3py framework: https://github.com/rhcad/x3py
 #ifndef X3_NONPLUGIN_SCANPLUGINS_H
 #define X3_NONPLUGIN_SCANPLUGINS_H
 
@@ -56,11 +57,6 @@ void unloadPlugins()
     }
 }
 
-HMODULE getManagerModule()
-{
-    return s_modules[0];
-}
-
 #ifndef X3_EXCLUDE_CREATEOBJECT
 bool createObject(const char* clsid, long iid, IObject** p)
 {
@@ -68,6 +64,7 @@ bool createObject(const char* clsid, long iid, IObject** p)
     F f = (F)GetProcAddress(s_modules[0], "x3CreateObject");
     return f && f(clsid, iid, p);
 }
+HMODULE getManagerModule() { return s_modules[0]; }
 #endif
 
 END_NAMESPACE_X3

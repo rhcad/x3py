@@ -1,3 +1,4 @@
+// x3py framework: https://github.com/rhcad/x3py
 #if !defined(X3_NONPLUGIN_USE_PLUGIN_H) && !defined(X3_NONPLUGIN_USE_PLUGINS_H)
 #define X3_NONPLUGIN_USE_PLUGIN_H
 

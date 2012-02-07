@@ -1,3 +1,4 @@
+// x3py framework: https://github.com/rhcad/x3py
 #include <module/plugininc.h>
 #include <module/modulemacro.h>
 #define X3_EXCLUDE_CREATEOBJECT

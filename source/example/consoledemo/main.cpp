@@ -1,3 +1,4 @@
+// x3py framework: https://github.com/rhcad/x3py
 // 1: use multiple plugins, 2: use one plugin, 3: raw loading mode
 // 4: use static library plugin, 5: find and load plugins
 //

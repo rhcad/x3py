@@ -1,3 +1,4 @@
+// x3py framework: https://github.com/rhcad/x3py
 #ifndef UTILFUNC_LOADDLLHELPER_H_
 #define UTILFUNC_LOADDLLHELPER_H_
 
