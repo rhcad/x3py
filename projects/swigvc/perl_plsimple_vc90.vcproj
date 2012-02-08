@@ -126,7 +126,7 @@
 			</FileConfiguration>
 		</File>
 		<File
-			RelativePath="..\..\source\public\swigtest\testplsimple.pl"
+			RelativePath="..\..\source\example\plsimple\swig\testplsimple.pl"
 			>
 			<FileConfiguration
 				Name="Release|Win32"

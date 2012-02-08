@@ -1,25 +1,26 @@
-# Makefile of projects in a package
+# Makefile of projects in this package
 
 ROOTDIR =../..
 include $(ROOTDIR)/config.mk
 
 SUBDIRS =$(filter-out public, $(subst /,,$(dir $(wildcard */))))
+SWIGSUBDIRS  =$(addsuffix .swig, $(SUBDIRS))
 CLEANSUBDIRS =$(addsuffix .clean, $(SUBDIRS))
 
-.PHONY:   $(SUBDIRS) swig cleanswig
+.PHONY:   $(SUBDIRS) $(SWIGSUBDIRS) swig
 all:      $(SUBDIRS)
 
 $(SUBDIRS):
 	@echo --Making project $@...
 	@$(MAKE) -C $@
 
-swig:
-	@$(MAKE) -C x3manager/swig
+swig:   $(SWIGSUBDIRS)
 
-clean:	$(CLEANSUBDIRS) cleanswig
+$(SWIGSUBDIRS):
+	@!(test -d $(basename $@)/swig) || $(MAKE) -C $(basename $@)/swig
+
+clean:	$(CLEANSUBDIRS)
 
 $(CLEANSUBDIRS):
 	@$(MAKE) -C $(basename $@) clean
-
-cleanswig:
-	@$(MAKE) -C x3manager/swig clean
+	@!(test -d $(basename $@)/swig) || $(MAKE) -C $(basename $@)/swig clean

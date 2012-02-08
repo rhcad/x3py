@@ -4,18 +4,20 @@ ROOTDIR =..
 include $(ROOTDIR)/config.mk
 
 SUBDIRS =$(filter-out public, $(subst /,,$(dir $(wildcard */))))
+SWIGSUBDIRS  =$(addsuffix .swig, $(SUBDIRS))
 CLEANSUBDIRS =$(addsuffix .clean, $(SUBDIRS))
 
-.PHONY:   $(SUBDIRS) swig
+.PHONY:   $(SUBDIRS) $(SWIGSUBDIRS) swig
 all:      $(SUBDIRS)
 
 $(SUBDIRS):
 	@$(MAKE) -C $@
 
-swig:
-	@$(MAKE) -C core swig
-	@$(MAKE) -C example swig
+swig:   $(SWIGSUBDIRS)
 	@$(MAKE) -C public/swigtest
+
+$(SWIGSUBDIRS):
+	@$(MAKE) -C $(basename $@) swig
 
 clean:	$(CLEANSUBDIRS)
 	@$(MAKE) -C public/swigtest clean
