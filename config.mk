@@ -4,6 +4,7 @@
 INTERFACE_DIR =$(ROOTDIR)/interface
 INSTALL_DIR   =$(ROOTDIR)/build
 PLUGINS_DIR   =$(INSTALL_DIR)/plugins
+SRCPUB_DIR    =$(ROOTDIR)/source/public
 
 INCLUDES     += -I$(INTERFACE_DIR)/core
 ifdef PKGNAME

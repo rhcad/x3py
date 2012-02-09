@@ -14,13 +14,11 @@ $(SUBDIRS):
 	@$(MAKE) -C $@
 
 swig:   $(SWIGSUBDIRS)
-	@$(MAKE) -C public/swigtest
 
 $(SWIGSUBDIRS):
 	@$(MAKE) -C $(basename $@) swig
 
 clean:	$(CLEANSUBDIRS)
-	@$(MAKE) -C public/swigtest clean
 
 $(CLEANSUBDIRS):
 	@$(MAKE) -C $(basename $@) clean

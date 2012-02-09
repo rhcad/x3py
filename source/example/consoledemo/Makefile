@@ -4,4 +4,4 @@ PROJNAME =consoledemo
 APPTYPE  =console
 
 include $(ROOTDIR)/config.mk
-include ../../public/mk/Makefile.app
+include $(SRCPUB_DIR)/mk/Makefile.app

@@ -189,7 +189,7 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\..\source\public\swigtest\examples.i"
+			RelativePath="..\..\source\swigtest\examples\examples.i"
 			>
 			<FileConfiguration
 				Name="Release|Win32"
@@ -213,7 +213,7 @@
 			</FileConfiguration>
 		</File>
 		<File
-			RelativePath="..\..\source\public\swigtest\examples_java_wrap.cxx"
+			RelativePath="..\..\source\swigtest\examples\examples_java_wrap.cxx"
 			>
 		</File>
 	</Files>

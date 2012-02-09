@@ -3,4 +3,4 @@ PROJNAME =qtapp1
 APPTYPE  =qt
 
 include $(ROOTDIR)/config.mk
-include ../../public/mk/Makefile.qt4
+include $(SRCPUB_DIR)/mk/Makefile.qt4

@@ -8,4 +8,4 @@ LIBS    += $(LIBPATHFLAG)$(PLUGINS_DIR) \
            $(LIBFLAG)$(LIBPRE)pln1$(LIBEND) \
            $(LIBFLAG)$(LIBPRE)pln2$(LIBEND)
 
-include ../../public/mk/Makefile.pln
+include $(SRCPUB_DIR)/mk/Makefile.pln

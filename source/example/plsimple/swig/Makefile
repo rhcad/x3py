@@ -3,4 +3,4 @@ PKGNAME  =example
 PROJNAME =plsimple
 
 include $(ROOTDIR)/config.mk
-include ../../../public/swig/Makefile.swig
+include $(SRCPUB_DIR)/swig/Makefile.swig
