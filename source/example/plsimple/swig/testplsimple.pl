@@ -2,6 +2,8 @@
 
 use plsimple;
 
+print "Hello testplsimple in Perl.\n";
+
 $a = new plsimple::Simple("");
 print "Created a object of Simple: $a\n";
 

@@ -19,7 +19,9 @@ include $(SOURCES:.cpp=.d)
 endif
 
 clean:
+ifndef SWIG_TYPE
 	rm -rf *.d *.o *.obj
 ifdef cleanall
 	rm -rf $(TARGET)
+endif
 endif

@@ -136,13 +136,21 @@ int test()
 {
     x3::Object<ISimple> p(clsidSimple);
 
-    if (!p)
+    if (p)
     {
-        printf("plugin not loaded\n");
+        printf("The plugin is loaded (%s in %s).\n", 
+            p->getInterfaceName(), p->getClassName());
+    }
+    else
+    {
+        printf("The plugin is not loaded.\n");
         return 1;
     }
 
-    if (p->add(1, 2) != 3)
+    int sum = p->add(1, 2);
+    printf("p->add(1, 2): %d\n", sum);
+
+    if (sum != 3)
     {
         printf("diffrent implement\n");
         return 2;

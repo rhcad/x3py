@@ -2,7 +2,6 @@
 // 
 // 1. `cd' to the output directory (may be './build/java').
 // 2. Type the following commands to run this program:
-//       javac -cp   plsimple.jar   testplsimple.java
 //       java  -cp ./plsimple.jar:. testplsimple
 //
 
@@ -19,6 +18,7 @@ public class testplsimple {
   public static void main(String argv[]) 
   {
     // ----- Object creation -----
+    System.out.println( "Hello testplsimple in Java." );
     
     Simple a = new Simple("");
     System.out.println( "Created a object of Simple: " + a );
@@ -28,7 +28,11 @@ public class testplsimple {
     
     // ----- Call some methods -----
     
-    System.out.println( "Simple.add(1, 2) = " + a.add(1, 2) );
+    if (a.valid()) {
+        System.out.println( "Simple.add(1, 2) = " + a.add(1, 2) );
+    } else {
+        System.out.println( "Fail to created the internal object of Simple.");
+    }
     
     // ----- Delete everything -----
     // Note: this invokes the virtual destructor

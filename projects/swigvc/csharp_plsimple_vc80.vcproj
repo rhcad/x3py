@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="x3manager"
-	ProjectGUID="{69FE98EF-8F19-4357-856A-3402EC459D77}"
-	RootNamespace="x3manager"
+	Name="plsimple"
+	ProjectGUID="{45491E50-2739-4671-BBA9-C3389641E145}"
+	RootNamespace="csharp_plsimple"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -21,8 +21,8 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\build\$(ConfigurationName)\python"
-			IntermediateDirectory="..\..\build\$(ConfigurationName)\obj\_$(ProjectName)"
+			OutputDirectory="..\..\build\$(ConfigurationName)\csharp"
+			IntermediateDirectory="..\..\build\$(ConfigurationName)\obj\csharp_$(ProjectName)"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -44,8 +44,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface\core;&quot;$(PYTHON_INCLUDE)&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;SWIGSTDCALL=__cdecl"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				DebugInformationFormat="3"
@@ -61,9 +61,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)\_$(ProjectName).pyd"
+				OutputFile="$(OutDir)\_$(ProjectName).dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(PYTHON_LIB)&quot;"
+				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(IntDir)\$(ProjectName).pdb"
@@ -95,12 +95,14 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="C# compile post-build step"
+				CommandLine="if exist $(TargetDir)\test$(ProjectName).cs if exist $(TargetDir)\$(ProjectName).dll (&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;csc.exe -nologo -t:exe -r:$(ProjectName).dll test$(ProjectName).cs&#x0D;&#x0A;)"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
-			OutputDirectory="..\..\build\$(ConfigurationName)64\python"
-			IntermediateDirectory="..\..\build\$(ConfigurationName)64\obj\_$(ProjectName)"
+			OutputDirectory="..\..\build\$(ConfigurationName)64\csharp"
+			IntermediateDirectory="..\..\build\$(ConfigurationName)64\obj\csharp_$(ProjectName)"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -123,8 +125,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface\core;&quot;$(PYTHON64_INCLUDE)&quot;"
-				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL"
+				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example;&quot;$(JAVA64_INCLUDE)&quot;;&quot;$(JAVA64_INCLUDE)\win32&quot;"
+				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL;SWIGSTDCALL=__cdecl"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				DebugInformationFormat="3"
@@ -140,9 +142,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)\_$(ProjectName).pyd"
+				OutputFile="$(OutDir)\_$(ProjectName).dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(PYTHON64_LIB)&quot;"
+				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(IntDir)\$(ProjectName).pdb"
@@ -174,50 +176,16 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="C# compile post-build step"
+				CommandLine="if exist $(TargetDir)\test$(ProjectName).cs if exist $(TargetDir)\$(ProjectName).dll (&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;csc.exe -nologo -t:exe -r:$(ProjectName).dll test$(ProjectName).cs&#x0D;&#x0A;)"
 			/>
 		</Configuration>
 	</Configurations>
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="base_i"
-			>
-			<File
-				RelativePath="..\..\source\public\swig\observer.i"
-				>
-			</File>
-			<File
-				RelativePath="..\..\source\public\swig\plugin.i"
-				>
-			</File>
-		</Filter>
 		<File
-			RelativePath="..\..\source\core\x3manager\swig\testx3manager.py"
-			>
-			<FileConfiguration
-				Name="Release|Win32"
-				>
-				<Tool
-					Name="VCCustomBuildTool"
-					Description="Performing Custom Build Step"
-					CommandLine="if exist $(InputPath) if not exist $(TargetDir)\$(InputFileName) xcopy $(InputPath) $(TargetDir) /Q/Y/D&#x0D;&#x0A;"
-					Outputs="$(TargetDir)\$(InputFileName)"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|x64"
-				>
-				<Tool
-					Name="VCCustomBuildTool"
-					Description="Performing Custom Build Step"
-					CommandLine="if exist $(InputPath) if not exist $(TargetDir)\$(InputFileName) xcopy $(InputPath) $(TargetDir) /Q/Y/D&#x0D;&#x0A;"
-					Outputs="$(TargetDir)\$(InputFileName)"
-				/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath="..\..\source\core\x3manager\swig\x3manager.i"
+			RelativePath="..\..\source\example\plsimple\swig\plsimple.i"
 			>
 			<FileConfiguration
 				Name="Release|Win32"
@@ -225,8 +193,8 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating..."
-					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I&quot;$(ProjectDir)..\..\interface\core&quot; -o &quot;$(InputDir)$(InputName)_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
-					Outputs="$(InputDir)$(InputName)_wrap.cxx"
+					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;if exist $(IntDir)\*.cs del /Q $(IntDir)\*.cs&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -csharp -namespace x3.example.$(ProjectName) -dllimport _$(ProjectName) -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_csharp_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.cs (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;csc.exe -nologo -t:library -out:$(ProjectName).dll *.cs&#x0D;&#x0A;copy /Y $(ProjectName).dll $(TargetDir)&#x0D;&#x0A;)"
+					Outputs="$(InputDir)$(InputName)_csharp_wrap.cxx"
 				/>
 			</FileConfiguration>
 			<FileConfiguration
@@ -235,28 +203,34 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating..."
-					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I&quot;$(ProjectDir)..\..\interface\core&quot; -o &quot;$(InputDir)$(InputName)_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
-					Outputs="$(InputDir)$(InputName)_wrap.cxx"
+					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;if exist $(IntDir)\*.cs del /Q $(IntDir)\*.cs&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -csharp -namespace x3.example.$(ProjectName) -dllimport _$(ProjectName) -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_csharp_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.cs (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;csc.exe -nologo -t:library -out:$(ProjectName).dll *.cs&#x0D;&#x0A;copy /Y $(ProjectName).dll $(TargetDir)&#x0D;&#x0A;)"
+					Outputs="$(InputDir)$(InputName)_csharp_wrap.cxx"
 				/>
 			</FileConfiguration>
 		</File>
 		<File
-			RelativePath="..\..\source\core\x3manager\swig\x3manager_wrap.cxx"
+			RelativePath="..\..\source\example\plsimple\swig\plsimple_csharp_wrap.cxx"
+			>
+		</File>
+		<File
+			RelativePath="..\..\source\example\plsimple\swig\testplsimple.cs"
 			>
 			<FileConfiguration
 				Name="Release|Win32"
 				>
 				<Tool
-					Name="VCCLCompilerTool"
-					WarningLevel="2"
+					Name="VCCustomBuildTool"
+					CommandLine="if exist $(InputPath) xcopy $(InputPath) $(TargetDir) /Q/Y/D&#x0D;&#x0A;"
+					Outputs="$(TargetDir)\$(InputFileName)"
 				/>
 			</FileConfiguration>
 			<FileConfiguration
 				Name="Release|x64"
 				>
 				<Tool
-					Name="VCCLCompilerTool"
-					WarningLevel="2"
+					Name="VCCustomBuildTool"
+					CommandLine="if exist $(InputPath) xcopy $(InputPath) $(TargetDir) /Q/Y/D&#x0D;&#x0A;"
+					Outputs="$(TargetDir)\$(InputFileName)"
 				/>
 			</FileConfiguration>
 		</File>

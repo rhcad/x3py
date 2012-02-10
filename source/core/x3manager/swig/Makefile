@@ -1,4 +1,5 @@
-ROOTDIR =../../../..
+ROOTDIR  =../../../..
+PKGNAME  =core
 PROJNAME =x3manager
 
 include $(ROOTDIR)/config.mk

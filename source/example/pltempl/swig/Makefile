@@ -1,4 +1,4 @@
-ROOTDIR =../../../..
+ROOTDIR  =../../../..
 PKGNAME  =example
 PROJNAME =pltempl
 

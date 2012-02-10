@@ -16,7 +16,10 @@
 ROOTDIR =.
 include $(ROOTDIR)/config.mk
 
-.PHONY:	source clean cleanall rebuild python perl5 java ruby php r
+SWIGS  =python perl5 java csharp ruby php lua r
+CLEANSWIGS =$(addsuffix .clean, $(SWIGS))
+
+.PHONY:	source clean cleanall $(SWIGS)
 
 #==============================================================================
 # The default build target.
@@ -28,7 +31,7 @@ source:
 	@test -d $(PLUGINS_DIR) || mkdir $(PLUGINS_DIR)
 	@$(MAKE) -C source
 
-python perl5 java ruby php r:
+$(SWIGS):
 	@test -d $(INSTALL_DIR) || mkdir $(INSTALL_DIR)
 	@export SWIG_TYPE=$@; $(MAKE) -C source swig
 
@@ -39,5 +42,9 @@ clean:
 	@export clean=1; $(MAKE) -C source clean
 cleanall:
 	@export cleanall=1; $(MAKE) clean
-rebuild:
-	@$(MAKE) cleanall all
+
+#==============================================================================
+# Type `make python.clean' to clean up the targets built by 'make python'.
+#==============================================================================
+$(CLEANSWIGS):
+	@export SWIG_TYPE=$(basename $@); $(MAKE) cleanall

@@ -29,8 +29,6 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Delete $(OutDir)\$(ProjectName).jar"
-				CommandLine="if exist $(OutDir)\$(ProjectName).jar del /Q $(OutDir)\$(ProjectName).jar&#x0D;&#x0A;if exist $(IntDir)\*.java del /Q $(IntDir)\*.java&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -47,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example;&quot;$(JAVA_INCLUDE)&quot;;&quot;$(JAVA_INCLUDE)\win32&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;SWIGSTDCALL=__cdecl"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				DebugInformationFormat="3"
@@ -63,7 +61,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)\observerex.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames=""
@@ -98,7 +95,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Java compile post-build step"
-				CommandLine="if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA_BIN%jar&quot; cvfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;if exist $(TargetDir)\test$(ProjectName).java (&#x0D;&#x0A;&quot;%JAVA_BIN%javac&quot; -cp $(TargetDir)\$(ProjectName).jar $(TargetDir)\test$(ProjectName).java&#x0D;&#x0A;)"
+				CommandLine="if exist $(TargetDir)\test$(ProjectName).java if exist $(TargetDir)\$(ProjectName).jar (&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;&quot;%JAVA_BIN%javac&quot; -cp $(ProjectName).jar test$(ProjectName).java&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -111,8 +108,6 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Delete $(OutDir)\$(ProjectName).jar"
-				CommandLine="if exist $(OutDir)\$(ProjectName).jar del /Q $(OutDir)\$(ProjectName).jar&#x0D;&#x0A;if exist $(IntDir)\*.java del /Q $(IntDir)\*.java&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -130,7 +125,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example;&quot;$(JAVA64_INCLUDE)&quot;;&quot;$(JAVA64_INCLUDE)\win32&quot;"
-				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL"
+				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL;SWIGSTDCALL=__cdecl"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				DebugInformationFormat="3"
@@ -146,7 +141,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)\observerex.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames=""
@@ -181,7 +175,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Java compile post-build step"
-				CommandLine="if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA64_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA64_BIN%jar&quot; cvfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;if exist $(TargetDir)\test$(ProjectName).java (&#x0D;&#x0A;&quot;%JAVA64_BIN%javac&quot; -cp $(TargetDir)\$(ProjectName).jar $(TargetDir)\test$(ProjectName).java&#x0D;&#x0A;)"
+				CommandLine="if exist $(TargetDir)\test$(ProjectName).java if exist $(TargetDir)\$(ProjectName).jar (&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;&quot;%JAVA64_BIN%javac&quot; -cp $(ProjectName).jar test$(ProjectName).java&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -196,9 +190,9 @@
 				>
 				<Tool
 					Name="VCCustomBuildTool"
-					Description="Swig generating"
-					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I$(ProjectDir)..\..\interface\core -I$(ProjectDir)..\..\interface\example -o &quot;$(InputDir)\$(InputName)_java_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;"
-					Outputs="$(InputDir)\$(InputName)_java_wrap.cxx"
+					Description="Swig generating..."
+					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;if exist $(IntDir)\*.java del /Q $(IntDir)\*.java&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_java_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA_BIN%jar&quot; cfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
+					Outputs="$(InputDir)$(InputName)_java_wrap.cxx"
 				/>
 			</FileConfiguration>
 			<FileConfiguration
@@ -206,9 +200,9 @@
 				>
 				<Tool
 					Name="VCCustomBuildTool"
-					Description="Swig generating"
-					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I$(ProjectDir)..\..\interface\core -I$(ProjectDir)..\..\interface\example -o &quot;$(InputDir)\$(InputName)_java_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;"
-					Outputs="$(InputDir)\$(InputName)_java_wrap.cxx"
+					Description="Swig generating..."
+					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;if exist $(IntDir)\*.java del /Q $(IntDir)\*.java&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_java_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA64_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA64_BIN%jar&quot; cfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
+					Outputs="$(InputDir)$(InputName)_java_wrap.cxx"
 				/>
 			</FileConfiguration>
 		</File>

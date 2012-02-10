@@ -1,57 +1,14 @@
 # Included by Makefile of swig project.
 # x3py framework: https://github.com/rhcad/x3py
 
+# SWIG_TYPE == ?
 USE_PYTHON   :=$(shell echo $(SWIG_TYPE)|grep -i python)
 USE_PERL     :=$(shell echo $(SWIG_TYPE)|grep -i perl)
 USE_JAVA     :=$(shell echo $(SWIG_TYPE)|grep -i java)
+USE_CSHARP   :=$(shell echo $(SWIG_TYPE)|grep -i csharp)
 USE_RUBY     :=$(shell echo $(SWIG_TYPE)|grep -i ruby)
 
-ifdef USE_PYTHON
-SWIG_INCLUDE ?=$(PYTHON_INCLUDE)
-SWIG_LIBPATH :=$(PYTHON_LIB)
-SWIG_LIBFILE :=$(PYTHON_LIBFILE)
-SWIG_TESTEXT :=.py
-endif
-
-ifdef USE_PERL
-SWIG_INCLUDE ?=$(PERL5_INCLUDE)
-SWIG_LIBPATH :=$(PERL5_LIB)
-SWIG_LIBFILE :=$(PERL5_LIBFILE)
-SWIG_TESTEXT :=.pm
-endif
-
-ifdef USE_JAVA
-SWIG_INCLUDE ?=$(JAVA_INCLUDE)
-SWIG_TESTEXT :=.java
-endif
-
-ifdef USE_RUBY
-SWIG_INCLUDE ?=$(RUBY_INCLUDE)
-SWIG_LIBPATH :=$(RUBY_LIB)
-SWIG_LIBFILE :=$(RUBY_LIBFILE)
-endif
-
-SWIG_OUTDIR   =$(INSTALL_DIR)/$(SWIG_TYPE)
-
-ifdef SWIG_LIBPATH
-LIBS         += $(LIBPATHFLAG)"$(SWIG_LIBPATH)"
-endif
-ifdef SWIG_LIBFILE
-LIBS         += $(LIBFLAG)$(SWIG_LIBFILE)$(LIBEND)
-endif
-INCLUDES     += -I"$(SWIG_INCLUDE)"
-
-SWIG_CC       ="$(SWIG_BIN)swig" -c++ -$(SWIG_TYPE)
-ifdef USE_JAVA
-SWIG_CC      += -outdir java
-else
-SWIG_CC      += -outdir $(SWIG_OUTDIR)
-endif
-
-ifdef USE_PYTHON
-SWIG_PRE      =_
-endif
-
+# The extension of the target file to compile.
 ifdef IS_WIN
 ifdef USE_PYTHON
 SWIG_EXT      =.pyd
@@ -62,42 +19,149 @@ else
 SWIG_EXT      =.so
 endif
 
-#------------------------------------------
+# The prefix of the target file to compile.
+ifdef USE_PYTHON
+SWIG_PRE      =_
+else
+ifdef USE_CSHARP
+SWIG_PRE      =_
+endif
+endif
 
-TARGET   =$(SWIG_OUTDIR)/$(SWIG_PRE)$(PROJNAME)$(SWIG_EXT)
-WRAPFILE =$(PROJNAME)_$(SWIG_TYPE)_wrap
-TESTFILE :=test$(PROJNAME)$(SWIG_TESTEXT)
-OBJS     =$(WRAPFILE)$(OBJEXT)
+ifdef USE_PYTHON
+SWIG_INCLUDE ?=$(PYTHON_INCLUDE)
+SWIG_LIBPATH :=$(PYTHON_LIB)
+SWIG_LIBFILE :=$(PYTHON_LIBFILE)
+SWIG_TESTEXT  =.py
+WRAPTARGET    =$(PROJNAME).py
+endif
 
-all:       $(TARGET)
-$(TARGET): $(WRAPFILE).cxx $(OBJS)
+ifdef USE_PERL
+SWIG_INCLUDE ?=$(PERL5_INCLUDE)
+SWIG_LIBPATH :=$(PERL5_LIB)
+SWIG_LIBFILE :=$(PERL5_LIBFILE)
+SWIG_TESTEXT  =.pl
+WRAPTARGET    =$(PROJNAME).pm
+endif
+
+ifdef USE_JAVA
+SWIG_INCLUDE ?=$(JAVA_INCLUDE)
+SWIG_TESTEXT  =.java
+WRAPTARGET    =$(PROJNAME).jar
+endif
+
+ifdef USE_CSHARP
+SWIG_TESTEXT  =.cs
+WRAPTARGET    =$(PROJNAME)$(SWIG_EXT)
+endif
+
+ifdef USE_RUBY
+SWIG_INCLUDE ?=$(RUBY_INCLUDE)
+SWIG_LIBPATH :=$(RUBY_LIB)
+SWIG_LIBFILE :=$(RUBY_LIBFILE)
+SWIG_TESTEXT  =.rb
+WRAPTARGET    =$(PROJNAME).rb
+endif
+
+ifdef SWIG_INCLUDE
+INCLUDES     += -I"$(SWIG_INCLUDE)"
+endif
+ifdef SWIG_LIBPATH
+LIBS         += $(LIBPATHFLAG)"$(SWIG_LIBPATH)"
+endif
+ifdef SWIG_LIBFILE
+LIBS         += $(LIBFLAG)$(SWIG_LIBFILE)$(LIBEND)
+endif
+
+ifdef USE_JAVA
+SWIGTMP       =._$(SWIG_TYPE)
+else
+ifdef USE_CSHARP
+SWIGTMP       =._$(SWIG_TYPE)
+endif
+endif
+
+SWIG_OUTDIR   =$(INSTALL_DIR)/$(SWIG_TYPE)
+
+SWIG_CC       ="$(SWIG_BIN)swig" -c++ -$(SWIG_TYPE)
+ifdef USE_CSHARP
+PRODUCT      ?=x3
+SWIG_CC      += -namespace $(PRODUCT).$(PKGNAME).$(PROJNAME) -dllimport _$(PROJNAME)
+endif
+ifdef SWIGTMP
+SWIG_CC      += -outdir $(SWIGTMP)
+else
+SWIG_CC      += -outdir $(SWIG_OUTDIR)
+endif
+
+#------------------------------------------------
+TARGET              =$(SWIG_PRE)$(PROJNAME)$(SWIG_EXT)
+WRAPFILE            =$(PROJNAME)_$(SWIG_TYPE)_wrap
+OBJS                =$(WRAPFILE)$(OBJEXT)
+TESTFILE           :=test$(PROJNAME)$(SWIG_TESTEXT)
+REMOTE_TARGET       =$(SWIG_OUTDIR)/$(TARGET)
+REMOTE_TESTFILE    :=$(SWIG_OUTDIR)/$(TESTFILE)
+REMOTE_WRAPTARGET   =$(SWIG_OUTDIR)/$(WRAPTARGET)
+HASTESTFILE         =(test -e $(TESTFILE))
+
+all: $(REMOTE_TARGET) $(REMOTE_WRAPTARGET) $(REMOTE_TESTFILE)
+
+$(REMOTE_TARGET): $(OBJS)
 	-@test -d $(SWIG_OUTDIR) || mkdir $(SWIG_OUTDIR)
 	$(LINK) $(LDFLAGS) $(OUTFLAG)$@ $(OBJS) $(LIBS)
+
+%$(OBJEXT): %.cxx
+	$(CPP) $(subst -Wall ,,$(subst -W4 ,,$(CPPFLAGS))) $(INCLUDES) -c $<
+
+#------------------------------------------------
 
 $(WRAPFILE).cxx: $(PROJNAME).i
 	@echo --Making $(SWIG_TYPE) project $(PROJNAME)...
 	-@test -d $(SWIG_OUTDIR) || mkdir $(SWIG_OUTDIR)
-ifdef USE_JAVA
-	-@test -d java || mkdir java
+ifdef SWIGTMP
+	-@test -d $(SWIGTMP) || mkdir $(SWIGTMP); rm -rf $(SWIGTMP)/*.*
 endif
 	$(SWIG_CC) -o $(WRAPFILE).cxx $(INCLUDES) $<
-ifdef SWIG_TESTEXT
-	-@!(test -e $(TESTFILE)) || cp $(TESTFILE) $(SWIG_OUTDIR)
+
+#------------------------------------------------
+
+$(REMOTE_WRAPTARGET): $(WRAPFILE).cxx
+ifdef SWIGTMP
+	@test -d $(SWIGTMP) || (rm -rf $(WRAPFILE).cxx; $(MAKE) $(WRAPFILE).cxx)
 endif
 ifdef USE_JAVA
-	"$(JAVA_BIN)javac" java/*.java
-	cd java; "$(JAVA_BIN)jar" cvfM ../$(SWIG_OUTDIR)/$(PROJNAME).jar *.class
-	@rm -rf java/*.class
-	@!(test -e $(TESTFILE)) || "$(JAVA_BIN)javac" -cp $(SWIG_OUTDIR)/$(PROJNAME).jar $(SWIG_OUTDIR)/$(TESTFILE)
+	@cd $(SWIGTMP); "$(JAVA_BIN)javac" *.java; \
+	    "$(JAVA_BIN)jar" cfM $(WRAPTARGET) *.class; \
+	    cp -v $(WRAPTARGET) ../$(SWIG_OUTDIR)
+endif
+ifdef USE_CSHARP
+	@cd $(SWIGTMP); "$(CSC_BIN)csc" -nologo -t:library -out:$(WRAPTARGET) *.cs; \
+	    cp -v $(WRAPTARGET) ../$(SWIG_OUTDIR)
 endif
 
-$(WRAPFILE)$(OBJEXT): $(WRAPFILE).cxx
-	$(CPP) $(subst -Wall ,,$(subst -W4 ,,$(CPPFLAGS))) $(INCLUDES) -c $<
+#------------------------------------------------
+
+$(REMOTE_TESTFILE): $(REMOTE_WRAPTARGET)
+ifdef SWIG_TESTEXT
+	@!$(HASTESTFILE) || cp -v -u $(TESTFILE) $(SWIG_OUTDIR)
+ifdef USE_JAVA
+	@!$(HASTESTFILE) || (cd $(SWIG_OUTDIR); \
+	    "$(JAVA_BIN)javac" -cp $(WRAPTARGET) $(TESTFILE))
+endif
+ifdef USE_CSHARP
+	@!$(HASTESTFILE) || (cd $(SWIG_OUTDIR); \
+	    "$(CSC_BIN)csc" -nologo -t:exe -r:$(WRAPTARGET) $(TESTFILE))
+endif
+endif #SWIG_TESTEXT
+
+#------------------------------------------------
 
 clean:
-	rm -rf *$(OBJEXT)  *_wrap.cxx *_wrap.h  java
+ifndef SWIG_TYPE
+	rm -rf *$(OBJEXT)  *_wrap.*  ._*
+else
+	rm -rf $(WRAPFILE)*  $(SWIGTMP)
 ifdef cleanall
-	rm -rf $(TARGET)
-	rm -rf $(SWIG_OUTDIR)python/$(PROJNAME).py* $(SWIG_OUTDIR)python/$(SWIG_PRE)$(PROJNAME)$(SWIG_EXT)
-	rm -rf $(SWIG_OUTDIR)java/$(PROJNAME).jar $(SWIG_OUTDIR)java/$(PROJNAME)$(SWIG_EXT)
+	rm -rf $(REMOTE_TARGET) $(REMOTE_WRAPTARGET) $(REMOTE_TESTFILE)
+endif
 endif

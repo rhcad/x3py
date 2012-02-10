@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="perl_plsimple"
+	Name="plsimple"
 	ProjectGUID="{71C9ABD3-9DE0-492F-B5E4-55AB51E2E916}"
 	RootNamespace="perl_plsimple"
 	Keyword="Win32Proj"
@@ -59,7 +59,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="&quot;$(PERL5_LIBFILE)&quot;"
-				OutputFile="$(OutDir)\plsimple.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(PERL5_LIB)&quot;"
 				IgnoreDefaultLibraryNames=""
@@ -107,9 +106,9 @@
 				>
 				<Tool
 					Name="VCCustomBuildTool"
-					Description="Swig generating"
-					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -perl5 -I$(ProjectDir)..\..\interface\core -I$(ProjectDir)..\..\interface\example -o &quot;$(InputDir)\$(InputName)_perl_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
-					Outputs="$(InputDir)\$(InputName)_perl_wrap.cxx"
+					Description="Swig generating..."
+					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -perl5 -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_perl_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
+					Outputs="$(InputDir)$(InputName)_perl_wrap.cxx"
 				/>
 			</FileConfiguration>
 		</File>
@@ -133,7 +132,7 @@
 				>
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="if exist $(InputPath) if not exist $(TargetDir)\$(InputFileName) xcopy $(InputPath) $(TargetDir) /S/Q/Y/D&#x0D;&#x0A;"
+					CommandLine="if exist $(InputPath) if not exist $(TargetDir)\$(InputFileName) xcopy $(InputPath) $(TargetDir) /Q/Y/D&#x0D;&#x0A;"
 					Outputs="$(TargetDir)\$(InputFileName)"
 				/>
 			</FileConfiguration>
