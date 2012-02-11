@@ -2,7 +2,7 @@
         https://github.com/rhcad/x3py
 
 x3py is designed as a lightweight plugin-framework that uses C++ and STL.
-This framework can integrate with languages including Python, Perl, Java or C# by using SWIG.
+It can integrate with languages including Python, Perl, Java or C# by using SWIG.
 x3py can be used to easily develop plugins and applications for multiple platforms.
 
 For MSWindows installation notes, see INSTALL-win.txt .
