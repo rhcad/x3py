@@ -10,14 +10,17 @@ Compile this framework on Linux, MacOSX or Unix as the following steps.
      Type 'make all python java perl5 ruby' can compile more targets.
 
   d. You can remove the program object files from the source code
-     directory by typing `make clean'.
+     directory by typing `make clean' or `make cleanall'.
+     Type `make python.clean' to clean up the only targets built by 'make python'.
 
-You may need to customize config.mk for compiling swig-projects.
-Some possible environment variables used in config.mk:
+Environment variables setting for compiling swig-projects (optionally, see config.mk).
+Readme about more variables in config.mk: https://github.com/rhcad/x3py/wiki/MakeVars
 
   PYTHON_INCLUDE : Set this to the directory that contains python.h .
+  PYTHON_LIB     : Set this to the python library including path for linking.
   PYTHON_LIBFILE : Set this to the python library file name for linking.
   PERL5_INCLUDE : Set this to the directory that contains perl.h .
+  PERL5_LIB     : Set this to the Perl library including path for linking.
   PERL5_LIBFILE : Set this to the Perl library file name for linking.
   JAVA_INCLUDE : Set this to the directory containing jni.h .
 

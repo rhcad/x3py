@@ -7,8 +7,8 @@ OBJS     =$(SOURCES:.cpp=$(OBJEXT))
 
 ifdef QT4_INCLUDE
 
-INCLUDES += -I$(INTERFACE_DIR)/example \
-            -I"$(QT4_INCLUDE)" \
+INCLUDES += -I"$(QT4_INCLUDE)" \
+            -I"$(QT4_INCLUDE)/QtCore" \
             -I"$(QT4_INCLUDE)/QtGui"
 
 ifdef IS_WIN

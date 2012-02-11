@@ -8,11 +8,11 @@ You can compile this framework using VC++ or GCC on Windows x86 or x64.
   You'll see core, example and swig packages in the solution file.
   The swig package is a optional package, so you can unload projects not needed.
   
-  If you need to use python, perl or java, then install extra softwares
+  If you need to use python, perl, csharp or java, then install extra softwares
   and compile some projects in swig package.
   Note: After setting environment variables, you may need to restart Visual Studio.
 
-2. Compiling using GNU GCC (not need VC++).
+2. Compiling using MinGW GCC (not need VC++).
 
   First install MinGW-GCC and MSYS on Windows.
     GCC:  http://tdm-gcc.tdragon.net/download
@@ -25,12 +25,13 @@ You can compile this framework using VC++ or GCC on Windows x86 or x64.
   b. Type `make' to compile plugin-projects.
      The plugins are outputed to './build/plugins'.
   
-  c. If you need to use python, perl or java, then install extra softwares
+  c. If you need to use python, perl, csharp or java, then install extra softwares
      and type `make python' or `make all python' to compile swig-projects.
-     Type 'make all python java perl5' can compile more targets.
+     Type 'make all python csharp java perl5' can compile more targets.
 
   d. You can remove the program object files from the source code
-     directory by typing `make clean'.
+     directory by typing `make clean' or `make cleanall'.
+     Type `make python.clean' to clean up the only targets built by 'make python'.
 
 3. Installing some extra softwares for compiling swig-projects (optionally).
 
@@ -40,6 +41,7 @@ You can compile this framework using VC++ or GCC on Windows x86 or x64.
     JDK:     http://www.oracle.com/technetwork/java/javase/downloads/
 
 4. Environment variables setting for compiling swig-projects (optionally).
+   Readme about more variables in config.mk: https://github.com/rhcad/x3py/wiki/MakeVars
 
   a. swigwin (required)
   
@@ -51,39 +53,51 @@ You can compile this framework using VC++ or GCC on Windows x86 or x64.
   
   PYTHON_INCLUDE : Set this to the directory that contains python.h .
   PYTHON_LIB     : Set this to the python library including path for linking.
-  PYTHON64_INCLUDE : Like PYTHON_INCLUDE, but for Python x64 edition.
-  PYTHON64_LIB   : Like PYTHON_LIB, but for Python x64 edition.
+  PYTHON_LIBFILE : Set this to the python library file name (no extension and path) 
+                   for linking using GCC (not used in VS IDE).
+  PYTHON64_INCLUDE : Like PYTHON_INCLUDE, but for Python x64 edition and used only in VS IDE.
+  PYTHON64_LIB   : Like PYTHON_LIB, but for Python x64 edition and used only in VS IDE.
   
   Example using ActivePython 2.7:
   PYTHON_INCLUDE: D:\python27\include
-  PYTHON_LIB: D:\python27\libs
+  PYTHON_LIB:     D:\python27\libs
+  PYTHON_LIBFILE: python27   (used only in GCC)
   
   c. Perl
   
   PERL5_INCLUDE : Set this to the directory that contains perl.h .
-  PERL5_LIBFILE : Set this to the Perl library file name for linking.
+  PERL5_LIB     : Set this to the Perl library including path for linking.
+  PERL5_LIBFILE : Set this to the Perl library file name (no extension and path) for linking.
   
   Example using ActivePerl 5.14:
   PERL5_INCLUDE: D:\perl\lib\CORE
-  PERL5_LIBFILE: D:\perl\lib\CORE\perl514.lib
+  PERL5_LIB    : D:\perl\lib\CORE
+  PERL5_LIBFILE: perl514
   
   d. Java
   
   JAVA_INCLUDE : Set this to the directory containing jni.h
-  JAVA64_INCLUDE : Like JAVA_INCLUDE, but for JDK x64 edition.
+  JAVA64_INCLUDE : Like JAVA_INCLUDE, but for JDK x64 edition and used only in VS IDE.
   
   JAVA_BIN : Set this to the bin directory (end with '\') containing javac.exe
   You can add this directory to the 'PATH' variable instead of setting JAVA_BIN.
-  JAVA64_BIN : Like JAVA_BIN, but for JDK x64 edition.
+  JAVA64_BIN : Like JAVA_BIN, but for JDK x64 edition and used only in VS IDE.
   
   Example using JDK1.6:
   JAVA_INCLUDE: D:\jdk1.6\include
   JAVA_BIN: D:\jdk1.6\bin\
+  
+  e. C# (csharp)
+  
+  CSC_BIN : Set this to the bin directory (end with '\') containing csc.exe. It's used only in GCC.
+  Example: C:\Windows\Microsoft.NET\Framework\v3.5\
 
 5. Running and testing after compiling.
 
-  Run consoledemo.exe to see the result number.
-  Run test*.py in 'build/python' directory or type 'python testplsimple.py' under console.
+  Run consoledemo.exe or csharp/testplsimple.exe under console.
+  Run test*.py in 'build/python' directory or type 'python testplsimple.py' under console or IDLE.
+  Run test*.pl in 'build/perl' directory or type 'perl testplsimple.pl' under console.
+  Run test*.java in 'build/java' directory or type 'java ./plsimple.jar:. testplsimple' under console.
   
   Debugging swig-project in VC++:
   a. Set swig-project as startup project. 
