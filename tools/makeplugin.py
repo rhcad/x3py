@@ -11,7 +11,7 @@ Usage:      python makeplugin.py projname [pkgname] [baseproj] [basepkg]
             baseproj: project name, the default value is 'pltempl'.
             basepkg: package name of the template project, the default value is 'example'.
 
-Creator:    ooyg <rhcad@hotmail.com>
+Creator:    Zhang Yungui <rhcad@hotmail.com>
 Date:       2011.11.14
 ChangeList:
     1. Implemented the function: multireplace, copyfiles, makeproj
@@ -58,6 +58,7 @@ def makeproj(projname, pkgname, baseproj, basepkg, needswig):
         raise AttributeError, projname
     if not os.path.exists(basepath):
         raise OSError, basepath
+    
     if not os.path.exists(os.path.join(codepath, pkgname)):
         os.makedirs(os.path.join(codepath, pkgname))
 

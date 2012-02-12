@@ -75,6 +75,9 @@ HMODULE x3LoadLibrary(const char* filename)
         if (!hmod)                  // base on the current direction
         {
             getcwd(fullpath, MAX_PATH);
+#ifdef CURMOD_IN_CWDSUBDIR
+           if (_strnicmp(filename, "../", 3) == 0) filename += 3;
+#endif
             PathAppendA(fullpath, filename);
             hmod = dlopen(fullpath, RTLD_LAZY);
         }

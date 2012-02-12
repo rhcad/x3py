@@ -14,7 +14,7 @@
 #define PLUGINS_MAXCOUNT 20
 #endif
 
-BEGIN_NAMESPACE_X3
+namespace x3 {
 
 static HMODULE  s_modules[PLUGINS_MAXCOUNT] = { NULL };
 static int      s_nplugin = 0;
@@ -58,6 +58,7 @@ void unloadPlugins()
 }
 
 #ifndef X3_EXCLUDE_CREATEOBJECT
+class IObject;
 bool createObject(const char* clsid, long iid, IObject** p)
 {
     typedef bool (*F)(const char*, long, IObject**);
@@ -67,5 +68,5 @@ bool createObject(const char* clsid, long iid, IObject** p)
 HMODULE getManagerModule() { return s_modules[0]; }
 #endif
 
-END_NAMESPACE_X3
+} // x3
 #endif

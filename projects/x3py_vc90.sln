@@ -36,7 +36,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plsimple", "swigvc\plsimple
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "observerex", "swigvc\observerex_vc90.vcproj", "{61C5DFC6-A04A-4D7D-869A-2ABE861B506C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "perl_plsimple", "swigvc\perl_plsimple_vc90.vcproj", "{71C9ABD3-9DE0-492F-B5E4-55AB51E2E916}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plsimple", "swigvc\perl_plsimple_vc90.vcproj", "{71C9ABD3-9DE0-492F-B5E4-55AB51E2E916}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plsimple", "swigvc\java_plsimple_vc90.vcproj", "{64998DFB-1AAE-44E2-AEB4-E2794249AA18}"
 EndProject

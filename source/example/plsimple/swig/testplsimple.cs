@@ -1,7 +1,7 @@
 // This example illustrates how C++ interfaces can be used from C#.
 
 using System;
-using x3.example.plsimple;
+using example.plsimple;
 
 public class testplsimple
 {

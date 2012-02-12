@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Function:   Copy *_vc90.vcproj to *_vc80.vcproj.
-Creator:    ooyg <rhcad@hotmail.com>
+Creator:    Zhang Yungui <rhcad@hotmail.com>
 Date:       2011.11.14
 """
 
@@ -21,9 +21,11 @@ def copyvcfiles(dir, pairs):
         elif (fn.find("_vc90.vcproj") > 0 or fn.find("_vc90.sln") > 0) \
             and fn.find(".user") < 0:
             destfile = srcfile.replace("_vc90.", "_vc80.")
+            oldtext = open(destfile).read() if os.path.exists(destfile) else ''
             text = multireplace(open(srcfile).read(), pairs)
-            open(destfile, 'w').write(text)
-            print(destfile)
+            if text != oldtext:
+                open(destfile, 'w').write(text)
+                print(destfile)
 
 if __name__=="__main__":
     pairs = { "Format Version 10.00" : "Format Version 9.00",   \

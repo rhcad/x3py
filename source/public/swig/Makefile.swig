@@ -81,12 +81,16 @@ SWIGTMP       =._$(SWIG_TYPE)
 endif
 endif
 
-SWIG_OUTDIR   =$(INSTALL_DIR)/$(SWIG_TYPE)
+SWIG_TESTDIR ?=$(INSTALL_DIR)/$(SWIG_TYPE)
+ifdef USE_PYTHON
+SWIG_OUTDIR  ?=$(SWIG_TESTDIR)/$(PKGNAME)
+else
+SWIG_OUTDIR  ?=$(SWIG_TESTDIR)
+endif
 
 SWIG_CC       ="$(SWIG_BIN)swig" -c++ -$(SWIG_TYPE)
 ifdef USE_CSHARP
-PRODUCT      ?=x3
-SWIG_CC      += -namespace $(PRODUCT).$(PKGNAME).$(PROJNAME) -dllimport _$(PROJNAME)
+SWIG_CC      += -namespace $(PKGNAME).$(PROJNAME) -dllimport _$(PROJNAME)
 endif
 ifdef SWIGTMP
 SWIG_CC      += -outdir $(SWIGTMP)
@@ -100,8 +104,8 @@ WRAPFILE            =$(PROJNAME)_$(SWIG_TYPE)_wrap
 OBJS                =$(WRAPFILE)$(OBJEXT)
 TESTFILE           :=test$(PROJNAME)$(SWIG_TESTEXT)
 REMOTE_TARGET       =$(SWIG_OUTDIR)/$(TARGET)
-REMOTE_TESTFILE    :=$(SWIG_OUTDIR)/$(TESTFILE)
 REMOTE_WRAPTARGET   =$(SWIG_OUTDIR)/$(WRAPTARGET)
+REMOTE_TESTFILE    :=$(SWIG_TESTDIR)/$(TESTFILE)
 HASTESTFILE         =(test -e $(TESTFILE))
 
 all: $(REMOTE_TARGET) $(REMOTE_WRAPTARGET) $(REMOTE_TESTFILE)
@@ -117,11 +121,15 @@ $(REMOTE_TARGET): $(OBJS)
 
 $(WRAPFILE).cxx: $(PROJNAME).i
 	@echo --Making $(SWIG_TYPE) project $(PROJNAME)...
+	-@test -d $(SWIG_TESTDIR) || mkdir $(SWIG_TESTDIR)
 	-@test -d $(SWIG_OUTDIR) || mkdir $(SWIG_OUTDIR)
 ifdef SWIGTMP
 	-@test -d $(SWIGTMP) || mkdir $(SWIGTMP); rm -rf $(SWIGTMP)/*.*
 endif
 	$(SWIG_CC) -o $(WRAPFILE).cxx $(INCLUDES) $<
+ifdef USE_PYTHON
+	@test -e $(SWIG_OUTDIR)/__init__.py || echo "#empty" > $(SWIG_OUTDIR)/__init__.py
+endif
 
 #------------------------------------------------
 
@@ -143,13 +151,13 @@ endif
 
 $(REMOTE_TESTFILE): $(REMOTE_WRAPTARGET)
 ifdef SWIG_TESTEXT
-	@!$(HASTESTFILE) || cp -v -u $(TESTFILE) $(SWIG_OUTDIR)
+	@!$(HASTESTFILE) || cp -v -u $(TESTFILE) $(SWIG_TESTDIR)
 ifdef USE_JAVA
-	@!$(HASTESTFILE) || (cd $(SWIG_OUTDIR); \
+	@!$(HASTESTFILE) || (cd $(SWIG_TESTDIR); \
 	    "$(JAVA_BIN)javac" -cp $(WRAPTARGET) $(TESTFILE))
 endif
 ifdef USE_CSHARP
-	@!$(HASTESTFILE) || (cd $(SWIG_OUTDIR); \
+	@!$(HASTESTFILE) || (cd $(SWIG_TESTDIR); \
 	    "$(CSC_BIN)csc" -nologo -t:exe -r:$(WRAPTARGET) $(TESTFILE))
 endif
 endif #SWIG_TESTEXT

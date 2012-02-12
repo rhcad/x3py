@@ -3,12 +3,15 @@
 */
 #ifndef X3_PLUGIN_SWIGI
 #define X3_PLUGIN_SWIGI
+
 %{
-#ifndef PLUGIN_PATH
-#define PLUGIN_PATH "../plugins/"
-#endif
-#include <portability/portimpl.h>
+#include <portability/x3port.h>
 #include <nonplugin/useplugin.h>
+
+#define X3THROW_NULLPOINTERERROR(name) \
+    printf("NullPointerError occurs, interface name: %s\n", name); \
+    throw x3::NullPointerError()
+#include <objptr.h>
 %}
 
 %include <iobject.h>

@@ -1,11 +1,11 @@
 # This example illustrates how C++ interfaces can be used from Python.
 
-from plsimple import *
+from example.plsimple import *
 
 a = Simple("")
 if a.valid():
     print("add(1, 2) = %d" % a.add(1, 2))
-else
+else:
     print("Fail to create the wrapper object.")
 
 b = Simple2(a.p())

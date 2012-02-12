@@ -102,7 +102,7 @@ You can compile this framework using VC++ or GCC on Windows x86 or x64.
   Debugging swig-project in VC++:
   a. Set swig-project as startup project. 
   b. Set swig-project's debugging properties:
-     Command: pythonw.exe
-     Command Arguments: $(TargetDir)\test$(ProjectName).py
-     Working Directory: $(TargetDir)
-  c. Start debugging, then you may see "pythonw.exe: has exited with code 0" when no error occurs.
+     Command: $(PYTHON_LIB)\..\python.exe
+     Command Arguments: $(TargetDir)..\test$(ProjectName).py
+     Working Directory: $(TargetDir)..
+  c. Start debugging, then you may see "python.exe: has exited with code 0" when no error occurs.

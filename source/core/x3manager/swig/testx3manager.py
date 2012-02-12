@@ -1,8 +1,8 @@
 # This example illustrates how multiple C++ plugins can be used from Python.
 
-from x3manager import *
-import plsimple as A
-import observerex as B
+from core.x3manager import *
+import example.plsimple as A
+import example.observerex as B
 
 a = Plugins("")
 if not a.valid(): print("Plugins not created.")

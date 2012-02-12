@@ -1,4 +1,4 @@
-import observerex as ex
+import example.observerex as ex
 
 class PyObserver(ex.ObserverDemo):
 	def __init__(self):

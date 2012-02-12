@@ -19,7 +19,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="..\..\build\$(ConfigurationName)\perl5"
-			IntermediateDirectory="..\..\build\$(ConfigurationName)\obj\_$(ProjectName)"
+			IntermediateDirectory="..\..\build\$(ConfigurationName)\obj\perl_$(ProjectName)"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -107,7 +107,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating..."
-					CommandLine="if not exist $(OutDir) mkdir $(OutDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -perl5 -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_perl_wrap.cxx&quot; -outdir $(OutDir) $(InputPath)&#x0D;&#x0A;"
+					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -perl5 -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_perl_wrap.cxx&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;"
 					Outputs="$(InputDir)$(InputName)_perl_wrap.cxx"
 				/>
 			</FileConfiguration>
@@ -132,7 +132,7 @@
 				>
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="if exist $(InputPath) if not exist $(TargetDir)\$(InputFileName) xcopy $(InputPath) $(TargetDir) /Q/Y/D&#x0D;&#x0A;"
+					CommandLine="if exist $(InputPath) xcopy $(InputPath) $(TargetDir) /Q/Y/D&#x0D;&#x0A;"
 					Outputs="$(TargetDir)\$(InputFileName)"
 				/>
 			</FileConfiguration>

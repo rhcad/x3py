@@ -2,12 +2,7 @@
 #ifndef X3_NONPLUGIN_USE_PLUGINS_H
 #define X3_NONPLUGIN_USE_PLUGINS_H
 
-#include <objptr.h>
 #include <utilfunc/loadmodule.h>
-
-#ifdef X3_CORE_PORTABILITY_H
-#include "../portability/portimpl.h"
-#endif
 
 // PLUGIN_PATH:         plugins's relative folder.
 // SELF_MODULE_NAME:    file name of the caller.
@@ -34,10 +29,21 @@
 #endif // SELF_MODULE_NAME
 
 #ifndef PLUGIN_PATH
+#ifdef SWIGPYTHON
+#define PLUGIN_PATH "../../plugins/"
+#define CURMOD_IN_CWDSUBDIR
+#elif defined(SWIGINLINE)
+#define PLUGIN_PATH "../plugins/"
+#else
 #define PLUGIN_PATH ""
 #endif
+#endif // PLUGIN_PATH
 
-BEGIN_NAMESPACE_X3
+#ifdef X3_CORE_PORTABILITY_H
+#include "../portability/portimpl.h"
+#endif
+
+namespace x3 {
 
 static LoadModuleHelper* s_plugins[10] = { NULL };
 static int s_nplugin = 0;
@@ -49,6 +55,7 @@ HMODULE getManagerModule()
 
 #ifndef CREATEOBJECTIMPL
 #define CREATEOBJECTIMPL
+class IObject;
 bool createObject(const char* clsid, long iid, IObject** p)
 {
     typedef bool (*F)(const char*, long, IObject**);
@@ -94,5 +101,5 @@ struct AutoLoadPlugins
     }
 };
 
-END_NAMESPACE_X3
+} // x3
 #endif

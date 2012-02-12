@@ -8,6 +8,10 @@ BEGIN_NAMESPACE_X3
 
 #ifndef SWIG
 bool createObject(const char* clsid, long iid, IObject** p);
+struct NullPointerError {};
+#ifndef X3THROW_NULLPOINTERERROR
+#define X3THROW_NULLPOINTERERROR(name) throw x3::NullPointerError()
+#endif
 #endif // SWIG
 
 template <class I> class Object
@@ -43,6 +47,9 @@ public:
 
     I* operator->() const
     {
+        if (!_p) {
+            X3THROW_NULLPOINTERERROR(I::getInterfaceName());
+        }
         return _p;
     }
 
