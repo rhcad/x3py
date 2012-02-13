@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="examples"
-	ProjectGUID="{651F7A14-5642-4EA2-94E3-A732DA6D6137}"
-	RootNamespace="java_examples"
+	Name="plswigsimp"
+	ProjectGUID="{C0AFBE04-ACA5-40CF-89FD-50E3ABD7E842}"
+	RootNamespace="java_plswigsimp"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -182,34 +182,96 @@
 	<References>
 	</References>
 	<Files>
-		<File
-			RelativePath="..\..\source\swigtest\examples\examples.i"
+		<Filter
+			Name="Swig Files"
 			>
-			<FileConfiguration
-				Name="Release|Win32"
+			<File
+				RelativePath="..\..\source\example\plswigsimp\plswigsimp.i"
 				>
-				<Tool
-					Name="VCCustomBuildTool"
-					Description="Swig generating..."
-					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.java del /Q $(IntDir)\*.java&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_java_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA_BIN%jar&quot; cfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
-					Outputs="$(InputDir)$(InputName)_java_wrap.cxx"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|x64"
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Swig generating..."
+						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.java del /Q $(IntDir)\*.java&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_java_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA_BIN%jar&quot; cfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
+						Outputs="$(InputDir)$(InputName)_java_wrap.cxx"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Swig generating..."
+						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.java del /Q $(IntDir)\*.java&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_java_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA64_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA64_BIN%jar&quot; cfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
+						Outputs="$(InputDir)$(InputName)_java_wrap.cxx"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\source\example\plswigsimp\plswigsimp_java_wrap.cxx"
 				>
-				<Tool
-					Name="VCCustomBuildTool"
-					Description="Swig generating..."
-					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.java del /Q $(IntDir)\*.java&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_java_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA64_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA64_BIN%jar&quot; cfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
-					Outputs="$(InputDir)$(InputName)_java_wrap.cxx"
-				/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath="..\..\source\swigtest\examples\examples_java_wrap.cxx"
+			</File>
+			<File
+				RelativePath="..\..\source\example\plswigsimp\testplswigsimp.java"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="if exist $(InputPath) xcopy $(InputPath) $(TargetDir) /Q/Y/D&#x0D;&#x0A;"
+						Outputs="$(TargetDir)\$(InputFileName)"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="if exist $(InputPath) xcopy $(InputPath) $(TargetDir) /Q/Y/D&#x0D;&#x0A;"
+						Outputs="$(TargetDir)\$(InputFileName)"
+					/>
+				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
 			>
-		</File>
+			<File
+				RelativePath="..\..\source\example\plswigsimp\plswigsimp.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Source Files"
+			>
+			<File
+				RelativePath="..\..\source\example\plswigsimp\module.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\source\example\plswigsimp\plswigsimp.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Interface Files"
+			>
+			<File
+				RelativePath="..\..\interface\example\plswigsimp\isimple.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\interface\example\plswigsimp\isimple2.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\interface\example\plswigsimp\isimple3.h"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

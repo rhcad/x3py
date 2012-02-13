@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example;&quot;$(JAVA_INCLUDE)&quot;;&quot;$(JAVA_INCLUDE)\win32&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;SWIGSTDCALL=__cdecl"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				DebugInformationFormat="3"
@@ -125,7 +125,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example;&quot;$(JAVA64_INCLUDE)&quot;;&quot;$(JAVA64_INCLUDE)\win32&quot;"
-				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL;SWIGSTDCALL=__cdecl"
+				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				DebugInformationFormat="3"

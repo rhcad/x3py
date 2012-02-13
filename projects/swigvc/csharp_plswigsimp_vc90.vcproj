@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="plsimple"
-	ProjectGUID="{45491E50-2739-4671-BBA9-C3389641E145}"
-	RootNamespace="csharp_plsimple"
+	Name="plswigsimp"
+	ProjectGUID="{94D68270-2AC2-4C6E-90B3-4A6B62AC51B9}"
+	RootNamespace="csharp_plswigsimp"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -96,7 +96,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="C# compile post-build step"
-				CommandLine="if exist $(TargetDir)\test$(ProjectName).cs if exist $(TargetDir)\$(ProjectName).dll (&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;csc.exe -nologo -t:exe -r:$(ProjectName).dll test$(ProjectName).cs&#x0D;&#x0A;)"
+				CommandLine="if exist $(TargetDir)\test$(ProjectName).cs if exist $(TargetDir)\$(ProjectName).dll (&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;csc.exe -nologo -t:exe -r:$(ProjectName).dll test$(ProjectName).cs&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -177,63 +177,103 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="C# compile post-build step"
-				CommandLine="if exist $(TargetDir)\test$(ProjectName).cs if exist $(TargetDir)\$(ProjectName).dll (&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;csc.exe -nologo -t:exe -r:$(ProjectName).dll test$(ProjectName).cs&#x0D;&#x0A;)"
+				CommandLine="if exist $(TargetDir)\test$(ProjectName).cs if exist $(TargetDir)\$(ProjectName).dll (&#x0D;&#x0A;cd $(TargetDir)&#x0D;&#x0A;csc.exe -nologo -t:exe -r:$(ProjectName).dll test$(ProjectName).cs&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
 	<References>
 	</References>
 	<Files>
-		<File
-			RelativePath="..\..\source\example\plsimple\swig\plsimple.i"
+		<Filter
+			Name="Swig Files"
 			>
-			<FileConfiguration
-				Name="Release|Win32"
+			<File
+				RelativePath="..\..\source\example\plswigsimp\plswigsimp.i"
 				>
-				<Tool
-					Name="VCCustomBuildTool"
-					Description="Swig generating..."
-					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.cs del /Q $(IntDir)\*.cs&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -csharp -namespace example.$(ProjectName) -dllimport _$(ProjectName) -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_csharp_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.cs (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;csc.exe -nologo -t:library -out:$(ProjectName).dll *.cs&#x0D;&#x0A;copy /Y $(ProjectName).dll $(TargetDir)&#x0D;&#x0A;)"
-					Outputs="$(InputDir)$(InputName)_csharp_wrap.cxx"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|x64"
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Swig generating..."
+						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.cs del /Q $(IntDir)\*.cs&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -csharp -namespace example.$(ProjectName) -dllimport _$(ProjectName) -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_csharp_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.cs (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;csc.exe -nologo -t:library -out:$(ProjectName).dll *.cs&#x0D;&#x0A;copy /Y $(ProjectName).dll $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
+						Outputs="$(InputDir)$(InputName)_csharp_wrap.cxx"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Swig generating..."
+						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.cs del /Q $(IntDir)\*.cs&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -csharp -namespace example.$(ProjectName) -dllimport _$(ProjectName) -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_csharp_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.cs (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;csc.exe -nologo -t:library -out:$(ProjectName).dll *.cs&#x0D;&#x0A;copy /Y $(ProjectName).dll $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
+						Outputs="$(InputDir)$(InputName)_csharp_wrap.cxx"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\source\example\plswigsimp\plswigsimp_csharp_wrap.cxx"
 				>
-				<Tool
-					Name="VCCustomBuildTool"
-					Description="Swig generating..."
-					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.cs del /Q $(IntDir)\*.cs&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -csharp -namespace example.$(ProjectName) -dllimport _$(ProjectName) -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_csharp_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.cs (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;csc.exe -nologo -t:library -out:$(ProjectName).dll *.cs&#x0D;&#x0A;copy /Y $(ProjectName).dll $(TargetDir)&#x0D;&#x0A;)"
-					Outputs="$(InputDir)$(InputName)_csharp_wrap.cxx"
-				/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath="..\..\source\example\plsimple\swig\plsimple_csharp_wrap.cxx"
+			</File>
+			<File
+				RelativePath="..\..\source\example\plswigsimp\testplswigsimp.cs"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="if exist $(InputPath) xcopy $(InputPath) $(TargetDir) /Q/Y/D&#x0D;&#x0A;"
+						Outputs="$(TargetDir)\$(InputFileName)"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="if exist $(InputPath) xcopy $(InputPath) $(TargetDir) /Q/Y/D&#x0D;&#x0A;"
+						Outputs="$(TargetDir)\$(InputFileName)"
+					/>
+				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
 			>
-		</File>
-		<File
-			RelativePath="..\..\source\example\plsimple\swig\testplsimple.cs"
+			<File
+				RelativePath="..\..\source\example\plswigsimp\plswigsimp.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Source Files"
 			>
-			<FileConfiguration
-				Name="Release|Win32"
+			<File
+				RelativePath="..\..\source\example\plswigsimp\module.cpp"
 				>
-				<Tool
-					Name="VCCustomBuildTool"
-					CommandLine="if exist $(InputPath) xcopy $(InputPath) $(TargetDir) /Q/Y/D&#x0D;&#x0A;"
-					Outputs="$(TargetDir)\$(InputFileName)"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|x64"
+			</File>
+			<File
+				RelativePath="..\..\source\example\plswigsimp\plswigsimp.cpp"
 				>
-				<Tool
-					Name="VCCustomBuildTool"
-					CommandLine="if exist $(InputPath) xcopy $(InputPath) $(TargetDir) /Q/Y/D&#x0D;&#x0A;"
-					Outputs="$(TargetDir)\$(InputFileName)"
-				/>
-			</FileConfiguration>
-		</File>
+			</File>
+		</Filter>
+		<Filter
+			Name="Interface Files"
+			>
+			<File
+				RelativePath="..\..\interface\example\plswigsimp\isimple.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\interface\example\plswigsimp\isimple2.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\interface\example\plswigsimp\isimple3.h"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

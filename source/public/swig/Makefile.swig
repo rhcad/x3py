@@ -101,7 +101,7 @@ endif
 #------------------------------------------------
 TARGET              =$(SWIG_PRE)$(PROJNAME)$(SWIG_EXT)
 WRAPFILE            =$(PROJNAME)_$(SWIG_TYPE)_wrap
-OBJS                =$(WRAPFILE)$(OBJEXT)
+OBJS               +=$(WRAPFILE)$(OBJEXT)
 TESTFILE           :=test$(PROJNAME)$(SWIG_TESTEXT)
 REMOTE_TARGET       =$(SWIG_OUTDIR)/$(TARGET)
 REMOTE_WRAPTARGET   =$(SWIG_OUTDIR)/$(WRAPTARGET)
@@ -166,9 +166,9 @@ endif #SWIG_TESTEXT
 
 clean:
 ifndef SWIG_TYPE
-	rm -rf *$(OBJEXT)  *_wrap.*  ._*
+	rm -rf *.d *$(OBJEXT)  *_wrap.*  ._*
 else
-	rm -rf $(WRAPFILE)*  $(SWIGTMP)
+	rm -rf *.d $(WRAPFILE)*  ._$(SWIG_TYPE)*
 ifdef cleanall
 	rm -rf $(REMOTE_TARGET) $(REMOTE_WRAPTARGET) $(REMOTE_TESTFILE)
 endif

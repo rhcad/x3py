@@ -6,7 +6,9 @@
 
 %{
 #include <portability/x3port.h>
+#ifndef PLUGIN_SWIG
 #include <nonplugin/useplugin.h>
+#endif
 
 #define X3THROW_NULLPOINTERERROR(name) \
     printf("NullPointerError occurs, interface name: %s\n", name); \

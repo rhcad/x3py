@@ -51,18 +51,24 @@ def copyfiles(srcdir, destdir, pairs, callback=None, needswig=False):
                 print(destfile)
 
 def makeproj(projname, pkgname, baseproj, basepkg, needswig):
-    codepath = os.path.abspath('../source')
-    basepath = os.path.join(codepath, basepkg, baseproj)
+    rootpath = os.path.abspath('..')
+    basepath = os.path.join(rootpath, 'source', basepkg, baseproj)
+    pkgpath  = os.path.join(rootpath, 'source', pkgname)
+    destdir  = os.path.join(pkgpath, projname)
     
     if projname == '':
         raise AttributeError, projname
     if not os.path.exists(basepath):
         raise OSError, basepath
     
-    if not os.path.exists(os.path.join(codepath, pkgname)):
-        os.makedirs(os.path.join(codepath, pkgname))
+    if not os.path.exists(pkgpath):
+        os.makedirs(pkgpath)
+        srcmk = os.path.join(rootpath, 'source', basepkg, 'Makefile')
+        if os.path.exists(srcmk):
+            destmk = os.path.join(pkgpath, 'Makefile')
+            open(destmk, "w").write(open(srcmk).read())
+            print(destmk)
 
-    destdir = os.path.join(codepath, pkgname, projname)
     pairs = {baseproj:projname, basepkg:pkgname}
     
     def matchfile(filename, pairs):
@@ -71,17 +77,17 @@ def makeproj(projname, pkgname, baseproj, basepkg, needswig):
         return True
     copyfiles(basepath, destdir, pairs, matchfile, needswig)
 
-    codepath = os.path.abspath('../interface')
-    basepath = os.path.join(codepath, basepkg, baseproj)
-    destdir = os.path.join(codepath, pkgname, projname)
+    basepath = os.path.join(rootpath, 'interface', basepkg, baseproj)
+    destdir  = os.path.join(rootpath, 'interface', pkgname, projname)
     copyfiles(basepath, destdir, pairs, matchfile, needswig)
 
     def matchproj(filename, pairs):
         if ".user" in filename: return False
         for key in pairs.keys():
-            if filename.startswith(key): return True
+            if filename.startswith(key + '_') or \
+               filename.startswith(key + '.'): return True
         return False
-    projects = os.path.abspath('../projects')
+    projects = os.path.join(rootpath, 'projects')
     copyfiles(projects, projects, pairs, matchproj, needswig)
 
 if __name__=="__main__":

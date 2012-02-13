@@ -18,6 +18,7 @@ swig:   $(SWIGSUBDIRS)
 
 $(SWIGSUBDIRS):
 	@!(test -d $(basename $@)/swig) || $(MAKE) -C $(basename $@)/swig
+	@!(test -e $(basename $@)/$(basename $@).i) || $(MAKE) -C $(basename $@)
 
 clean:	$(CLEANSUBDIRS)
 
