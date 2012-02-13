@@ -10,7 +10,9 @@
 %include "plugin.i"
 
 %{
+#ifndef PLUGIN_SWIG
 #include <observer/observerimpl.h>
+#endif
 %}
 
 %include <observer/observerobject.h>

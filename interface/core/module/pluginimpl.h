@@ -126,6 +126,9 @@ OUTAPI void x3FreePlugin()
 #ifndef X3_CLASS_MAXCOUNT
 #define X3_CLASS_MAXCOUNT 64
 #endif
+#ifndef X3MANAGER_PLNAME
+#define X3MANAGER_PLNAME "x3manager.pln"
+#endif
 
 OUTAPI bool x3InitPlugin(HMODULE hmod, HMODULE hmanager)
 {
@@ -143,10 +146,10 @@ OUTAPI bool x3InitPlugin(HMODULE hmod, HMODULE hmanager)
 
     if (!s_manager)
     {
-        hmanager = hmanager ? hmanager : GetModuleHandleA("x3manager.pln");
+        hmanager = hmanager ? hmanager : GetModuleHandleA(X3MANAGER_PLNAME);
         if (!hmanager)
         {
-            hmanager = x3LoadLibrary("x3manager.pln");
+            hmanager = x3LoadLibrary(X3MANAGER_PLNAME);
             s_loadmgr = true;
         }
         s_manager = hmanager;

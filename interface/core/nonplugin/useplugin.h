@@ -11,7 +11,7 @@
 #ifdef PLUGIN_NAME
 
 #ifndef SELF_MODULE_NAME
-    #ifdef SWIGPYTHON
+    #if defined(SWIGPYTHON) || defined(SWIGCSHARP)
         #define SELF_PRE "_"
     #else
         #define SELF_PRE ""

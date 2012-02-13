@@ -12,7 +12,7 @@
     #ifndef SELF_MODULE
         #define SELF_MODULE_NAME  NULL
     #else
-        #ifdef SWIGPYTHON
+        #if defined(SWIGPYTHON) || defined(SWIGCSHARP)
             #define SELF_PRE "_"
         #else
             #define SELF_PRE ""
