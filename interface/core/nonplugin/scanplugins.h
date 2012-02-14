@@ -4,7 +4,6 @@
 
 #include <portability/x3port.h>
 #include <utilfunc/scanfiles.h>
-#include <objptr.h>
 
 #ifndef X3_EXCLUDE_CREATEOBJECT
 #include <portability/portimpl.h>
@@ -21,7 +20,8 @@ static int      s_nplugin = 0;
 
 static bool loadfilter(const char* filename, const char* ext)
 {
-    if (_stricmp(ext, ".pln") == 0)
+    if (_stricmp(ext, ".pln") == 0
+        && GetModuleHandleA(PathFindFileNameA(filename)) == NULL)
     {
         s_modules[s_nplugin] = x3LoadLibrary(filename);
         if (s_modules[s_nplugin])
@@ -38,6 +38,7 @@ int loadPlugins(const char* folder = "plugins")
     PathRemoveFileSpecA(path);
     PathAppendA(path, folder);
 
+    // Load x3manager before others, so others can find it in x3InitPlugin().
     if (!GetModuleHandleA("x3manager.pln"))
     {
         PathAppendA(path, "x3manager.pln");
