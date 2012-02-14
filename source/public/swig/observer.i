@@ -7,7 +7,7 @@
 #define PLUGIN_NAME "x3manager"
 #endif
 %}
-%include "plugin.i"
+%include <swig/plugin.i>
 
 %{
 #ifndef PLUGIN_SWIG

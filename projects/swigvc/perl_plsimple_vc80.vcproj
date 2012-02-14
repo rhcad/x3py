@@ -41,7 +41,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example;&quot;$(PERL5_INCLUDE)&quot;"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example;&quot;$(PERL5_INCLUDE)&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -107,7 +107,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating..."
-					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -perl5 -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_perl_wrap.cxx&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;"
+					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -perl5 -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_perl_wrap.cxx&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;"
 					Outputs="$(InputDir)$(InputName)_perl_wrap.cxx"
 				/>
 			</FileConfiguration>

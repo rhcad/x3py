@@ -5,7 +5,7 @@
 #define PLUGIN_SWIG
 #endif
 %}
-%include "../../public/swig/plugin.i"
+%include <swig/plugin.i>
 
 %{
 #include <plswigsimp/isimple.h>

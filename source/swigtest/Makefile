@@ -15,7 +15,7 @@ all:
 swig:   $(SUBDIRS)
 
 $(SUBDIRS):
-	@$(MAKE) -C $@
+	@$(MAKE) -C $@ swig
 
 $(SWIGS):
 	@export SWIG_TYPE=$@; $(MAKE) swig

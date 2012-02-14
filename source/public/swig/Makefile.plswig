@@ -1,6 +1,10 @@
 # Included by Makefile of plugin project integrated with swig.
 # x3py framework: https://github.com/rhcad/x3py
 
+ifndef SWIG_TYPE
+include $(SRCPUB_DIR)/mk/Makefile.pln
+else
+
 SOURCES  =$(wildcard *.cpp)
 OBJDIR   =._$(SWIG_TYPE)o/
 OBJS     =$(addprefix $(OBJDIR), $(SOURCES:.cpp=$(OBJEXT)))
@@ -11,8 +15,10 @@ include $(SRCPUB_DIR)/swig/Makefile.swig
 	$(DEPEND_CC) $@ $(INCLUDES) $<
 $(OBJDIR)%$(OBJEXT): %.cpp
 	-@test -d $(OBJDIR) || mkdir $(OBJDIR)
-	$(CPP) $(CPPFLAGS) $(INCLUDES) -c $< -o $@
+	$(CPP) $(CPPFLAGS) $(INCLUDES) -c $< $(OFLAG)$@
 
 ifndef clean
 include $(SOURCES:.cpp=.d)
 endif
+
+endif #SWIG_TYPE

@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -120,7 +120,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example"
 				PreprocessorDefinitions="_WIN64;_DEBUG;_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -194,7 +194,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -272,7 +272,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example"
 				PreprocessorDefinitions="_WIN64;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				WarningLevel="4"

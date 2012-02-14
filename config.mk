@@ -6,7 +6,7 @@ INSTALL_DIR   =$(ROOTDIR)/build
 PLUGINS_DIR   =$(INSTALL_DIR)/plugins
 SRCPUB_DIR    =$(ROOTDIR)/source/public
 
-INCLUDES     += -I$(INTERFACE_DIR)/core
+INCLUDES     += -I$(INTERFACE_DIR)/core -I$(SRCPUB_DIR)
 ifdef PKGNAME
 INCLUDES     += -I$(INTERFACE_DIR)/$(PKGNAME)
 endif
@@ -21,6 +21,7 @@ LINK          ="$(VCBIN)link"
 AR            ="$(VCBIN)lib"
 ARFLAGS       =-out:
 OUTFLAG       =-out:
+OFLAG         =-Fo
 LIBPATHFLAG   =-libpath:
 LIBPRE        =lib
 LIBEND        =.lib
@@ -33,6 +34,7 @@ LINK          =g++
 CPPFLAGS     += -g -Wall -Wno-unused
 LDFLAGS      += -g -Wall
 OUTFLAG       =-o #space
+OFLAG         =-o #
 ARFLAGS      += #space
 LIBPATHFLAG   =-L
 LIBFLAG       =-l

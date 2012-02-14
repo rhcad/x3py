@@ -44,7 +44,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -125,7 +125,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface\core;..\..\interface\example;&quot;$(JAVA64_INCLUDE)&quot;;&quot;$(JAVA64_INCLUDE)\win32&quot;"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example;&quot;$(JAVA64_INCLUDE)&quot;;&quot;$(JAVA64_INCLUDE)\win32&quot;"
 				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -193,7 +193,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating..."
-					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.cs del /Q $(IntDir)\*.cs&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -csharp -namespace example.$(ProjectName) -dllimport _$(ProjectName) -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_csharp_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.cs (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;csc.exe -nologo -t:library -out:$(ProjectName).dll *.cs&#x0D;&#x0A;copy /Y $(ProjectName).dll $(TargetDir)&#x0D;&#x0A;)"
+					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.cs del /Q $(IntDir)\*.cs&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -csharp -namespace example.$(ProjectName) -dllimport _$(ProjectName) -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_csharp_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.cs (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;csc.exe -nologo -t:library -out:$(ProjectName).dll *.cs&#x0D;&#x0A;copy /Y $(ProjectName).dll $(TargetDir)&#x0D;&#x0A;)"
 					Outputs="$(InputDir)$(InputName)_csharp_wrap.cxx"
 				/>
 			</FileConfiguration>
@@ -203,7 +203,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating..."
-					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.cs del /Q $(IntDir)\*.cs&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -csharp -namespace example.$(ProjectName) -dllimport _$(ProjectName) -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_csharp_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.cs (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;csc.exe -nologo -t:library -out:$(ProjectName).dll *.cs&#x0D;&#x0A;copy /Y $(ProjectName).dll $(TargetDir)&#x0D;&#x0A;)"
+					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.cs del /Q $(IntDir)\*.cs&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -csharp -namespace example.$(ProjectName) -dllimport _$(ProjectName) -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_csharp_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.cs (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;csc.exe -nologo -t:library -out:$(ProjectName).dll *.cs&#x0D;&#x0A;copy /Y $(ProjectName).dll $(TargetDir)&#x0D;&#x0A;)"
 					Outputs="$(InputDir)$(InputName)_csharp_wrap.cxx"
 				/>
 			</FileConfiguration>

@@ -4,7 +4,7 @@
 #define SELF_MODULE "observerex"
 #endif
 %}
-%include "../../../public/swig/observer.i"
+%include <swig/observer.i>
 
 %{
 #include <observerex/observerswig.h>

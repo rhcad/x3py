@@ -44,7 +44,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface\core;&quot;$(PYTHON_INCLUDE)&quot;"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;&quot;$(PYTHON_INCLUDE)&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -123,7 +123,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\interface\core;&quot;$(PYTHON64_INCLUDE)&quot;"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;&quot;$(PYTHON64_INCLUDE)&quot;"
 				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -202,7 +202,7 @@
 					Name="VCCustomBuildTool"
 					Description="Performing Custom Build Step"
 					CommandLine="if exist $(InputPath) xcopy $(InputPath) $(TargetDir).. /Q/Y/D&#x0D;&#x0A;"
-					Outputs="$(TargetDir)\$(InputFileName)"
+					Outputs="$(TargetDir)..\$(InputFileName)"
 				/>
 			</FileConfiguration>
 			<FileConfiguration
@@ -212,7 +212,7 @@
 					Name="VCCustomBuildTool"
 					Description="Performing Custom Build Step"
 					CommandLine="if exist $(InputPath) xcopy $(InputPath) $(TargetDir).. /Q/Y/D&#x0D;&#x0A;"
-					Outputs="$(TargetDir)\$(InputFileName)"
+					Outputs="$(TargetDir)..\$(InputFileName)"
 				/>
 			</FileConfiguration>
 		</File>
@@ -225,7 +225,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating..."
-					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if not exist $(TargetDir)__init__.py echo #empty &gt; $(TargetDir)__init__.py&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I&quot;$(ProjectDir)..\..\interface\core&quot; -o &quot;$(InputDir)$(InputName)_wrap.cxx&quot; -outdir $(TargetDir) $(InputPath)"
+					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if not exist $(TargetDir)__init__.py echo #empty &gt; $(TargetDir)__init__.py&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -o &quot;$(InputDir)$(InputName)_wrap.cxx&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;"
 					Outputs="$(InputDir)$(InputName)_wrap.cxx"
 				/>
 			</FileConfiguration>
@@ -235,7 +235,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Swig generating..."
-					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if not exist $(TargetDir)__init__.py echo #empty &gt; $(TargetDir)__init__.py&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I&quot;$(ProjectDir)..\..\interface\core&quot; -o &quot;$(InputDir)$(InputName)_wrap.cxx&quot; -outdir $(TargetDir) $(InputPath)"
+					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if not exist $(TargetDir)__init__.py echo #empty &gt; $(TargetDir)__init__.py&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -o &quot;$(InputDir)$(InputName)_wrap.cxx&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;"
 					Outputs="$(InputDir)$(InputName)_wrap.cxx"
 				/>
 			</FileConfiguration>

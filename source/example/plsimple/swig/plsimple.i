@@ -4,7 +4,7 @@
 #define PLUGIN_NAME "plsimple"
 #endif
 %}
-%include "../../../public/swig/plugin.i"
+%include <swig/plugin.i>
 
 %{
 #include <plsimple/isimple.h>

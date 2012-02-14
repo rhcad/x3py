@@ -3,43 +3,21 @@
 #define X3_NONPLUGIN_USE_PLUGINS_H
 
 #include <utilfunc/loadmodule.h>
+#include "swigext.h"
 
-// PLUGIN_PATH:         plugins's relative folder.
-// SELF_MODULE_NAME:    file name of the caller.
+// PLUGIN_PATH:         the internal plugin (*.pln) 's relative folder.
+// SELF_MODULE_NAME:    file name of the caller module which will load the internal plugins.
 // SELF_MODULE:         used to make SELF_MODULE_NAME.
 
 #ifndef SELF_MODULE_NAME
-    #ifndef SELF_MODULE
-        #define SELF_MODULE_NAME  NULL
-    #else
-        #if defined(SWIGPYTHON) || defined(SWIGCSHARP)
-            #define SELF_PRE "_"
-        #else
-            #define SELF_PRE ""
-        #endif
-        #if defined(SWIGPYTHON) && defined(_WIN32)
-            #define SELF_EXT ".pyd"
-        #elif defined(_WIN32)
-            #define SELF_EXT ".dll"
-        #else
-            #define SELF_EXT ".so"
-        #endif
-        #define SELF_MODULE_NAME  SELF_PRE SELF_MODULE SELF_EXT
-    #endif
+#ifndef SELF_MODULE
+#define SELF_MODULE_NAME  NULL      // application file name
+#else
+#define SELF_MODULE_NAME  SELF_PRE SELF_MODULE SELF_EXT
+#endif
 #endif // SELF_MODULE_NAME
 
-#ifndef PLUGIN_PATH
-#ifdef SWIGPYTHON
-#define PLUGIN_PATH "../../plugins/"
-#define CURMOD_IN_CWDSUBDIR
-#elif defined(SWIGINLINE)
-#define PLUGIN_PATH "../plugins/"
-#else
-#define PLUGIN_PATH ""
-#endif
-#endif // PLUGIN_PATH
-
-#ifdef X3_CORE_PORTABILITY_H
+#ifndef X3_EXCLUDE_CREATEOBJECT
 #include "../portability/portimpl.h"
 #endif
 
@@ -48,13 +26,14 @@ namespace x3 {
 static LoadModuleHelper* s_plugins[10] = { NULL };
 static int s_nplugin = 0;
 
+#if !defined(X3_EXCLUDE_CREATEOBJECT) && !defined(CREATEOBJECTIMPL)
+#define CREATEOBJECTIMPL
+
 HMODULE getManagerModule()
 {
     return s_plugins[0] ? s_plugins[0]->getModule() : NULL;
 }
 
-#ifndef CREATEOBJECTIMPL
-#define CREATEOBJECTIMPL
 class IObject;
 bool createObject(const char* clsid, long iid, IObject** p)
 {
@@ -62,7 +41,7 @@ bool createObject(const char* clsid, long iid, IObject** p)
     F f = !s_plugins[0] ? NULL : (F)s_plugins[0]->getFunc("x3CreateObject");
     return f && f(clsid, iid, p);
 }
-#endif
+#endif // CREATEOBJECTIMPL
 
 void loadPlugins(const char* const* plugins, const char* folder = PLUGIN_PATH)
 {
@@ -85,8 +64,8 @@ void unloadPlugins()
 }
 
 /** \code
- * static const char* PLUGINS[] = { "x3manager.pln", "myplugin.pln", NULL };
- * static x3::AutoLoadPlugins autoload(PLUGINS);
+ * static const char* plugins[] = { "x3manager.pln", "myplugin.pln", NULL };
+ * static x3::AutoLoadPlugins autoload(plugins);
  * \endcode
  */
 struct AutoLoadPlugins
