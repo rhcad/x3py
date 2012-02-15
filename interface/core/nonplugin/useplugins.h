@@ -17,7 +17,7 @@
 #endif
 #endif // SELF_MODULE_NAME
 
-#ifndef X3_EXCLUDE_CREATEOBJECT
+#if defined(X3_CORE_PORTABILITY_H) && !defined(X3_EXCLUDE_CREATEOBJECT)
 #include "../portability/portimpl.h"
 #endif
 

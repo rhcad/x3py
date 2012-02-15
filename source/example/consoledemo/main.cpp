@@ -88,7 +88,7 @@ bool createObject(const char* clsid, long iid, IObject** p)
 #elif LOADMODE==4   // use static library plugin
 //---------------------------------------------------------------
 
-#include <portability/portimpl.h>
+#include <portability/x3port.h>
 #include <module/pluginimpl.h>
 #define XUSE_LIB_PLUGIN
 #include <module/modulemacro.h>
@@ -113,6 +113,7 @@ int main()
 #elif LOADMODE==5   // find and load plugins
 //---------------------------------------------------------------
 
+#include <portability/x3port.h>
 #include <nonplugin/scanplugins.h>
 
 int main()

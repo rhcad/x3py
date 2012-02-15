@@ -1,6 +1,6 @@
 %module examples
 %{
-#include <portability/portimpl.h>
+#include <portability/x3port.h>
 #define SELF_MODULE  "examples"
 #include <nonplugin/useplugins.h>
 

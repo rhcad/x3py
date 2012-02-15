@@ -2,6 +2,12 @@
 #ifndef UTILFUNC_LOADDLLHELPER_H_
 #define UTILFUNC_LOADDLLHELPER_H_
 
+// If don't need plugininc.h or portability/*.h on Windows:
+#if !defined(X3_CORE_PORTABILITY_H) && !defined(x3FreeLibrary) && defined(_WIN32)
+#define x3FreeLibrary(h) FreeLibrary(h)
+#define x3LoadLibrary(f) LoadLibraryExA(f, NULL, LOAD_WITH_ALTERED_SEARCH_PATH)
+#endif
+
 namespace x3 {
 
 class LoadModuleHelper

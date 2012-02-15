@@ -2,10 +2,10 @@
 #ifndef X3_NONPLUGIN_SCANPLUGINS_H
 #define X3_NONPLUGIN_SCANPLUGINS_H
 
-#include <portability/x3port.h>
 #include <utilfunc/scanfiles.h>
+#include <utilfunc/loadmodule.h>
 
-#ifndef X3_EXCLUDE_CREATEOBJECT
+#if defined(X3_CORE_PORTABILITY_H) && !defined(X3_EXCLUDE_CREATEOBJECT)
 #include <portability/portimpl.h>
 #endif
 
