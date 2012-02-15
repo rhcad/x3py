@@ -1,6 +1,7 @@
 #ifndef X3_EXAMPLE_SIMPLE_IMPL_H
 #define X3_EXAMPLE_SIMPLE_IMPL_H
 
+#include <module/classmacro.h>
 #include <plswigsimp/isimple.h>
 #include <plswigsimp/isimple2.h>
 #include <plswigsimp/isimple3.h>

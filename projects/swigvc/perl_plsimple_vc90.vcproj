@@ -58,7 +58,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="&quot;$(PERL5_LIBFILE)&quot;"
+				AdditionalDependencies="&quot;$(PERL5_LIBFILE).lib&quot;"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(PERL5_LIB)&quot;"
 				IgnoreDefaultLibraryNames=""

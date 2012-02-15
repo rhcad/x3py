@@ -82,6 +82,8 @@ DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID)    \
 }
 
 // XEND_DEFINE_MODULE_MFCDLL: for regular DLL with MFC or MFC application.
+// You need to define a instance such as 'CPluginApp theApp;' .
+// You may derive a class from CPluginApp instead of CWinApp.
 
 #define XEND_DEFINE_MODULE_MFCDLL() \
         XEND_DEFINE_MODULE()        \
@@ -108,7 +110,14 @@ public: \
 #define XEND_DEFINE_MODULE_DLL()    \
         XEND_DEFINE_MODULE_MFCEXTDLL()
 
-// XEND_DEFINE_MODULE_DLL: for regular DLL with MFC or console application with MFC
+// XEND_DEFINE_MODULE_DLL: for regular DLL with MFC or console application with MFC.
+//
+// If you already have a class derived from CWinApp, then 'theApp' redefinition
+// error will occur. You can correct it as the following method:
+// 1. call x3InitPlugin and x3FreePlugin in your app class and use XEND_DEFINE_MODULE.
+// 2. or use XEND_DEFINE_MODULE_MFCDLL and derive from CPluginApp instead of CWinApp.
+// 3. or remove your app class and use XEND_DEFINE_MODULE_DLL.
+
 #elif defined(_AFXDLL) && defined(__AFXWIN_H__)
 #define XEND_DEFINE_MODULE_DLL()    \
         XEND_DEFINE_MODULE_MFCDLL() \

@@ -32,7 +32,7 @@ inline int scanfiles(bool (*filter)(const char* filename, const char* ext),
         }
         else if (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
         {
-            if (fd.cFileName[0] != L'.')
+            if (fd.cFileName[0] != '.')
             {
                 lstrcpynA(filename, path, MAX_PATH);
                 PathAppendA(filename, fd.cFileName);
