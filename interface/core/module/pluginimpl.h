@@ -100,10 +100,10 @@ OUTAPI bool x3InternalCreate(const char* clsid, long iid, IObject** p)
     return false;
 }
 
-OUTAPI void x3FreePlugin()
+OUTAPI bool x3FreePlugin()
 {
     if (--s_refcount != 0)
-        return;
+        return false;
 
     x3UninitializePlugin();
 
@@ -121,6 +121,8 @@ OUTAPI void x3FreePlugin()
     }
 
     ModuleItem::free();
+
+    return true;
 }
 
 #ifndef X3_CLASS_MAXCOUNT

@@ -38,6 +38,10 @@ END_NAMESPACE_X3
 
 // If don't need plugininc.h or portability/*.h on Windows:
 #if !defined(OUTAPI) && defined(_WIN32)
+#ifndef _WINDEF_
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#endif
 #define OUTAPI      extern "C" __declspec(dllexport)
 #define x3FreeLibrary(h) FreeLibrary(h)
 #define x3LoadLibrary(f) LoadLibraryExA(f, NULL, LOAD_WITH_ALTERED_SEARCH_PATH)

@@ -56,9 +56,15 @@
 #endif
 
 OUTAPI bool x3InitPlugin(HMODULE hmod, HMODULE);
-OUTAPI void x3FreePlugin();
+OUTAPI bool x3FreePlugin();
 
-// XEND_DEFINE_MODULE_MFCEXTDLL: for MFC Extension DLL
+// Call x3DllMain in your DllMain function.
+#define x3DllMain(hInstance, dwReason)  \
+    (dwReason == DLL_PROCESS_ATTACH && ::x3InitPlugin((HMODULE)hInstance, NULL) \
+    || dwReason == DLL_PROCESS_DETACH && (::x3FreePlugin() || true))
+
+// XEND_DEFINE_MODULE_MFCEXTDLL: for MFC Extension DLL, same as XEND_DEFINE_MODULE_DLL.
+// You need to remove your DllMain function or call x3DllMain in your DllMain function.
 
 #define XEND_DEFINE_MODULE_MFCEXTDLL() \
         XEND_DEFINE_MODULE()    \
@@ -71,7 +77,7 @@ DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID)    \
         if (!AfxInitExtensionModule(MFCExtDLL, hInstance))  \
             return 0;   \
         new CDynLinkLibrary(MFCExtDLL); \
-        return ::x3InitPlugin(MFCExtDLL.hmod, NULL) ? 1 : 0;  \
+        return ::x3InitPlugin(MFCExtDLL.hModule, NULL) ? 1 : 0;  \
     }   \
     else if (dwReason == DLL_PROCESS_DETACH)    \
     {   \
@@ -106,6 +112,8 @@ public: \
 };
 
 // XEND_DEFINE_MODULE_DLL: for MFC Extension DLL
+// You need to remove your DllMain function or call x3DllMain and use XEND_DEFINE_MODULE.
+
 #if defined(_AFXEXT) && defined(_AFXDLL) && defined(APIENTRY)
 #define XEND_DEFINE_MODULE_DLL()    \
         XEND_DEFINE_MODULE_MFCEXTDLL()
@@ -116,15 +124,18 @@ public: \
 // error will occur. You can correct it as the following method:
 // 1. call x3InitPlugin and x3FreePlugin in your app class and use XEND_DEFINE_MODULE.
 // 2. or use XEND_DEFINE_MODULE_MFCDLL and derive from CPluginApp instead of CWinApp.
-// 3. or remove your app class and use XEND_DEFINE_MODULE_DLL.
+// 3. or remove your app class and keep to use XEND_DEFINE_MODULE_DLL.
 
 #elif defined(_AFXDLL) && defined(__AFXWIN_H__)
 #define XEND_DEFINE_MODULE_DLL()    \
         XEND_DEFINE_MODULE_MFCDLL() \
         CPluginApp theApp;
 
-// XEND_DEFINE_MODULE_DLL: for Win32 DLL
+// XEND_DEFINE_MODULE_DLL: for Win32 DLL.
+// You need to remove your DllMain function or call x3DllMain and use XEND_DEFINE_MODULE.
+
 #elif defined(_USRDLL) && defined(APIENTRY)
+#ifndef _ATL_DLL
 #define XEND_DEFINE_MODULE_DLL()    \
         XEND_DEFINE_MODULE()        \
 extern "C" BOOL APIENTRY DllMain(HANDLE hmod, DWORD dwReason, LPVOID)   \
@@ -139,6 +150,10 @@ extern "C" BOOL APIENTRY DllMain(HANDLE hmod, DWORD dwReason, LPVOID)   \
     }   \
     return TRUE;    \
 }
+#else // ATL project
+// Please call x3DllMain in your DllMain and use XEND_DEFINE_MODULE instead of XEND_DEFINE_MODULE_DLL.
+#define XEND_DEFINE_MODULE_DLL()    please_use_XEND_DEFINE_MODULE_and_call_x3DllMain
+#endif
 
 #else
 #define XEND_DEFINE_MODULE_DLL()    XEND_DEFINE_MODULE()
