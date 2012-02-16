@@ -9,6 +9,7 @@
 # 
 # 4. You can remove the program object files from the source code
 #    directory by typing `make clean'.
+#    Type `make cleanall' can change the modification time of files.
 #
 # Readme about variables: https://github.com/rhcad/x3py/wiki/MakeVars
 #
@@ -19,18 +20,18 @@ include $(ROOTDIR)/config.mk
 SWIGS  =python perl5 java csharp ruby php lua r
 CLEANSWIGS =$(addsuffix .clean, $(SWIGS))
 
-.PHONY:	source clean cleanall $(SWIGS)
+.PHONY:	source clean cleanall py $(SWIGS)
 
 #==============================================================================
 # The default build target.
 #==============================================================================
 all:	source
-
 source:
 	@test -d $(INSTALL_DIR) || mkdir $(INSTALL_DIR)
 	@test -d $(PLUGINS_DIR) || mkdir $(PLUGINS_DIR)
 	@$(MAKE) -C source
 
+py:     python
 $(SWIGS):
 	@test -d $(INSTALL_DIR) || mkdir $(INSTALL_DIR)
 	@export SWIG_TYPE=$@; $(MAKE) -C source swig
@@ -41,10 +42,11 @@ $(SWIGS):
 clean:
 	@export clean=1; $(MAKE) -C source clean
 cleanall:
+	touch -c *
 	@export cleanall=1; $(MAKE) clean
 
 #==============================================================================
 # Type `make python.clean' to clean up the targets built by 'make python'.
 #==============================================================================
 $(CLEANSWIGS):
-	@export SWIG_TYPE=$(basename $@); $(MAKE) cleanall
+	@export SWIG_TYPE=$(basename $@); export cleanall=1; $(MAKE) clean

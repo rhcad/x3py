@@ -19,6 +19,6 @@ $(SWIGSUBDIRS):
 	@$(MAKE) -C $(basename $@) swig
 
 clean:	$(CLEANSUBDIRS)
-
+	@touch -c *
 $(CLEANSUBDIRS):
-	@$(MAKE) -C $(basename $@) clean
+	@touch -c $(basename $@)/*; $(MAKE) -C $(basename $@) clean

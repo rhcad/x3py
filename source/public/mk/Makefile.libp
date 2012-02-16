@@ -22,6 +22,7 @@ clean:
 ifndef SWIG_TYPE
 	rm -rf *.d *.o *.obj
 ifdef cleanall
+	touch -c *
 	rm -rf $(TARGET)
 endif
 endif
