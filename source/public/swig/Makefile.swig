@@ -180,12 +180,12 @@ endif #SWIG_TESTEXT
 clean:
 ifndef SWIG_TYPE
 	rm -rf *.d *$(OBJEXT)  *_wrap.*  ._*
+ifdef touch
+	touch -c *
+endif
 else
 	rm -rf *.d $(WRAPFILE)*  ._$(SWIG_TYPE)*
 ifdef cleanall
 	rm -rf $(REMOTE_TARGET) $(REMOTE_WRAPTARGET) $(REMOTE_TESTFILE)
-endif
-ifdef touch
-	touch -c *
 endif
 endif
