@@ -9,7 +9,7 @@
 # 
 # 4. You can remove the program object files from the source code
 #    directory by typing `make clean'.
-#    Type `make cleanall' can change the modification time of files.
+#    Type `make touch' can change the modification time of files to the current time.
 #
 # Readme about variables: https://github.com/rhcad/x3py/wiki/MakeVars
 #

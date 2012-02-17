@@ -12,7 +12,6 @@ Compile this framework on Linux, MacOSX or Unix as the following steps.
 
   d. You can remove the program object files from the source code
      directory by typing `make clean' or `make cleanall'.
-     Type `make python.clean' to clean up the only targets built by 'make python'.
 
 Environment variables setting for compiling swig-projects (optionally, see config.mk).
 Readme about more variables in config.mk: https://github.com/rhcad/x3py/wiki/MakeVars
