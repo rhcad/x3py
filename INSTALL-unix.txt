@@ -4,6 +4,7 @@ Compile this framework on Linux, MacOSX or Unix as the following steps.
   
   b. Type `make' to compile C++ plugin-projects.
      The plugins are outputed to './build/plugins'.
+     Type `make touch' can change the modification time of files to the current time.
   
   c. If you need to use python, perl or java, then type `make python' 
      or `make all python' to compile swig-projects.

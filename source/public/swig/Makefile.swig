@@ -183,7 +183,9 @@ ifndef SWIG_TYPE
 else
 	rm -rf *.d $(WRAPFILE)*  ._$(SWIG_TYPE)*
 ifdef cleanall
-	touch -c *
 	rm -rf $(REMOTE_TARGET) $(REMOTE_WRAPTARGET) $(REMOTE_TESTFILE)
+endif
+ifdef touch
+	touch -c *
 endif
 endif

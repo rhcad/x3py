@@ -20,7 +20,7 @@ include $(ROOTDIR)/config.mk
 SWIGS  =python perl5 java csharp ruby php lua r
 CLEANSWIGS =$(addsuffix .clean, $(SWIGS))
 
-.PHONY:	source clean cleanall py $(SWIGS)
+.PHONY:	source clean cleanall touch py $(SWIGS)
 
 #==============================================================================
 # The default build target.
@@ -38,12 +38,15 @@ $(SWIGS):
 
 #==============================================================================
 # Clean up the targets built by 'make all'.
+# Type `make touch' can change the modification time of files to the current time.
 #==============================================================================
 clean:
 	@export clean=1; $(MAKE) -C source clean
 cleanall:
-	touch -c *
 	@export cleanall=1; $(MAKE) clean
+touch:
+	touch -c *
+	@export touch=1; $(MAKE) clean
 
 #==============================================================================
 # Type `make python.clean' to clean up the targets built by 'make python'.
