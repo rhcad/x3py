@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """
 Function:   Create a plugin project based on example project.
             This script has been tested with ActivePython 2.7.
@@ -18,7 +19,7 @@ ChangeList:
     2. Auto copy interface files and skip swig files. [2011.12.14]
 """
 
-import os, sys, re
+import os, sys, re, uuid
 
 def multireplace(text, adict):
     rx = re.compile('|'.join(map(re.escape, adict)))
@@ -79,7 +80,10 @@ def makeproj(projname, pkgname, baseproj, basepkg, needswig):
 
     basepath = os.path.join(rootpath, 'interface', basepkg, baseproj)
     destdir  = os.path.join(rootpath, 'interface', pkgname, projname)
-    copyfiles(basepath, destdir, pairs, matchfile, needswig)
+    intpairs = pairs
+    intpairs["78d30c77-e0f0-48a3-a489-dd4327759c27"] = str(uuid.uuid1())
+    intpairs["94071767-ba6b-4769-9eb4-2ebf469289f3"] = str(uuid.uuid1())
+    copyfiles(basepath, destdir, intpairs, matchfile, needswig)
 
     def matchproj(filename, pairs):
         if ".user" in filename: return False

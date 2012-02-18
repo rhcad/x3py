@@ -20,7 +20,7 @@ endif
 
 clean:
 ifndef SWIG_TYPE
-	rm -rf *.d *.o *.obj
+	rm -rf *.d *.o *.obj *_wrap.*  ._*
 ifdef cleanall
 	rm -rf $(TARGET)
 endif
