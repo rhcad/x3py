@@ -9,14 +9,18 @@
     #define SELF_PRE ""
 #endif
 
-#if !defined(SWIGINLINE)        // not in swig wrapper file.
-    #define SELF_EXT ".pln"
-#elif defined(_WIN32) && (defined(SWIGPYTHON) || defined(USE_PYTHON))
+#if defined(_WIN32) && (defined(SWIGPYTHON) || defined(USE_PYTHON))
     #define SELF_EXT ".pyd"
+#elif !defined(SWIGINLINE)      // not in swig wrapper file.
+    #define SELF_EXT ".pln"
 #elif defined(_WIN32)
     #define SELF_EXT ".dll"
 #else
     #define SELF_EXT ".so"
+#endif
+
+#ifdef PLUGIN_SWIG
+#define X3MANAGER_PLNAME    SELF_PRE "x3manager" SELF_EXT
 #endif
 
 // the internal plugin (*.pln) 's relative folder base on the current module.

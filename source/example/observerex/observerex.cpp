@@ -24,14 +24,18 @@ bool OnBreakDemo2(int& result)
     return result <= 20;
 }
 
-void registerHandlers()
+int registerHandlers()
 {
-    X3_REGISTER_OBSERVER(EventAdd, OnEventAdd10);
-    X3_REGISTER_OBSERVER(EventAdd, OnEventAdd100);
-    X3_REGISTER_OBSERVER(EventBreakDemo, OnBreakDemo1);
-    X3_REGISTER_OBSERVER(EventBreakDemo, OnBreakDemo2);
+    int count = 0;
+
+    count += X3_REGISTER_OBSERVER(EventAdd, OnEventAdd10) ? 1 : 0;
+    count += X3_REGISTER_OBSERVER(EventAdd, OnEventAdd100) ? 1 : 0;
+    count += X3_REGISTER_OBSERVER(EventBreakDemo, OnBreakDemo1) ? 1 : 0;
+    count += X3_REGISTER_OBSERVER(EventBreakDemo, OnBreakDemo2) ? 1 : 0;
 
     CObserverTest::registerHandlers();
+
+    return count;
 }
 
 void CObserverTest::registerHandlers()
@@ -82,43 +86,70 @@ void CObserverTestEx::OnVirtualDemo(std::string& text, const std::string& intest
     text = "b" + intest;
 }
 
+#include <stdio.h>
+
 bool test()
 {
-    registerHandlers();
+    int regcount = registerHandlers();
+    printf("[observerex] registerHandlers: %d\n", regcount);
 
     int addvalue = 0;
     if (FireEventAdd(addvalue).fireEvent().param != 310)  // 10 + 100 + 200
+    {
+        printf("[observerex] Test fail: FireEventAdd, %d\n", addvalue);
         return false;
+    }
 
     CObserverTest objs[3];
     std::vector<void*> objsv;
     if (FireEventGather(objsv).fireEvent().param.size() != 3)
+    {
+        printf("[observerex] Test fail: FireEventGather\n");
         return false;
+    }
 
     CObserverTest objextra;
     std::vector<void*> objsv2;
     if (FireEventGather(objsv2).fireEvent().param.size() != 4)  // 3+1
+    {
+        printf("[observerex] Test fail: FireEventGather2\n");
         return false;
+    }
 
     int demovalue = 1;
     if (FireEventBreakDemo(demovalue).fireEvent().param != 11)  // call OnBreakDemo1 once.
+    {
+        printf("[observerex] Test fail: FireEventBreakDemo\n");
         return false;
+    }
 
     int demovalue2 = 0;
     if (FireEventBreakDemo(demovalue2).fireEvent().param != 30) // call OnBreakDemo2 too.
+    {
+        printf("[observerex] Test fail: FireEventBreakDemo2\n");
         return false;
+    }
 
     if (FireEventObjBreakDemo().fireEvent().nhandled != 1)      // only once.
+    {
+        printf("[observerex] Test fail: FireEventObjBreakDemo\n");
         return false;
+    }
 
     std::string text;
     if (FireEventVirtualDemo(text, "-").fireEvent().param1 != "a-")
+    {
+        printf("[observerex] Test fail: FireEventVirtualDemo\n");
         return false;
+    }
 
     CObserverTestEx testVirtual;
     std::string text2;
     if (FireEventVirtualDemo(text2, "-").fireEvent().param1 != "b-")
+    {
+        printf("[observerex] Test fail: FireEventVirtualDemo2\n");
         return false;
+    }
 
     return true;
 }

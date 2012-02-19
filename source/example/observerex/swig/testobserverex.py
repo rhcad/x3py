@@ -1,3 +1,4 @@
+import core.x3manager
 import example.observerex as ex
 
 class PyObserver(ex.ObserverDemo):

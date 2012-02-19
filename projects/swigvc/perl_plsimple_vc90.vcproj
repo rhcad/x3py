@@ -19,7 +19,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="..\..\build\$(ConfigurationName)\perl5"
-			IntermediateDirectory="..\..\build\$(ConfigurationName)\obj\perl_$(ProjectName)"
+			IntermediateDirectory="..\..\build\$(ConfigurationName)\obj\$(ProjectName)_perl"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example;&quot;$(PERL5_INCLUDE)&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;PLUGIN_SWIG;USE_PERL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				DebugInformationFormat="3"
@@ -98,45 +98,91 @@
 	<References>
 	</References>
 	<Files>
-		<File
-			RelativePath="..\..\source\example\plsimple\swig\plsimple.i"
+		<Filter
+			Name="Swig Files"
+			Filter="i;py;pyw;java;cs;pl;rb"
+			UniqueIdentifier="{B66BBF33-21A8-451F-A173-F4C554C67AFE}"
 			>
-			<FileConfiguration
-				Name="Release|Win32"
+			<File
+				RelativePath="..\..\source\example\plsimple\swig\plsimple.i"
 				>
-				<Tool
-					Name="VCCustomBuildTool"
-					Description="Swig generating..."
-					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -perl5 -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_perl_wrap.cxx&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;"
-					Outputs="$(InputDir)$(InputName)_perl_wrap.cxx"
-				/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath="..\..\source\example\plsimple\swig\plsimple_perl_wrap.cxx"
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Swig generating..."
+						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -perl5 -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_perl_wrap.cxx&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)$(InputName)_perl_wrap.cxx"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\source\example\plsimple\swig\plsimple_perl_wrap.cxx"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						WarningLevel="3"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\source\example\plsimple\swig\testplsimple.pl"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="if exist $(InputPath) xcopy $(InputPath) $(TargetDir) /Q/Y/D&#x0D;&#x0A;"
+						Outputs="$(TargetDir)\$(InputFileName)"
+					/>
+				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<FileConfiguration
-				Name="Release|Win32"
+			<File
+				RelativePath="..\..\source\example\plsimple\plsimple.h"
 				>
-				<Tool
-					Name="VCCLCompilerTool"
-					WarningLevel="3"
-				/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath="..\..\source\example\plsimple\swig\testplsimple.pl"
+			</File>
+		</Filter>
+		<Filter
+			Name="Interface Files"
 			>
-			<FileConfiguration
-				Name="Release|Win32"
+			<File
+				RelativePath="..\..\interface\example\plsimple\isimple.h"
 				>
-				<Tool
-					Name="VCCustomBuildTool"
-					CommandLine="if exist $(InputPath) xcopy $(InputPath) $(TargetDir) /Q/Y/D&#x0D;&#x0A;"
-					Outputs="$(TargetDir)\$(InputFileName)"
-				/>
-			</FileConfiguration>
-		</File>
+			</File>
+			<File
+				RelativePath="..\..\interface\example\plsimple\isimple2.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\interface\example\plsimple\isimple3.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Source Files"
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			>
+			<File
+				RelativePath="..\..\source\example\plsimple\module.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\source\example\plsimple\plsimple.cpp"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

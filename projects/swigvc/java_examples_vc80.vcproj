@@ -22,7 +22,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="..\..\build\$(ConfigurationName)\java"
-			IntermediateDirectory="..\..\build\$(ConfigurationName)\obj\java_$(ProjectName)"
+			IntermediateDirectory="..\..\build\$(ConfigurationName)\obj\$(ProjectName)_java"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -101,7 +101,7 @@
 		<Configuration
 			Name="Release|x64"
 			OutputDirectory="..\..\build\$(ConfigurationName)64\java"
-			IntermediateDirectory="..\..\build\$(ConfigurationName)64\obj\java_$(ProjectName)"
+			IntermediateDirectory="..\..\build\$(ConfigurationName)64\obj\$(ProjectName)_java"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -182,34 +182,40 @@
 	<References>
 	</References>
 	<Files>
-		<File
-			RelativePath="..\..\source\swigtest\examples\examples.i"
+		<Filter
+			Name="Swig Files"
+			Filter="i;py;pyw;java;cs;pl;rb"
+			UniqueIdentifier="{B66BBF33-21A8-451F-A173-F4C554C67AFE}"
 			>
-			<FileConfiguration
-				Name="Release|Win32"
+			<File
+				RelativePath="..\..\source\swigtest\examples\examples.i"
 				>
-				<Tool
-					Name="VCCustomBuildTool"
-					Description="Swig generating..."
-					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.java del /Q $(IntDir)\*.java&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_java_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA_BIN%jar&quot; cfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
-					Outputs="$(InputDir)$(InputName)_java_wrap.cxx"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|x64"
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Swig generating..."
+						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.java del /Q $(IntDir)\*.java&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_java_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA_BIN%jar&quot; cfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
+						Outputs="$(InputDir)$(InputName)_java_wrap.cxx"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Swig generating..."
+						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.java del /Q $(IntDir)\*.java&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_java_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA64_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA64_BIN%jar&quot; cfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
+						Outputs="$(InputDir)$(InputName)_java_wrap.cxx"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\source\swigtest\examples\examples_java_wrap.cxx"
 				>
-				<Tool
-					Name="VCCustomBuildTool"
-					Description="Swig generating..."
-					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.java del /Q $(IntDir)\*.java&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_java_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA64_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA64_BIN%jar&quot; cfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
-					Outputs="$(InputDir)$(InputName)_java_wrap.cxx"
-				/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath="..\..\source\swigtest\examples\examples_java_wrap.cxx"
-			>
-		</File>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

@@ -8,6 +8,7 @@ else
 SOURCES  =$(wildcard *.cpp)
 OBJDIR   =._$(SWIG_TYPE)o/
 OBJS     =$(addprefix $(OBJDIR), $(SOURCES:.cpp=$(OBJEXT)))
+CPPFLAGS += -DPLUGIN_SWIG
 
 include $(SRCPUB_DIR)/swig/Makefile.swig
 

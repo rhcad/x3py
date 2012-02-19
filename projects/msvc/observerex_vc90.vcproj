@@ -365,30 +365,6 @@
 				RelativePath="..\..\interface\example\observerex\myevents.h"
 				>
 			</File>
-			<Filter
-				Name="observer"
-				>
-				<File
-					RelativePath="..\..\interface\core\observer\eventobserver.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\interface\core\observer\fireevent.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\interface\core\observer\fireobjevent.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\interface\core\observer\observerimpl.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\interface\core\observer\observerobject.h"
-					>
-				</File>
-			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

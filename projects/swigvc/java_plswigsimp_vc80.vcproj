@@ -22,7 +22,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="..\..\build\$(ConfigurationName)\java"
-			IntermediateDirectory="..\..\build\$(ConfigurationName)\obj\java_$(ProjectName)"
+			IntermediateDirectory="..\..\build\$(ConfigurationName)\obj\$(ProjectName)_java"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example;&quot;$(JAVA_INCLUDE)&quot;;&quot;$(JAVA_INCLUDE)\win32&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;PLUGIN_SWIG;USE_JAVA"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				DebugInformationFormat="3"
@@ -101,7 +101,7 @@
 		<Configuration
 			Name="Release|x64"
 			OutputDirectory="..\..\build\$(ConfigurationName)64\java"
-			IntermediateDirectory="..\..\build\$(ConfigurationName)64\obj\java_$(ProjectName)"
+			IntermediateDirectory="..\..\build\$(ConfigurationName)64\obj\$(ProjectName)_java"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -125,7 +125,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example;&quot;$(JAVA64_INCLUDE)&quot;;&quot;$(JAVA64_INCLUDE)\win32&quot;"
-				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL"
+				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL;PLUGIN_SWIG;USE_JAVA"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				DebugInformationFormat="3"
@@ -184,6 +184,8 @@
 	<Files>
 		<Filter
 			Name="Swig Files"
+			Filter="i;py;pyw;java;cs;pl;rb"
+			UniqueIdentifier="{B66BBF33-21A8-451F-A173-F4C554C67AFE}"
 			>
 			<File
 				RelativePath="..\..\source\example\plswigsimp\plswigsimp.i"
@@ -238,6 +240,8 @@
 		</Filter>
 		<Filter
 			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
 				RelativePath="..\..\source\example\plswigsimp\plswigsimp.h"
@@ -246,6 +250,8 @@
 		</Filter>
 		<Filter
 			Name="Source Files"
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
 				RelativePath="..\..\source\example\plswigsimp\module.cpp"

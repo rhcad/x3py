@@ -2,7 +2,6 @@
 %{
 #ifndef PLUGIN_NAME
 #define PLUGIN_NAME "plswigsimp"
-#define PLUGIN_SWIG
 #endif
 %}
 %include <swig/plugin.i>

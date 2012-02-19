@@ -22,7 +22,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="..\..\build\$(ConfigurationName)\java"
-			IntermediateDirectory="..\..\build\$(ConfigurationName)\obj\java_$(ProjectName)"
+			IntermediateDirectory="..\..\build\$(ConfigurationName)\obj\$(ProjectName)_java"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example;&quot;$(JAVA_INCLUDE)&quot;;&quot;$(JAVA_INCLUDE)\win32&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;PLUGIN_SWIG;USE_JAVA"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				DebugInformationFormat="3"
@@ -101,7 +101,7 @@
 		<Configuration
 			Name="Release|x64"
 			OutputDirectory="..\..\build\$(ConfigurationName)64\java"
-			IntermediateDirectory="..\..\build\$(ConfigurationName)64\obj\java_$(ProjectName)"
+			IntermediateDirectory="..\..\build\$(ConfigurationName)64\obj\$(ProjectName)_java"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -125,7 +125,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example;&quot;$(JAVA64_INCLUDE)&quot;;&quot;$(JAVA64_INCLUDE)\win32&quot;"
-				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL"
+				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL;PLUGIN_SWIG;USE_JAVA"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				DebugInformationFormat="3"
@@ -182,34 +182,72 @@
 	<References>
 	</References>
 	<Files>
-		<File
-			RelativePath="..\..\source\example\observerex\swig\observerex.i"
+		<Filter
+			Name="Swig Files"
+			Filter="i;py;pyw;java;cs;pl;rb"
+			UniqueIdentifier="{B66BBF33-21A8-451F-A173-F4C554C67AFE}"
 			>
-			<FileConfiguration
-				Name="Release|Win32"
+			<File
+				RelativePath="..\..\source\example\observerex\swig\observerex.i"
 				>
-				<Tool
-					Name="VCCustomBuildTool"
-					Description="Swig generating..."
-					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.java del /Q $(IntDir)\*.java&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_java_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA_BIN%jar&quot; cfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
-					Outputs="$(InputDir)$(InputName)_java_wrap.cxx"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|x64"
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Swig generating..."
+						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.java del /Q $(IntDir)\*.java&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_java_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA_BIN%jar&quot; cfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
+						Outputs="$(InputDir)$(InputName)_java_wrap.cxx"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Swig generating..."
+						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.java del /Q $(IntDir)\*.java&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_java_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA64_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA64_BIN%jar&quot; cfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
+						Outputs="$(InputDir)$(InputName)_java_wrap.cxx"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\source\example\observerex\swig\observerex_java_wrap.cxx"
 				>
-				<Tool
-					Name="VCCustomBuildTool"
-					Description="Swig generating..."
-					CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.java del /Q $(IntDir)\*.java&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -java -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_java_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.java (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;&quot;%JAVA64_BIN%javac&quot; *.java&#x0D;&#x0A;&quot;%JAVA64_BIN%jar&quot; cfM $(ProjectName).jar *.class&#x0D;&#x0A;copy /Y $(ProjectName).jar $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
-					Outputs="$(InputDir)$(InputName)_java_wrap.cxx"
-				/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath="..\..\source\example\observerex\swig\observerex_java_wrap.cxx"
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-		</File>
+			<File
+				RelativePath="..\..\source\example\observerex\observerex.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Interface Files"
+			>
+			<File
+				RelativePath="..\..\interface\example\observerex\myevents.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Source Files"
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			>
+			<File
+				RelativePath="..\..\source\example\observerex\module.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\source\example\observerex\observerex.cpp"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
