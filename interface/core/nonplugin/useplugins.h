@@ -23,7 +23,7 @@
 
 namespace x3 {
 
-static LoadModuleHelper* s_plugins[10] = { NULL };
+static LoadModuleHelper* s_plugins[20] = { NULL };
 static int s_nplugin = 0;
 
 #if !defined(X3_EXCLUDE_CREATEOBJECT) && !defined(CREATEOBJECTIMPL)
@@ -43,14 +43,24 @@ bool createObject(const char* clsid, long iid, IObject** p)
 }
 #endif // CREATEOBJECTIMPL
 
-void loadPlugins(const char* const* plugins, const char* folder = PLUGIN_PATH)
+int loadPlugins(const char* const* plugins, const char* folder = PLUGIN_PATH)
 {
     HMODULE basemod = GetModuleHandleA(SELF_MODULE_NAME);
-    for (int i = 0; s_nplugin < 10 - 1 && plugins[i]; ++i, ++s_nplugin)
+
+    for (int i = 0; s_nplugin < 20 - 1 && plugins[i]; ++i)
     {
-        s_plugins[s_nplugin] = new LoadModuleHelper();
-        s_plugins[s_nplugin]->load(plugins[i], basemod, folder);
+        LoadModuleHelper* p = new LoadModuleHelper();
+        if (p->load(plugins[i], basemod, folder))
+        {
+            s_plugins[s_nplugin++] = p;
+        }
+        else
+        {
+            delete p;
+        }
     }
+
+    return s_nplugin;
 }
 
 void unloadPlugins()
@@ -64,8 +74,8 @@ void unloadPlugins()
 }
 
 /** \code
- * static const char* plugins[] = { "x3manager.pln", "myplugin.pln", NULL };
- * static x3::AutoLoadPlugins autoload(plugins);
+ *   const char* plugins[] = { "x3manager.pln", "myplugin.pln", NULL };
+ *   x3::AutoLoadPlugins autoload(plugins, "plugins");
  * \endcode
  */
 struct AutoLoadPlugins

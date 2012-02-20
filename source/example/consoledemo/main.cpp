@@ -118,11 +118,11 @@ int main()
 
 int main()
 {
-    x3::loadPlugins();
+    x3::loadScanPlugins();
 
     int ret = test();
 
-    x3::unloadPlugins();
+    x3::unloadScanPlugins();
 
     return ret;
 }

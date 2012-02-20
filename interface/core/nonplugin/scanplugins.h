@@ -10,27 +10,27 @@
 #endif
 
 #ifndef PLUGINS_MAXCOUNT
-#define PLUGINS_MAXCOUNT 20
+#define PLUGINS_MAXCOUNT 40
 #endif
 
 namespace x3 {
 
 static HMODULE  s_modules[PLUGINS_MAXCOUNT] = { NULL };
-static int      s_nplugin = 0;
+static int      s_nmods = 0;
 
 static bool loadfilter(const char* filename, const char* ext)
 {
     if (_stricmp(ext, ".pln") == 0
         && GetModuleHandleA(PathFindFileNameA(filename)) == NULL)
     {
-        s_modules[s_nplugin] = x3LoadLibrary(filename);
-        if (s_modules[s_nplugin])
-            s_nplugin++;
+        s_modules[s_nmods] = x3LoadLibrary(filename);
+        if (s_modules[s_nmods])
+            s_nmods++;
     }
-    return s_nplugin < PLUGINS_MAXCOUNT;
+    return s_nmods < PLUGINS_MAXCOUNT;
 }
 
-int loadPlugins(const char* folder = "plugins")
+int loadScanPlugins(const char* folder = "plugins")
 {
     char path[MAX_PATH];
 
@@ -47,18 +47,20 @@ int loadPlugins(const char* folder = "plugins")
     }
 
     x3::scanfiles(loadfilter, path, true);
-    return s_nplugin;
+    return s_nmods;
 }
 
-void unloadPlugins()
+void unloadScanPlugins()
 {
-    while (s_nplugin > 0)
+    while (s_nmods > 0)
     {
-        x3FreeLibrary(s_modules[--s_nplugin]);
+        x3FreeLibrary(s_modules[--s_nmods]);
     }
 }
 
-#ifndef X3_EXCLUDE_CREATEOBJECT
+#if !defined(X3_EXCLUDE_CREATEOBJECT) && !defined(CREATEOBJECTIMPL)
+#define CREATEOBJECTIMPL
+
 class IObject;
 bool createObject(const char* clsid, long iid, IObject** p)
 {
@@ -67,7 +69,7 @@ bool createObject(const char* clsid, long iid, IObject** p)
     return f && f(clsid, iid, p);
 }
 HMODULE getManagerModule() { return s_modules[0]; }
-#endif
+#endif // CREATEOBJECTIMPL
 
 } // x3
 #endif

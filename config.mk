@@ -83,8 +83,12 @@ LDFLAGS      += -nologo $(VCLIBS)
 ifdef APPTYPE # application
 ifdef IS_CONSOLE
 LDFLAGS      += -subsystem:console
-endif
 else
+ifdef IS_AFXDLL # MFC app
+LDFLAGS      += -entry:"wWinMainCRTStartup"
+endif
+endif   # IS_CONSOLE
+else    # not app
 ifndef IS_LIB # dll
 LDFLAGS      += -subsystem:windows -dll
 endif
