@@ -13,7 +13,7 @@ CSimple::~CSimple()
 
 bool CSimple::createWnd(size_t hparent, int id)
 {
-    AFX_MANAGE_STATE(AfxGetStaticModuleState());
+    AFX_MANAGE_STATE_EX;
     CWnd* pParent = CWnd::FromHandle(reinterpret_cast<HWND>(hparent));
 
     return !!m_pwnd->CreateEx(WS_EX_STATICEDGE, NULL, L"Test", 

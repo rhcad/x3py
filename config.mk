@@ -48,9 +48,16 @@ OS           ?=$(shell uname -s)
 IS_WIN       :=$(shell echo $(OS)|grep -i Windows)
 IS_MACOSX    :=$(shell echo $(OS)|grep -i Darwin)
 
+IS_CONSOLE   :=$(shell echo $(APPTYPE)|grep -i console)
+IS_LIB       :=$(shell echo $(CPPFLAGS)|grep -i D_LIB)
+IS_AFXDLL    :=$(shell echo $(CPPFLAGS)|grep -i D_AFXDLL)
+IS_AFXEXT    :=$(shell echo $(CPPFLAGS)|grep -i D_AFXEXT)
+
 ifndef APPTYPE # dll or lib
 ifdef IS_WIN
+ifndef IS_AFXEXT
 CPPFLAGS     += -D_USRDLL
+endif
 ifndef VCBIN
 LDFLAGS      += -shared
 endif
@@ -68,9 +75,6 @@ endif
 
 #-------------------------------------------------------------------
 # VC++ link options
-
-IS_CONSOLE   :=$(shell echo $(APPTYPE)|grep -i console)
-IS_LIB       :=$(shell echo $(CPPFLAGS)|grep -i D_LIB)
 
 ifdef VCBIN
 INCLUDES     += $(VCINC)

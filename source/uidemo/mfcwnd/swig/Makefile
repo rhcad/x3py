@@ -1,5 +1,5 @@
 ROOTDIR  =../../../..
-PKGNAME  =example
+PKGNAME  =uidemo
 PROJNAME =mfcwnd
 CPPFLAGS += -D_AFXDLL
 

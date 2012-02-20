@@ -45,8 +45,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\uidemo"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXEXT"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -123,8 +123,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example"
-				PreprocessorDefinitions="_WIN64;_DEBUG;_WINDOWS;_USRDLL"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\uidemo"
+				PreprocessorDefinitions="_WIN64;_DEBUG;_WINDOWS;_AFXEXT"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				WarningLevel="4"
@@ -199,8 +199,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\uidemo"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXEXT"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				DebugInformationFormat="3"
@@ -279,8 +279,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example"
-				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\uidemo"
+				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_AFXEXT"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				DebugInformationFormat="3"
@@ -342,11 +342,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\source\example\mfcwnd\mfcwnd.cpp"
+				RelativePath="..\..\source\uidemo\mfcwnd\mfcwnd.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\source\example\mfcwnd\module.cpp"
+				RelativePath="..\..\source\uidemo\mfcwnd\module.cpp"
 				>
 			</File>
 		</Filter>
@@ -356,7 +356,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\source\example\mfcwnd\mfcwnd.h"
+				RelativePath="..\..\source\uidemo\mfcwnd\mfcwnd.h"
 				>
 			</File>
 		</Filter>
@@ -366,7 +366,7 @@
 			UniqueIdentifier="{517625E8-3653-47B2-8F30-C4B355E1120B}"
 			>
 			<File
-				RelativePath="..\..\interface\example\mfcwnd\isimple.h"
+				RelativePath="..\..\interface\uidemo\mfcwnd\isimple.h"
 				>
 			</File>
 		</Filter>

@@ -1,7 +1,7 @@
-# This example illustrates how MFC UI interfaces can be used from Python.
+# This uidemo illustrates how MFC UI interfaces can be used from Python.
 
 import wx
-import example.mfcwnd as test
+import uidemo.mfcwnd as test
 
 class MyPanel(wx.Panel):
     def __init__(self, parent):

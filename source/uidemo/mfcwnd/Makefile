@@ -1,7 +1,7 @@
 ROOTDIR  =../../..
-PKGNAME  =example
+PKGNAME  =uidemo
 PROJNAME =mfcwnd
-CPPFLAGS += -D_AFXDLL
+CPPFLAGS += -D_AFXDLL -D_AFXEXT
 
 include $(ROOTDIR)/config.mk
 
@@ -9,7 +9,7 @@ include $(ROOTDIR)/config.mk
 #LIBS     += -L$(LIBPATHFLAG)yourlibpath  $(LIBFLAG)yourlibname$(LIBEND)
 
 ifdef VCBIN
-include $(SRCPUB_DIR)/swig/Makefile.swig
+include $(SRCPUB_DIR)/mk/Makefile.pln
 else
 all clean swig: # skip MFC project
 endif

@@ -4,6 +4,12 @@
 #include <module/classmacro.h>
 #include <mfcwnd/isimple.h>
 
+#ifdef _AFXEXT
+#define AFX_MANAGE_STATE_EX     AFX_MANAGE_STATE(AfxGetAppModuleState())
+#else
+#define AFX_MANAGE_STATE_EX     AFX_MANAGE_STATE(AfxGetStaticModuleState())
+#endif
+
 class CSimpleWnd : public CWnd
 {
 public:

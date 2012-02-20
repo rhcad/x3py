@@ -45,7 +45,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example;&quot;$(PYTHON_INCLUDE)&quot;"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\uidemo;&quot;$(PYTHON_INCLUDE)&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;PLUGIN_SWIG;USE_PYTHON"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)\example\_$(ProjectName).pyd"
+				OutputFile="$(OutDir)\uidemo\_$(ProjectName).pyd"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(PYTHON_LIB)&quot;"
 				IgnoreDefaultLibraryNames=""
@@ -125,7 +125,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example;&quot;$(PYTHON64_INCLUDE)&quot;"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\uidemo;&quot;$(PYTHON64_INCLUDE)&quot;"
 				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL;PLUGIN_SWIG;USE_PYTHON"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -142,7 +142,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)\example\_$(ProjectName).pyd"
+				OutputFile="$(OutDir)\uidemo\_$(ProjectName).pyd"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(PYTHON64_LIB)&quot;"
 				IgnoreDefaultLibraryNames=""
@@ -188,7 +188,7 @@
 			UniqueIdentifier="{B66BBF33-21A8-451F-A173-F4C554C67AFE}"
 			>
 			<File
-				RelativePath="..\..\source\example\mfcwnd\swig\mfcwnd.i"
+				RelativePath="..\..\source\uidemo\mfcwnd\swig\mfcwnd.i"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -196,7 +196,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Swig generating..."
-						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if not exist $(TargetDir)__init__.py echo #empty &gt; $(TargetDir)__init__.py&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_wrap.cxx&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;"
+						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if not exist $(TargetDir)__init__.py echo #empty &gt; $(TargetDir)__init__.py&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\uidemo&quot; -o &quot;$(InputDir)$(InputName)_wrap.cxx&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputName)_wrap.cxx"
 					/>
 				</FileConfiguration>
@@ -206,13 +206,13 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Swig generating..."
-						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if not exist $(TargetDir)__init__.py echo #empty &gt; $(TargetDir)__init__.py&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_wrap.cxx&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;"
+						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if not exist $(TargetDir)__init__.py echo #empty &gt; $(TargetDir)__init__.py&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -python -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\uidemo&quot; -o &quot;$(InputDir)$(InputName)_wrap.cxx&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputName)_wrap.cxx"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\source\example\mfcwnd\swig\mfcwnd_wrap.cxx"
+				RelativePath="..\..\source\uidemo\mfcwnd\swig\mfcwnd_wrap.cxx"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -232,7 +232,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\source\example\mfcwnd\swig\testmfcwnd.py"
+				RelativePath="..\..\source\uidemo\mfcwnd\swig\testmfcwnd.py"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -262,7 +262,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\source\example\mfcwnd\mfcwnd.h"
+				RelativePath="..\..\source\uidemo\mfcwnd\mfcwnd.h"
 				>
 			</File>
 		</Filter>
@@ -270,7 +270,7 @@
 			Name="Interface Files"
 			>
 			<File
-				RelativePath="..\..\interface\example\mfcwnd\isimple.h"
+				RelativePath="..\..\interface\uidemo\mfcwnd\isimple.h"
 				>
 			</File>
 		</Filter>
@@ -280,11 +280,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\source\example\mfcwnd\mfcwnd.cpp"
+				RelativePath="..\..\source\uidemo\mfcwnd\mfcwnd.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\source\example\mfcwnd\module.cpp"
+				RelativePath="..\..\source\uidemo\mfcwnd\module.cpp"
 				>
 			</File>
 		</Filter>
