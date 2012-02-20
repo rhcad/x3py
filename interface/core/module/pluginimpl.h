@@ -105,15 +105,20 @@ OUTAPI bool x3FreePlugin()
     if (--s_refcount != 0)
         return false;
 
-    x3UninitializePlugin();
+    bool needFree = true;
 
     if (s_manager && s_manager != s_hmod)
     {
         typedef bool (*CF)(const char*, long, IObject**);
-        typedef void (*UF)(CF);
-        UF f = (UF)GetProcAddress(s_manager, "x3UnregisterPlugin");
-        if (f) f(x3InternalCreate);
+        typedef bool (*UF)(CF);
+        UF uf = (UF)GetProcAddress(s_manager, "x3UnregisterPlugin");
+        needFree = !uf || uf(x3InternalCreate);
     }
+    if (needFree)
+    {
+        x3UninitializePlugin();
+    }
+
     if (s_loadmgr)
     {
         x3FreeLibrary(s_manager);

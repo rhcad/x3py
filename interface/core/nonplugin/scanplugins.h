@@ -46,12 +46,21 @@ int loadScanPlugins(const char* folder = "plugins")
         PathRemoveFileSpecA(path);
     }
 
+    typedef int (*LOADF)(const char*);
+    LOADF fld = (LOADF)GetProcAddress(GetModuleHandleA("x3manager.pln"), "x3LoadPlugins");
+    int extcount = fld ? fld(folder) : 0;
+
     x3::scanfiles(loadfilter, path, true);
-    return s_nmods;
+
+    return s_nmods + extcount;
 }
 
 void unloadScanPlugins()
 {
+    typedef int (*UF)();
+    UF uf = (UF)GetProcAddress(GetModuleHandleA("x3manager.pln"), "x3UnloadPlugins");
+    if (uf) uf();
+
     while (s_nmods > 0)
     {
         x3FreeLibrary(s_modules[--s_nmods]);

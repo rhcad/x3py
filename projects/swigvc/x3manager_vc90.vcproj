@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;&quot;$(PYTHON_INCLUDE)&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;PLUGIN_SWIG;USE_PYTHON"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;USE_PYTHON"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				DebugInformationFormat="3"
@@ -124,7 +124,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;&quot;$(PYTHON64_INCLUDE)&quot;"
-				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL;PLUGIN_SWIG;USE_PYTHON"
+				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL;USE_PYTHON"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				DebugInformationFormat="3"
@@ -265,42 +265,6 @@
 					>
 				</File>
 			</Filter>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
-				RelativePath="..\..\source\core\x3manager\plugins.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Interface Files"
-			>
-			<File
-				RelativePath="..\..\interface\core\manager\iplugins.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\interface\core\manager\x3manager.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
-			>
-			<File
-				RelativePath="..\..\source\core\x3manager\module.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\source\core\x3manager\plugins.cpp"
-				>
-			</File>
 		</Filter>
 	</Files>
 	<Globals>

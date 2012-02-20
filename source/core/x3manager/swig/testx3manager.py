@@ -5,7 +5,7 @@ import example.plsimple as A
 import example.observerex as B
 
 a = Plugins("")
-if not a.valid(): print("Plugins not created.")
+if not a.valid(): print("The x3manager plugins is not loaded.")
 
 print("plugin count: %d" % a.getPluginCount())
 
@@ -26,7 +26,11 @@ if c.valid():
     print("AnyObject(anotherobj.p()) ok.")
     print("AnyObject: iid=%d, clsid=%s" % (c.getIID(), c.getClassID()))
 
+print("---loadExtraPlugins---")
 p = Plugins("")
+print("plugins loaded: %d" % p.loadExtraPlugins("plugins"))
 print("plugin count: %d" % p.getPluginCount())
 p.getPluginFiles(files)
-print(list(files))
+for i,f in enumerate(files): print(" %d. %s" % (i+1,f))
+print("plugins unloaded: %d" % p.unloadExtraPlugins())
+#print(list(files))
