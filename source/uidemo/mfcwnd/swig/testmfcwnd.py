@@ -6,7 +6,7 @@ import uidemo.mfcwnd as test
 class MyPanel(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent, -1)
-        self._child = test.Simple("")
+        self._child = test.SimpleWnd("")
         
     @property
     def child(self):

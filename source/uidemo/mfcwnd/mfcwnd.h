@@ -21,13 +21,14 @@ protected:
 
 protected:
 	afx_msg void OnPaint();
+    afx_msg void OnTestRespond();
 	DECLARE_MESSAGE_MAP()
 };
 
-class CSimple : public ISimple
+class CSimple : public ISimpleWnd
 {
     X3BEGIN_CLASS_DECLARE(CSimple, clsidSimple)
-        X3DEFINE_INTERFACE_ENTRY(ISimple)
+        X3DEFINE_INTERFACE_ENTRY(ISimpleWnd)
     X3END_CLASS_DECLARE()
 protected:
     CSimple();

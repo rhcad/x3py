@@ -11,4 +11,4 @@
 %}
 
 %include <mfcwnd/isimple.h>
-%template(Simple) x3::Object<ISimple>;
+%template(SimpleWnd) x3::Object<ISimpleWnd>;
