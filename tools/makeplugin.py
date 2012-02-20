@@ -49,7 +49,7 @@ def copyfiles(srcdir, destdir, pairs, callback=None, needswig=False):
                 open(destfile, 'w').write(newtext)
                 print('%s [replaced]' % destfile)
             else:
-                print(destfile)
+                print('%s [created]' % destfile)
 
 def makeproj(projname, pkgname, baseproj, basepkg, needswig):
     rootpath = os.path.abspath('..')
@@ -60,6 +60,8 @@ def makeproj(projname, pkgname, baseproj, basepkg, needswig):
     if projname == '':
         raise AttributeError, projname
     if not os.path.exists(basepath):
+        print("\nPlease input a valid exists template project name."
+              "\n\'%s\' does not exist." % (basepath,))
         raise OSError, basepath
     
     if not os.path.exists(pkgpath):
@@ -68,7 +70,7 @@ def makeproj(projname, pkgname, baseproj, basepkg, needswig):
         if os.path.exists(srcmk):
             destmk = os.path.join(pkgpath, 'Makefile')
             open(destmk, "w").write(open(srcmk).read())
-            print(destmk)
+            print('%s [created]' % destmk)
 
     pairs = {baseproj:projname, basepkg:pkgname}
     
@@ -101,10 +103,11 @@ if __name__=="__main__":
         if ret == '': ret = default
         return ret
     
-    projname = inputparam(1, 'Project name: ')
-    pkgname  = inputparam(2, 'Target package name (example): ', 'example')
-    baseproj = inputparam(3, 'Template project name (pltempl): ', 'pltempl')
-    basepkg  = inputparam(4, 'Template package name (example): ', 'example')
-    needswig = inputparam(5, 'Need swig (y/n) ? (n): ', 'n')
+    projname = inputparam(1, 'New project name: ')
+    pkgname  = inputparam(2, 'Package name of the new project (default: example): ', 'example')
+    baseproj = inputparam(3, 'Template (exists) project name (default: pltempl): ', 'pltempl')
+    basepkg  = inputparam(4, 'Package name of the template project (default: example): ', 'example')
+    needswig = inputparam(5, 'Need swig (y/n) ? (default: n): ', 'n')
     
     makeproj(projname, pkgname, baseproj, basepkg, 'y' in needswig)
+    if len(sys.argv) < 3: raw_input("Press any key to end.")
