@@ -21,6 +21,7 @@ protected:
 
 protected:
 	afx_msg void OnPaint();
+    afx_msg BOOL OnEraseBkgnd(CDC*);
     afx_msg void OnTestRespond();
 	DECLARE_MESSAGE_MAP()
 };
