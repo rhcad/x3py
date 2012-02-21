@@ -28,7 +28,7 @@ def multi_replace(text, adict):
     return rx.sub(xlat, text)
 
 def copyfiles(srcdir, dstdir, pairs, baseprj, callback, needswig=False):
-    if ".svn" in srcdir: return
+    if ".svn" in srcdir or "eclipse" in srcdir: return
     if not needswig and "swig" in srcdir: return
     has_ifile = not needswig and os.path.exists(os.path.join(srcdir, baseprj + ".i"))
     
@@ -41,9 +41,9 @@ def copyfiles(srcdir, dstdir, pairs, baseprj, callback, needswig=False):
         
         if os.path.isdir(srcfile):
             copyfiles(srcfile, dstfile, pairs, baseprj, callback, needswig)
-            return
+            continue
         
-        if has_ifile and (fn == baseprj + ".i" or fn.startswith("test" + baseprj)): return
+        if has_ifile and (fn == baseprj + ".i" or fn.startswith("test" + baseprj)): continue
         
         if os.path.isfile(srcfile) and not os.path.exists(dstfile) \
                 and callback(fn, pairs):

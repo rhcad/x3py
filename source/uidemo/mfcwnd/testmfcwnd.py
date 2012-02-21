@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# This example illustrates how MFC UI interfaces can be used from wxPython.
+# This example illustrates how MFC UI interfaces can be used from python with wxPython.
 # Renames this file as *.pyw to run without shell window.
 
 import uidemo.mfcwnd as test
