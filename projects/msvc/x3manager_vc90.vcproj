@@ -425,6 +425,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\interface\core\nonplugin\swigext.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\interface\core\nonplugin\useplugin.h"
 					>
 				</File>

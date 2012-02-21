@@ -188,7 +188,7 @@
 			UniqueIdentifier="{B66BBF33-21A8-451F-A173-F4C554C67AFE}"
 			>
 			<File
-				RelativePath="..\..\source\uidemo\mfcwnd\swig\mfcwnd.i"
+				RelativePath="..\..\source\uidemo\mfcwnd\mfcwnd.i"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -212,7 +212,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\source\uidemo\mfcwnd\swig\mfcwnd_wrap.cxx"
+				RelativePath="..\..\source\uidemo\mfcwnd\mfcwnd_wrap.cxx"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -232,7 +232,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\source\uidemo\mfcwnd\swig\testmfcwnd.py"
+				RelativePath="..\..\source\uidemo\mfcwnd\testmfcwnd.py"
 				>
 				<FileConfiguration
 					Name="Release|Win32"

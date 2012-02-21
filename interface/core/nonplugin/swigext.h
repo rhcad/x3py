@@ -19,10 +19,6 @@
     #define SELF_EXT ".so"
 #endif
 
-#ifdef PLUGIN_SWIG
-#define X3MANAGER_PLNAME    SELF_PRE "x3manager" SELF_EXT
-#endif
-
 // the internal plugin (*.pln) 's relative folder base on the current module.
 //
 #ifndef PLUGIN_PATH

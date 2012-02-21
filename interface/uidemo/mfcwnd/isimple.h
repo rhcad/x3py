@@ -3,7 +3,7 @@
 
 #include <objptr.h>
 
-const char* const clsidSimple = "94071767-ba6b-4769-9eb4-2ebf469289f3";
+const char* const clsidSimple = "feefc399-29f2-4354-8eeb-048d4cf56567";
 
 class ISimpleWnd : public x3::IObject
 {

@@ -104,7 +104,7 @@
 			UniqueIdentifier="{B66BBF33-21A8-451F-A173-F4C554C67AFE}"
 			>
 			<File
-				RelativePath="..\..\source\example\plsimple\swig\plsimple.i"
+				RelativePath="..\..\source\example\plsimple\plsimple.i"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -118,7 +118,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\source\example\plsimple\swig\plsimple_perl_wrap.cxx"
+				RelativePath="..\..\source\example\plsimple\plsimple_perl_wrap.cxx"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -130,7 +130,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\source\example\plsimple\swig\testplsimple.pl"
+				RelativePath="..\..\source\example\plsimple\testplsimple.pl"
 				>
 				<FileConfiguration
 					Name="Release|Win32"

@@ -6,9 +6,13 @@
 
 %{
 #include <portability/x3port.h>
-#ifndef PLUGIN_SWIG
-#include <nonplugin/useplugin.h>
+
+#ifdef  PLUGIN_SWIG             // pluginimpl.h has been included
+#undef  PLUGIN_NAME
+#define PLUGIN_NAME "x3manager"
+#define X3_EXCLUDE_CREATEOBJECT
 #endif
+#include <nonplugin/useplugin.h>    // load PLUGIN_NAME.pln when not use useplugins.h
 
 #define X3THROW_NULLPOINTERERROR(name) \
     printf("NullPointerError occurs, interface name: %s\n", name); \

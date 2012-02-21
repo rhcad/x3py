@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="plswigsimp"
-	ProjectGUID="{5F35EECA-EB4D-43F3-BC01-BCDA3EA08B8F}"
-	RootNamespace="perl_plswigsimp"
+	Name="x3manager"
+	ProjectGUID="{56A8261D-DE8E-4DB1-880E-A0368758B0BA}"
+	RootNamespace="perl_x3manager"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -41,8 +41,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example;&quot;$(PERL5_INCLUDE)&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;PLUGIN_SWIG;USE_PERL"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;&quot;$(PERL5_INCLUDE)&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;USE_PERL"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				DebugInformationFormat="3"
@@ -104,7 +104,7 @@
 			UniqueIdentifier="{B66BBF33-21A8-451F-A173-F4C554C67AFE}"
 			>
 			<File
-				RelativePath="..\..\source\example\plswigsimp\plswigsimp.i"
+				RelativePath="..\..\source\core\x3manager\swig\x3manager.i"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -112,13 +112,13 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Swig generating..."
-						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -perl5 -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_perl_wrap.cxx&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;"
+						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -perl5 -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -o &quot;$(InputDir)$(InputName)_perl_wrap.cxx&quot; -outdir $(TargetDir) $(InputPath)&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputName)_perl_wrap.cxx"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\source\example\plswigsimp\plswigsimp_perl_wrap.cxx"
+				RelativePath="..\..\source\core\x3manager\swig\x3manager_perl_wrap.cxx"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -128,59 +128,6 @@
 						WarningLevel="3"
 					/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\source\example\plswigsimp\testplswigsimp.pl"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						CommandLine="if exist $(InputPath) xcopy $(InputPath) $(TargetDir) /Q/Y/D&#x0D;&#x0A;"
-						Outputs="$(TargetDir)\$(InputFileName)"
-					/>
-				</FileConfiguration>
-			</File>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
-				RelativePath="..\..\source\example\plswigsimp\plswigsimp.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
-			>
-			<File
-				RelativePath="..\..\source\example\plswigsimp\module.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\source\example\plswigsimp\plswigsimp.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Interface Files"
-			>
-			<File
-				RelativePath="..\..\interface\example\plswigsimp\isimple.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\interface\example\plswigsimp\isimple2.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\interface\example\plswigsimp\isimple3.h"
-				>
 			</File>
 		</Filter>
 	</Files>

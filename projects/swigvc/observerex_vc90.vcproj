@@ -186,7 +186,7 @@
 			UniqueIdentifier="{B66BBF33-21A8-451F-A173-F4C554C67AFE}"
 			>
 			<File
-				RelativePath="..\..\source\example\observerex\swig\observerex.i"
+				RelativePath="..\..\source\example\observerex\observerex.i"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -210,7 +210,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\source\example\observerex\swig\observerex_wrap.cxx"
+				RelativePath="..\..\source\example\observerex\observerex_wrap.cxx"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -234,7 +234,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\source\example\observerex\swig\testobserverex.py"
+				RelativePath="..\..\source\example\observerex\testobserverex.py"
 				>
 				<FileConfiguration
 					Name="Release|Win32"

@@ -125,7 +125,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example;&quot;$(JAVA64_INCLUDE)&quot;;&quot;$(JAVA64_INCLUDE)\win32&quot;"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example"
 				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL;PLUGIN_SWIG;USE_CSHARP"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -190,7 +190,7 @@
 			UniqueIdentifier="{B66BBF33-21A8-451F-A173-F4C554C67AFE}"
 			>
 			<File
-				RelativePath="..\..\source\example\plsimple\swig\plsimple.i"
+				RelativePath="..\..\source\example\plsimple\plsimple.i"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -214,11 +214,11 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\source\example\plsimple\swig\plsimple_csharp_wrap.cxx"
+				RelativePath="..\..\source\example\plsimple\plsimple_csharp_wrap.cxx"
 				>
 			</File>
 			<File
-				RelativePath="..\..\source\example\plsimple\swig\testplsimple.cs"
+				RelativePath="..\..\source\example\plsimple\testplsimple.cs"
 				>
 				<FileConfiguration
 					Name="Release|Win32"

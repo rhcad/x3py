@@ -1,5 +1,4 @@
 #include <module/plugininc.h>
-#include <nonplugin/swigext.h>  // for X3MANAGER_PLNAME
 #include <module/pluginimpl.h>
 #include <module/modulemacro.h>
 #include <observer/observerimpl.h>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="gb2312"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
-	Name="plswigsimp"
-	ProjectGUID="{94D68270-2AC2-4C6E-90B3-4A6B62AC51B9}"
-	RootNamespace="csharp_plswigsimp"
+	Version="8.00"
+	Name="x3manager"
+	ProjectGUID="{C613AAFA-D82A-42E2-9DAC-C06A5000E439}"
+	RootNamespace="csharp_x3manager"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -44,8 +44,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;PLUGIN_SWIG;USE_CSHARP"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;USE_CSHARP"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				DebugInformationFormat="3"
@@ -125,8 +125,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core;..\..\interface\example;&quot;$(JAVA64_INCLUDE)&quot;;&quot;$(JAVA64_INCLUDE)\win32&quot;"
-				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL;PLUGIN_SWIG;USE_CSHARP"
+				AdditionalIncludeDirectories="..\..\source\public;..\..\interface\core"
+				PreprocessorDefinitions="_WIN64;NDEBUG;_WINDOWS;_USRDLL;USE_CSHARP"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				DebugInformationFormat="3"
@@ -190,7 +190,7 @@
 			UniqueIdentifier="{B66BBF33-21A8-451F-A173-F4C554C67AFE}"
 			>
 			<File
-				RelativePath="..\..\source\example\plswigsimp\plswigsimp.i"
+				RelativePath="..\..\source\core\x3manager\swig\x3manager.i"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -198,7 +198,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Swig generating..."
-						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.cs del /Q $(IntDir)\*.cs&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -csharp -namespace example.$(ProjectName) -dllimport _$(ProjectName) -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_csharp_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.cs (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;csc.exe -nologo -t:library -out:$(ProjectName).dll *.cs&#x0D;&#x0A;copy /Y $(ProjectName).dll $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
+						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.cs del /Q $(IntDir)\*.cs&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -csharp -namespace core.$(ProjectName) -dllimport _$(ProjectName) -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -o &quot;$(InputDir)$(InputName)_csharp_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.cs (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;csc.exe -nologo -t:library -out:$(ProjectName).dll *.cs&#x0D;&#x0A;copy /Y $(ProjectName).dll $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputName)_csharp_wrap.cxx"
 					/>
 				</FileConfiguration>
@@ -208,75 +208,13 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Swig generating..."
-						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.cs del /Q $(IntDir)\*.cs&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -csharp -namespace example.$(ProjectName) -dllimport _$(ProjectName) -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -I&quot;$(ProjectDir)..\..\interface\example&quot; -o &quot;$(InputDir)$(InputName)_csharp_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.cs (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;csc.exe -nologo -t:library -out:$(ProjectName).dll *.cs&#x0D;&#x0A;copy /Y $(ProjectName).dll $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
+						CommandLine="if not exist $(TargetDir) mkdir $(TargetDir)&#x0D;&#x0A;if exist $(IntDir)\*.cs del /Q $(IntDir)\*.cs&#x0D;&#x0A;&#x0D;&#x0A;$(SWIG_BIN)swig -c++ -csharp -namespace core.$(ProjectName) -dllimport _$(ProjectName) -I&quot;$(ProjectDir)..\..\source\public&quot; -I&quot;$(ProjectDir)..\..\interface\core&quot; -o &quot;$(InputDir)$(InputName)_csharp_wrap.cxx&quot; -outdir $(IntDir) $(InputPath)&#x0D;&#x0A;&#x0D;&#x0A;if exist $(IntDir)\*.cs (&#x0D;&#x0A;cd $(IntDir)&#x0D;&#x0A;csc.exe -nologo -t:library -out:$(ProjectName).dll *.cs&#x0D;&#x0A;copy /Y $(ProjectName).dll $(TargetDir)&#x0D;&#x0A;)&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputName)_csharp_wrap.cxx"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\source\example\plswigsimp\plswigsimp_csharp_wrap.cxx"
-				>
-			</File>
-			<File
-				RelativePath="..\..\source\example\plswigsimp\testplswigsimp.cs"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						CommandLine="if exist $(InputPath) xcopy $(InputPath) $(TargetDir) /Q/Y/D&#x0D;&#x0A;"
-						Outputs="$(TargetDir)\$(InputFileName)"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						CommandLine="if exist $(InputPath) xcopy $(InputPath) $(TargetDir) /Q/Y/D&#x0D;&#x0A;"
-						Outputs="$(TargetDir)\$(InputFileName)"
-					/>
-				</FileConfiguration>
-			</File>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
-				RelativePath="..\..\source\example\plswigsimp\plswigsimp.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
-			>
-			<File
-				RelativePath="..\..\source\example\plswigsimp\module.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\source\example\plswigsimp\plswigsimp.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Interface Files"
-			>
-			<File
-				RelativePath="..\..\interface\example\plswigsimp\isimple.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\interface\example\plswigsimp\isimple2.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\interface\example\plswigsimp\isimple3.h"
+				RelativePath="..\..\source\core\x3manager\swig\x3manager_csharp_wrap.cxx"
 				>
 			</File>
 		</Filter>
