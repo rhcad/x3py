@@ -1,5 +1,5 @@
-#ifndef APP_H
-#define APP_H
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
 #include <QMainWindow>
 #include "ui_app.h"
@@ -16,4 +16,4 @@ private:
     Ui::AppClass ui;
 };
 
-#endif // APP_H
+#endif // MAINWINDOW_H

@@ -6,13 +6,15 @@ TARGET   =$(INSTALL_DIR)/$(PROJNAME)$(APPEXT)
 else
 TARGET   =$(PLUGINS_DIR)/$(PROJNAME).pln
 endif
+OBJDIR   =._qt
 SOURCES  =$(wildcard *.cpp)
-OBJS     =$(SOURCES:.cpp=$(OBJEXT))
+OBJS     =$(addprefix $(OBJDIR)/, $(SOURCES:.cpp=$(OBJEXT)))
 
 ifndef QT4_INCLUDE
 ifdef QTDIR
 QT4_INCLUDE =$(QTDIR)/include
 QT4_LIB     =$(QTDIR)/lib
+QT4_BIN     =$(QTDIR)/bin/
 endif
 endif
 
@@ -20,7 +22,10 @@ ifdef QT4_INCLUDE
 
 INCLUDES += -I"$(QT4_INCLUDE)" \
             -I"$(QT4_INCLUDE)/QtCore" \
-            -I"$(QT4_INCLUDE)/QtGui"
+            -I"$(QT4_INCLUDE)/QtGui" \
+            -I"$(QT4_INCLUDE)/qtmain" \
+            -I"$(OBJDIR)" \
+            -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB
 
 ifdef IS_WIN
 QTLIB_EXT =4$(LIBEND)
@@ -30,7 +35,8 @@ endif
 
 LIBS     += $(LIBPATHFLAG)"$(QT4_LIB)" \
             $(LIBFLAG)QtCore$(QTLIB_EXT) \
-            $(LIBFLAG)QtGui$(QTLIB_EXT)
+            $(LIBFLAG)QtGui$(QTLIB_EXT) \
+            $(LIBFLAG)qtmain$(LIBEND)
 
 all:       $(TARGET)
 $(TARGET): $(OBJS)
@@ -38,8 +44,29 @@ $(TARGET): $(OBJS)
 
 %.d: %.cpp
 	$(DEPEND_CC) $@ $(INCLUDES) $<
-%$(OBJEXT): %.cpp
-	$(CPP) $(CPPFLAGS) $(INCLUDES) -c $<
+
+$(OBJDIR)/%$(OBJEXT): %.cpp
+	-@test -d $(OBJDIR) || mkdir $(OBJDIR)
+	$(CPP) $(CPPFLAGS) $(INCLUDES) $(OFLAG)$@ -c $<
+
+$(MOCS:.h=.d): %.d: %.cpp $(OBJDIR)/moc_%.cpp $(OBJDIR)/ui_app.h $(OBJDIR)/qrc_app.cpp
+	$(DEPEND_CC) $@ $(INCLUDES) $<
+
+$(OBJDIR)/ui_%.h: %.ui
+	-@test -d $(OBJDIR) || mkdir $(OBJDIR)
+	"$(QT4_BIN)uic" -o $@ $<
+
+$(OBJDIR)/qrc_%.cpp: %.qrc
+	-@test -d $(OBJDIR) || mkdir $(OBJDIR)
+	"$(QT4_BIN)rcc" -name $(basename $<) -no-compress $< -o $@
+
+$(OBJDIR)/moc_%.cpp: %.h
+	-@test -d $(OBJDIR) || mkdir $(OBJDIR)
+	"$(QT4_BIN)moc" $< -o $@ $(INCLUDES)
+
+$(OBJDIR)/%.res: %.rc
+	-@test -d $(OBJDIR) || mkdir $(OBJDIR)
+	-rc.exe $(OFLAG)$@ $(INCLUDES) $<
 
 ifndef clean
 include $(SOURCES:.cpp=.d)

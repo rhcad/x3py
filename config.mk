@@ -84,6 +84,7 @@ ifdef APPTYPE # application
 ifdef IS_CONSOLE
 LDFLAGS      += -subsystem:console
 else
+LDFLAGS      += -subsystem:windows
 ifdef IS_AFXDLL # MFC app
 LDFLAGS      += -entry:"wWinMainCRTStartup"
 endif
