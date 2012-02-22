@@ -8,6 +8,7 @@ build
 *.o
 *.obj
 *.d
+*.res
 *~
 *.DS_Store
 ._*

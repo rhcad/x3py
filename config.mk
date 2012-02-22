@@ -78,7 +78,7 @@ endif
 
 ifdef VCBIN
 INCLUDES     += $(VCINC)
-CPPFLAGS     += -nologo $(WINSDKINC)
+CPPFLAGS     += -nologo $(WINSDKINC) $(VCFLAGS)
 LDFLAGS      += -nologo $(VCLIBS)
 ifdef APPTYPE # application
 ifdef IS_CONSOLE

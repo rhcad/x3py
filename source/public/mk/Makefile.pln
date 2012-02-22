@@ -9,14 +9,21 @@ endif
 SOURCES  =$(wildcard *.cpp)
 OBJS     =$(SOURCES:.cpp=$(OBJEXT))
 
+ifdef IS_WIN
+RCFILES   =$(wildcard *.rc)
+RESFILES  =$(RCFILES:.rc=.res)
+endif
+
 all:       $(TARGET)
-$(TARGET): $(OBJS)
-	$(LINK) $(LDFLAGS) $(OUTFLAG)$@ $(OBJS) $(LIBS)
+$(TARGET): $(OBJS) $(RESFILES)
+	$(LINK) $(LDFLAGS) $(OUTFLAG)$@ $(OBJS) $(LIBS) $(RESFILES)
 
 %.d: %.cpp
 	$(DEPEND_CC) $@ $(INCLUDES) $<
 %$(OBJEXT): %.cpp
 	$(CPP) $(CPPFLAGS) $(INCLUDES) -c $<
+%.res: %.rc
+	"$(WINSDKBIN)rc" $(OFLAG)$@ $(INCLUDES) $(WINSDKINC) $<
 
 ifndef clean
 include $(SOURCES:.cpp=.d)
@@ -24,7 +31,7 @@ endif
 
 clean:
 ifndef SWIG_TYPE
-	rm -rf *.d *.o *.obj *_wrap.*  ._*
+	rm -rf *.d *.o *.obj *_wrap.*  ._* *.res
 ifdef cleanall
 	rm -rf $(TARGET)
 endif

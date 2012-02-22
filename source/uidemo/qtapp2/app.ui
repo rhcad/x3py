@@ -50,5 +50,12 @@
  <resources>
   <include location="app.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionQuit</sender>
+   <signal>activated()</signal>
+   <receiver>AppClass</receiver>
+   <slot>close()</slot>
+  </connection>
+ </connections>
 </ui>

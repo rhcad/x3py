@@ -28,6 +28,8 @@ INCLUDES += -I"$(QT4_INCLUDE)" \
             -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB
 
 ifdef IS_WIN
+RCFILES   =$(wildcard *.rc)
+RESFILES  =$(addprefix $(OBJDIR)/, $(RCFILES:.rc=.res))
 QTLIB_EXT =4$(LIBEND)
 else
 QTLIB_EXT =$(LIBEND)
@@ -38,9 +40,14 @@ LIBS     += $(LIBPATHFLAG)"$(QT4_LIB)" \
             $(LIBFLAG)QtGui$(QTLIB_EXT) \
             $(LIBFLAG)qtmain$(LIBEND)
 
+UIFILES   =$(wildcard *.ui)
+UIHFILES  =$(addprefix $(OBJDIR)/ui_, $(UIFILES:.ui=.h))
+QRCFILES  =$(wildcard *.qrc)
+QRCCPPS   =$(addprefix $(OBJDIR)/qrc_, $(QRCFILES:.qrc=.cpp))
+
 all:       $(TARGET)
-$(TARGET): $(OBJS)
-	$(LINK) $(LDFLAGS) $(OUTFLAG)$@ $(OBJS) $(LIBS)
+$(TARGET): $(OBJS) $(RESFILES)
+	$(LINK) $(LDFLAGS) $(OUTFLAG)$@ $(OBJS) $(LIBS) $(RESFILES)
 
 %.d: %.cpp
 	$(DEPEND_CC) $@ $(INCLUDES) $<
@@ -49,7 +56,7 @@ $(OBJDIR)/%$(OBJEXT): %.cpp
 	-@test -d $(OBJDIR) || mkdir $(OBJDIR)
 	$(CPP) $(CPPFLAGS) $(INCLUDES) $(OFLAG)$@ -c $<
 
-$(MOCS:.h=.d): %.d: %.cpp $(OBJDIR)/moc_%.cpp $(OBJDIR)/ui_app.h $(OBJDIR)/qrc_app.cpp
+$(MOCS:.h=.d): %.d: %.cpp $(OBJDIR)/moc_%.cpp $(UIHFILES) $(QRCCPPS)
 	$(DEPEND_CC) $@ $(INCLUDES) $<
 
 $(OBJDIR)/ui_%.h: %.ui
@@ -66,7 +73,7 @@ $(OBJDIR)/moc_%.cpp: %.h
 
 $(OBJDIR)/%.res: %.rc
 	-@test -d $(OBJDIR) || mkdir $(OBJDIR)
-	-rc.exe $(OFLAG)$@ $(INCLUDES) $<
+	"$(WINSDKBIN)rc" $(OFLAG)$@ $(INCLUDES) $(WINSDKINC) $<
 
 ifndef clean
 include $(SOURCES:.cpp=.d)
