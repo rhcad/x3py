@@ -11,7 +11,7 @@ CLEANSUBDIRS =$(addsuffix .clean, $(SUBDIRS))
 all:      $(SUBDIRS)
 
 $(SUBDIRS):
-	@$(MAKE) -C $@
+	@ ! test -e $@/Makefile || $(MAKE) -C $@
 
 swig:   $(SWIGSUBDIRS)
 
@@ -24,7 +24,7 @@ ifdef touch
 endif
 
 $(CLEANSUBDIRS):
-	@$(MAKE) -C $(basename $@) clean
+	@!(test -e $(basename $@)/Makefile) || $(MAKE) -C $(basename $@) clean
 ifdef touch
 	touch -c $(basename $@)/*
 endif

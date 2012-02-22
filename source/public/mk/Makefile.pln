@@ -1,7 +1,11 @@
 # Included by Makefile of plugin project.
 # x3py framework: https://github.com/rhcad/x3py
 
+ifdef APPTYPE
+TARGET   =$(INSTALL_DIR)/$(PROJNAME)$(APPEXT)
+else
 TARGET   =$(PLUGINS_DIR)/$(PROJNAME).pln
+endif
 SOURCES  =$(wildcard *.cpp)
 OBJS     =$(SOURCES:.cpp=$(OBJEXT))
 

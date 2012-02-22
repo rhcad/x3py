@@ -1,9 +1,20 @@
 # Included by Makefile of QT project.
 # x3py framework: https://github.com/rhcad/x3py
 
+ifdef APPTYPE
 TARGET   =$(INSTALL_DIR)/$(PROJNAME)$(APPEXT)
+else
+TARGET   =$(PLUGINS_DIR)/$(PROJNAME).pln
+endif
 SOURCES  =$(wildcard *.cpp)
 OBJS     =$(SOURCES:.cpp=$(OBJEXT))
+
+ifndef QT4_INCLUDE
+ifdef QTDIR
+QT4_INCLUDE =$(QTDIR)/include
+QT4_LIB     =$(QTDIR)/lib
+endif
+endif
 
 ifdef QT4_INCLUDE
 
@@ -38,7 +49,7 @@ endif #QT4_INCLUDE
 
 clean:
 ifndef SWIG_TYPE
-	rm -rf *.d *.o *.obj
+	rm -rf *.d *.o *.obj *_wrap.*  ._*
 ifdef cleanall
 	rm -rf $(TARGET)
 endif

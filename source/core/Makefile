@@ -12,7 +12,7 @@ all:      $(SUBDIRS)
 
 $(SUBDIRS):
 	@echo --Making project $@...
-	@$(MAKE) -C $@
+	@ ! test -e $@/Makefile || $(MAKE) -C $@
 
 swig:   $(SWIGSUBDIRS)
 
@@ -23,5 +23,5 @@ $(SWIGSUBDIRS):
 clean:	$(CLEANSUBDIRS)
 
 $(CLEANSUBDIRS):
-	@$(MAKE) -C $(basename $@) clean
+	@!(test -e $(basename $@)/Makefile) || $(MAKE) -C $(basename $@) clean
 	@!(test -d $(basename $@)/swig) || $(MAKE) -C $(basename $@)/swig clean

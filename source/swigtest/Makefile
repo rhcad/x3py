@@ -15,7 +15,7 @@ all:
 swig:   $(SUBDIRS)
 
 $(SUBDIRS):
-	@$(MAKE) -C $@ swig
+	@ ! test -e $@/Makefile || $(MAKE) -C $@ swig
 
 $(SWIGS):
 	@export SWIG_TYPE=$@; $(MAKE) swig
@@ -23,4 +23,4 @@ $(SWIGS):
 clean:	$(CLEANSUBDIRS)
 
 $(CLEANSUBDIRS):
-	@$(MAKE) -C $(basename $@) clean
+	@!(test -e $(basename $@)/Makefile) || $(MAKE) -C $(basename $@) clean

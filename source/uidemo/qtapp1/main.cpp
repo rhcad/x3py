@@ -14,7 +14,8 @@ int main(int argc, char** argv)
     x3::Object<ISimple> p(clsidSimple);
     
     QApplication app(argc, argv);
-    QLabel label(p ? "Hello World.\nThe plugin is loaded." : "plugin not loaded");
+    QLabel label(p ? "Hello World.\nThe plugin is loaded."
+        : "Hello World.\nThe plugin is not loaded.");
     
     label.show();
     return app.exec();

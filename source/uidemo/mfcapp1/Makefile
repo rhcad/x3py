@@ -10,7 +10,7 @@ include $(ROOTDIR)/config.mk
 #LIBS     += -L$(LIBPATHFLAG)yourlibpath  $(LIBFLAG)yourlibname$(LIBEND)
 
 ifdef VCBIN
-include $(SRCPUB_DIR)/mk/Makefile.app
+include $(SRCPUB_DIR)/mk/Makefile.pln
 else
 all clean swig: # skip MFC project
 endif
