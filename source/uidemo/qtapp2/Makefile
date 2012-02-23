@@ -1,7 +1,7 @@
 ROOTDIR  =../../..
 PKGNAME  =uidemo
 PROJNAME =qtapp2
-APPTYPE  =qtwin
+APPTYPE  =qt
 
 include $(ROOTDIR)/config.mk
 

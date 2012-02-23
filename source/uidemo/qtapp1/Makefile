@@ -1,6 +1,6 @@
 ROOTDIR  =../../..
 PROJNAME =qtapp1
-APPTYPE  =qtconsole
+APPTYPE  =console
 
 include $(ROOTDIR)/config.mk
 

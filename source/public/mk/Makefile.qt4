@@ -25,7 +25,7 @@ INCLUDES += -I"$(QT4_INCLUDE)" \
             -I"$(QT4_INCLUDE)/QtGui" \
             -I"$(QT4_INCLUDE)/qtmain" \
             -I"$(OBJDIR)" \
-            -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB
+            -DQT_CORE_LIB -DQT_GUI_LIB
 
 ifdef IS_WIN
 RCFILES   =$(wildcard *.rc)
@@ -37,8 +37,10 @@ endif
 
 LIBS     += $(LIBPATHFLAG)"$(QT4_LIB)" \
             $(LIBFLAG)QtCore$(QTLIB_EXT) \
-            $(LIBFLAG)QtGui$(QTLIB_EXT) \
-            $(LIBFLAG)qtmain$(LIBEND)
+            $(LIBFLAG)QtGui$(QTLIB_EXT)
+ifdef IS_WIN
+LIBS     += $(LIBFLAG)qtmain$(LIBEND)
+endif
 
 UIFILES   =$(wildcard *.ui)
 UIHFILES  =$(addprefix $(OBJDIR)/ui_, $(UIFILES:.ui=.h))
