@@ -6,6 +6,9 @@
 #ifdef X3_CORE_PORTABILITY_H
 #include "../portability/portimpl.h"
 #endif
+#ifdef X3_LOG_DEBUGR_H_
+#include <log/DebugR.cpp>
+#endif
 
 BEGIN_NAMESPACE_X3
 
@@ -52,7 +55,7 @@ static const char** getClassIDs(const char** clsids, int count)
     {
         for (const ClassEntry* cls = *arr; cls->creator; cls++, i++)
         {
-            clsids[i++] = cls->clsid;
+            clsids[i] = cls->clsid;
         }
     }
     clsids[i] = NULL;

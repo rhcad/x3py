@@ -1,4 +1,4 @@
-//! \file SafeCall.h
+//! \file safecall.h
 //! \brief Define functions to call pointer safely.
 
 #ifndef __APPCORE_SAFECALL_H
