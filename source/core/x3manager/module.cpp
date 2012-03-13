@@ -10,13 +10,15 @@
 #include <utilfunc/lockcount.h>
 
 #include "plugins.h"
+#include "workpath.h"
 
 BEGIN_NAMESPACE_X3
 
-class CManager : public CPlugins
+class CManager : public CPlugins, public CWorkPath
 {
     X3BEGIN_CLASS_DECLARE(CManager, clsidManager)
         X3USE_INTERFACE_ENTRY(CPlugins)
+        X3USE_INTERFACE_ENTRY(CWorkPath)
     X3END_CLASS_DECLARE()
 protected:
     CManager() {}

@@ -345,6 +345,10 @@
 				RelativePath="..\..\source\core\x3manager\plugins.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\source\core\x3manager\workpath.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -355,6 +359,10 @@
 				RelativePath="..\..\source\core\x3manager\plugins.h"
 				>
 			</File>
+			<File
+				RelativePath="..\..\source\core\x3manager\workpath.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Interface Files"
@@ -363,6 +371,10 @@
 			>
 			<File
 				RelativePath="..\..\interface\core\manager\iplugins.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\interface\core\manager\iworkpath.h"
 				>
 			</File>
 			<File
