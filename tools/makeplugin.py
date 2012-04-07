@@ -47,13 +47,32 @@ def copyfiles(srcdir, dstdir, pairs, srcprj, callback, noswig):
         if not os.path.exists(dstfile) and callback(fn, pairs):
             if not os.path.exists(dstdir): os.makedirs(dstdir)
             open(dstfile, "wb").write(open(srcfile, "rb").read())
-            text = open(dstfile).read()
+            isutf8 = False
+            
+            try:
+                text = open(dstfile).read()
+            except UnicodeDecodeError:
+                try:
+                    text = open(dstfile,'r',-1,'utf-8').read()
+                    isutf8 = True
+                except UnicodeDecodeError:
+                    print("* Fail to read '%s' as utf-8 encoding." % (dstfile,))
+                    continue
+                
             newtext = multi_replace(text, pairs)
             if newtext != text:
-                open(dstfile, 'w').write(newtext)
-                print('%s [replaced]' % (dstfile,))
+                try:
+                    if (isutf8):
+                        open(dstfile, 'w',-1,'utf-8').write(newtext)
+                        print('[replaced] %s [utf-8]' % (dstfile,))
+                    else:
+                        open(dstfile, 'w').write(newtext)
+                        print('[replaced] %s' % (dstfile,))
+                except UnicodeDecodeError:
+                    open(dstfile, 'w',-1,'utf-8').write(newtext)
+                    print('[replaced] %s [utf-8]' % (dstfile,))
             else:
-                print('%s [created]' % (dstfile,))
+                print('[created] %s' % (dstfile,))
 
 def makeproj(prjname, pkgname, srcprj, srcpkg, noswig):
     rootpath = os.path.abspath('..')
@@ -62,11 +81,12 @@ def makeproj(prjname, pkgname, srcprj, srcpkg, noswig):
     dstdir  = os.path.join(pkgpath, prjname)
     
     if prjname == '':
-        raise AttributeError, prjname
+        print("Need input the project name.")
+        return
     if not os.path.exists(basepath):
         print("\nPlease input a valid exists template project name."
               "\n\'%s\' does not exist." % (basepath,))
-        raise OSError, basepath
+        return
     
     if not os.path.exists(pkgpath):
         os.makedirs(pkgpath)
@@ -104,7 +124,7 @@ def makeproj(prjname, pkgname, srcprj, srcpkg, noswig):
 if __name__=="__main__":
     def inputparam(index, prompt, default=''):
         if len(sys.argv) > index: ret = sys.argv[index]
-        else: ret = raw_input(prompt)
+        else: ret = input(prompt)
         if ret == '': ret = default
         return ret
     
@@ -115,4 +135,4 @@ if __name__=="__main__":
     useswig = inputparam(5, 'Need swig (y/n) ? (default: n): ', 'n')
     
     makeproj(prjname, pkgname, srcprj, srcpkg, 'n' in useswig)
-    if len(sys.argv) < 3: raw_input("Press <ENTER> to end.")
+    if len(sys.argv) < 3: input("Press <ENTER> to end.")
