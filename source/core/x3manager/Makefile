@@ -3,8 +3,8 @@ PROJNAME =x3manager
 
 include $(ROOTDIR)/config.mk
 
-ifdef VCBIN
-LIBS    += ole32.lib
+ifdef IS_WIN
+LIBS    += $(LIBFLAG)ole32$(LIBEND)
 endif
 
 include $(SRCPUB_DIR)/mk/Makefile.pln

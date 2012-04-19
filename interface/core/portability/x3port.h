@@ -11,6 +11,10 @@
 #include "x3unix.h"
 #endif
 
+#if !defined(_MSC_VER) || _MSC_VER < 1400
+#include "func_s.h"
+#endif
+
 HMODULE x3LoadLibrary(const char* filename);
 bool x3FreeLibrary(HMODULE hdll);
 
