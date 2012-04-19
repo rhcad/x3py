@@ -27,9 +27,12 @@ INCLUDES += -I"$(QT4_INCLUDE)" \
             -I"$(OBJDIR)" \
             -DQT_CORE_LIB -DQT_GUI_LIB
 
-ifdef IS_WIN
+ifdef VCBIN
 RCFILES   =$(wildcard *.rc)
-RESFILES  =$(addprefix $(OBJDIR)/, $(RCFILES:.rc=.res))
+RESFILES  =$(RCFILES:.rc=.res)
+endif
+
+ifdef IS_WIN
 QTLIB_EXT =4$(LIBEND)
 else
 QTLIB_EXT =$(LIBEND)
@@ -75,7 +78,7 @@ $(OBJDIR)/moc_%.cpp: %.h
 
 $(OBJDIR)/%.res: %.rc
 	-@test -d $(OBJDIR) || mkdir $(OBJDIR)
-	"$(WINSDKBIN)rc" $(OFLAG)$@ $(INCLUDES) $(WINSDKINC) $<
+	"$(WINSDKBIN)rc" -Fo$@ $(INCLUDES) $(WINSDKINC) $<
 
 ifndef clean
 include $(SOURCES:.cpp=.d)

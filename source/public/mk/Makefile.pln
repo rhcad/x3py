@@ -9,7 +9,7 @@ endif
 SOURCES  =$(wildcard *.cpp)
 OBJS     =$(SOURCES:.cpp=$(OBJEXT))
 
-ifdef IS_WIN
+ifdef VCBIN
 RCFILES   =$(wildcard *.rc)
 RESFILES  =$(RCFILES:.rc=.res)
 endif
@@ -23,7 +23,7 @@ $(TARGET): $(OBJS) $(RESFILES)
 %$(OBJEXT): %.cpp
 	$(CPP) $(CPPFLAGS) $(INCLUDES) -c $<
 %.res: %.rc
-	"$(WINSDKBIN)rc" $(OFLAG)$@ $(INCLUDES) $(WINSDKINC) $<
+	"$(WINSDKBIN)rc" -Fo$@ $(INCLUDES) $(WINSDKINC) $<
 
 ifndef clean
 include $(SOURCES:.cpp=.d)
