@@ -29,7 +29,7 @@ INCLUDES += -I"$(QT4_INCLUDE)" \
 
 ifdef VCBIN
 RCFILES   =$(wildcard *.rc)
-RESFILES  =$(RCFILES:.rc=.res)
+RESFILES  =$(addprefix $(OBJDIR)/, $(RCFILES:.rc=.res))
 endif
 
 ifdef IS_WIN
