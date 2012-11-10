@@ -47,10 +47,11 @@ int loadScanPlugins(const char* folder = "plugins")
     }
 
     typedef int (*LOADF)(const char*);
-    LOADF fld = (LOADF)GetProcAddress(GetModuleHandleA("x3manager.pln"), "x3LoadPlugins");
-    int extcount = fld ? fld(folder) : 0;
-
-    x3::scanfiles(loadfilter, path, true);
+    LOADF fload = (LOADF)GetProcAddress(GetModuleHandleA("x3manager.pln"), "x3LoadPlugins");
+    int extcount = fload ? fload(folder) : 0;
+    
+    if (!fload) // load plugins regardless the x3manager plugin.
+        x3::scanfiles(loadfilter, path, true);
 
     return s_nmods + extcount;
 }
