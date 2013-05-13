@@ -12,6 +12,7 @@
 #pragma warning(disable:4702)   // unreachable code
 #endif
 #include <algorithm>
+#include <functional>
 #include <string>
 #include <vector>
 #include <deque>
