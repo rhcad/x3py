@@ -7,7 +7,7 @@
 BEGIN_NAMESPACE_X3
 
 #ifndef SWIG
-bool createObject(const char* clsid, long iid, IObject** p);
+LOCALAPI bool createObject(const char* clsid, long iid, IObject** p);
 struct NullPointerError {};
 #ifndef X3THROW_NULLPOINTERERROR
 #define X3THROW_NULLPOINTERERROR(name) throw x3::NullPointerError()

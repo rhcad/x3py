@@ -43,6 +43,7 @@ END_NAMESPACE_X3
 #include <windows.h>
 #endif
 #define OUTAPI      extern "C" __declspec(dllexport)
+#define LOCALAPI
 #define x3FreeLibrary(h) FreeLibrary(h)
 #define x3LoadLibrary(f) LoadLibraryExA(f, NULL, LOAD_WITH_ALTERED_SEARCH_PATH)
 #endif // OUTAPI

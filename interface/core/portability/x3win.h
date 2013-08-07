@@ -40,6 +40,11 @@
 #pragma comment(lib, "shlwapi.lib")
 #endif
 
+#ifdef __GNUC__
+#define OUTAPI      extern "C" __attribute__((dllexport))
+#else
 #define OUTAPI      extern "C" __declspec(dllexport)
+#endif
+#define LOCALAPI
 
 #endif

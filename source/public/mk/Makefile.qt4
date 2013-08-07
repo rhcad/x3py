@@ -84,6 +84,9 @@ ifndef clean
 include $(SOURCES:.cpp=.d)
 endif
 
+else
+all:
+	@echo QT4_INCLUDE not defined.
 endif #QT4_INCLUDE
 
 clean:

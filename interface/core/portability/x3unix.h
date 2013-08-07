@@ -6,7 +6,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define OUTAPI      extern "C"
+#define OUTAPI      extern "C" __attribute__((visibility("default")))
+#define LOCALAPI    __attribute__((visibility("hidden")))
 
 #ifndef MAX_PATH
 #define MAX_PATH    512

@@ -9,8 +9,8 @@
 // X3END_CLASS_DECLARE()
 
 namespace x3 {
-HMODULE getModuleHandle();
-HMODULE getManagerModule();
+LOCALAPI HMODULE getModuleHandle();
+LOCALAPI HMODULE getManagerModule();
 }
 
 #define X3BEGIN_CLASS_DECLARE0(Cls) \

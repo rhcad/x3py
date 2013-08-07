@@ -20,12 +20,12 @@ static long     s_refcount = 0;
 OUTAPI bool x3InitializePlugin();
 OUTAPI void x3UninitializePlugin();
 
-HMODULE getModuleHandle()
+LOCALAPI HMODULE getModuleHandle()
 {
     return s_hmod;
 }
 
-HMODULE getManagerModule()
+LOCALAPI HMODULE getManagerModule()
 {
     return s_manager;
 }
@@ -183,7 +183,7 @@ OUTAPI bool x3InitPlugin(HMODULE hmod, HMODULE hmanager)
 
 #ifndef CREATEOBJECTIMPL
 #define CREATEOBJECTIMPL
-bool createObject(const char* clsid, long iid, IObject** p)
+LOCALAPI bool createObject(const char* clsid, long iid, IObject** p)
 {
     if (!x3InternalCreate(clsid, iid, p) && *clsid && s_manager)
     {
@@ -198,7 +198,7 @@ bool createObject(const char* clsid, long iid, IObject** p)
 #ifndef X3_EXCLUDE_CREATEOBJECT
 OUTAPI bool x3CreateObject(const char* clsid, long iid, IObject** p)
 {
-    return createObject(clsid, iid, p);
+    return x3InternalCreate(clsid, iid, p);
 }
 #endif
 
