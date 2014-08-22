@@ -28,7 +28,7 @@ public:
     {
         if (items())
         {
-            for (int i = index(); i < maxCount(); i++)
+            for (long i = index(); i < maxCount(); i++)
             {
                 if (i >= 0 && items()[i])
                 {
@@ -55,7 +55,7 @@ public:
     }
 
 private:
-    int     _index;     // index in the single instance stack.
+    long    _index;     // index in the single instance stack.
 
     static long& maxCount()
     {

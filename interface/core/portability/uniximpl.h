@@ -147,7 +147,7 @@ void GetModuleFileNameA(HMODULE hmod, char* filename, int size)
 
     if (!hmod)
     {
-        int bytes = readlink("/proc/self/exe", filename, size);
+        size_t bytes = readlink("/proc/self/exe", filename, size);
         if (bytes > 0)
             filename[bytes < size - 1 ? bytes : size - 1] = '\0';
     }
@@ -169,14 +169,14 @@ int WideCharToMultiByte(int /*codepage*/, DWORD /*flags*/,
                         char* astr, int achars,
                         const char*, void*)
 {
-    return astr ? wcstombs(astr, wstr, achars) : (wchars * sizeof(char));
+    return (int)(astr ? wcstombs(astr, wstr, achars) : (wchars * sizeof(char)));
 }
 
 int MultiByteToWideChar(int /*codepage*/, DWORD /*flags*/,
                         const char* astr, int achars,
                         wchar_t* wstr, int wchars)
 {
-    return wstr ? mbstowcs(wstr, astr, wchars) : achars;
+    return wstr ? (int)mbstowcs(wstr, astr, wchars) : achars;
 }
 
 int _stricmp(const char* s1, const char* s2)

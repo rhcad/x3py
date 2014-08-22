@@ -69,9 +69,10 @@ template <class EventType, class Break = FireEvent0NotBreak >
 class FireEvent0 : public FireEventBase<EventType>
 {
 public:
+    typedef FireEventBase<EventType> Base;
     typedef FireEvent0<EventType, Break> This;
     FireEvent0() {}
-    This& fireEvent() { _fireEvent(dispatcher); return *this; }
+    This& fireEvent() { Base::_fireEvent(dispatcher); return *this; }
 
 private:
     static bool dispatcher(PROC handler, void*) {
@@ -99,11 +100,12 @@ template <class EventType, typename ParamT, class Break = FireEvent1NotBreak >
 class FireEvent1 : public FireEventBase<EventType>
 {
 public:
+    typedef FireEventBase<EventType> Base;
     typedef FireEvent1<EventType, ParamT, Break> This;
     ParamT  param;
 
     FireEvent1(ParamT p) : param(p) {}
-    This& fireEvent() { _fireEvent(dispatcher); return *this; }
+    This& fireEvent() { Base::_fireEvent(dispatcher); return *this; }
 
 private:
     FireEvent1(const This&);
@@ -136,12 +138,13 @@ template <class EventType, typename Param1,
 class FireEvent2 : public FireEventBase<EventType>
 {
 public:
+    typedef FireEventBase<EventType> Base;
     typedef FireEvent2<EventType, Param1, Param2, Break> This;
     Param1  param1;
     Param2  param2;
 
     FireEvent2(Param1 p1, Param2 p2) : param1(p1), param2(p2) {}
-    This& fireEvent() { _fireEvent(dispatcher); return *this; }
+    This& fireEvent() { Base::_fireEvent(dispatcher); return *this; }
 
 private:
     FireEvent2(const This&);

@@ -72,7 +72,7 @@ void unloadScanPlugins()
 #define CREATEOBJECTIMPL
 
 class IObject;
-bool createObject(const char* clsid, long iid, IObject** p)
+LOCALAPI bool createObject(const char* clsid, long iid, IObject** p)
 {
     typedef bool (*F)(const char*, long, IObject**);
     F f = (F)GetProcAddress(s_modules[0], "x3CreateObject");

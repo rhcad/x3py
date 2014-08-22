@@ -121,9 +121,9 @@ bool has_value(const _Ta& arr, const _Tp& p)
     \return element count.
 */
 template<class _Ta> inline
-long GetSize(const _Ta& arr)
+int GetSize(const _Ta& arr)
 {
-    return static_cast<long>(arr.size());
+    return static_cast<int>(arr.size());
 }
 
 //! Checks a position index is in range or out of range of a container.
@@ -134,9 +134,9 @@ long GetSize(const _Ta& arr)
     \return true if the position index is in range of the container.
 */
 template<class _Ta> inline
-bool IsValidIndexOf(const _Ta& arr, long index)
+bool IsValidIndexOf(const _Ta& arr, int index)
 {
-    return index >= 0 && index < static_cast<long>(arr.size());
+    return index >= 0 && index < static_cast<int>(arr.size());
 }
 
 } // x3

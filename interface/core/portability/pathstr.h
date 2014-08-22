@@ -71,7 +71,7 @@ void PathRemoveExtensionA(char* path)
 
 void PathRemoveBackslashA(char* path)
 {
-    int len = path ? strlen(path) : 0;
+    size_t len = path ? strlen(path) : 0;
 
     if (len > 0 && IsPathSlash(path[len - 1]))
     {
@@ -90,7 +90,7 @@ void PathAppendA(char* path, const char* more)
         return;
     }
 
-    int len = strlen(path);
+    size_t len = strlen(path);
 
     if (len > 0 && !IsPathSlash(path[len - 1]) && *more)
     {
@@ -101,7 +101,7 @@ void PathAppendA(char* path, const char* more)
 
 char* PathAddBackslashA(char* path)
 {
-    int len = path ? strlen(path) : 0;
+    size_t len = path ? strlen(path) : 0;
 
     if (len > 0 && !IsPathSlash(path[len - 1]))
     {

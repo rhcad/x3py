@@ -11,13 +11,6 @@
 #include <wctype.h>
 #endif
 
-#ifndef max
-#define max(a,b) ((a)>(b)?(a):(b))
-#endif
-#ifndef min
-#define min(a,b) ((a)<(b)?(a):(b))
-#endif
-
 #if defined(_STDIO_DEFINED)     // stdio.h
 
 inline int sprintf_s(char *buffer, size_t, const char *format, ...)
@@ -56,9 +49,9 @@ inline int wcscpy_s(wchar_t *str, size_t size, const wchar_t *src)
     { return wcsncpy(str, src, size) ? 0 : -1; }
 
 inline int strncpy_s(char *str, size_t size, const char *src, size_t len)
-    { return strncpy(str, src, min(size, len)) ? 0 : -1; }
+    { return strncpy(str, src, size < len ? size : len) ? 0 : -1; }
 inline int wcsncpy_s(wchar_t *str, size_t size, const wchar_t *src, size_t len)
-    { return wcsncpy(str, src, min(size, len)) ? 0 : -1; }
+    { return wcsncpy(str, src, size < len ? size : len) ? 0 : -1; }
 
 inline int strcat_s(char *str, size_t, const char *src)
     { return strcat(str, src) ? 0 : -1; }

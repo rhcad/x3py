@@ -85,14 +85,15 @@ template <class EventType, class Break = FireObjectEvent0NotBreak >
 class FireObjectEvent0 : public FireObjEventBase<EventType>
 {
 public:
+    typedef FireObjEventBase<EventType> Base;
     typedef FireObjectEvent0<EventType, Break> This;
     FireObjectEvent0() {}
-    This& fireEvent() { _fireEvent(dispatcher); return *this; }
+    This& fireEvent() { Base::_fireEvent(dispatcher); return *this; }
 
 private:
     static bool dispatcher(ObserverObject* obj, ON_EVENT hd, void*) {
         typename EventType::Handler handler;
-        cast(handler, hd);
+        Base::cast(handler, hd);
         return Break::call(obj, handler);
     }
 };
@@ -117,11 +118,12 @@ template <class EventType, typename ParamT, class Break = FireObjectEvent1NotBre
 class FireObjectEvent1 : public FireObjEventBase<EventType>
 {
 public:
+    typedef FireObjEventBase<EventType> Base;
     typedef FireObjectEvent1<EventType, ParamT, Break> This;
     ParamT  param;
 
     FireObjectEvent1(ParamT p) : param(p) {}
-    This& fireEvent() { _fireEvent(dispatcher); return *this; }
+    This& fireEvent() { Base::_fireEvent(dispatcher); return *this; }
 
 private:
     FireObjectEvent1(const This&);
@@ -130,7 +132,7 @@ private:
 
     static bool dispatcher(ObserverObject* obj, ON_EVENT hd, void* data) {
         typename EventType::Handler handler;
-        cast(handler, hd);
+        Base::cast(handler, hd);
         return Break::call(obj, handler, &((This*)data)->param);
     }
 };
@@ -156,12 +158,13 @@ template <class EventType, typename Param1, typename Param2 = Param1,
 class FireObjectEvent2 : public FireObjEventBase<EventType>
 {
 public:
+    typedef FireObjEventBase<EventType> Base;
     typedef FireObjectEvent2<EventType, Param1, Param2, Break> This;
     Param1  param1;
     Param2  param2;
 
     FireObjectEvent2(Param1 p1, Param2 p2) : param1(p1), param2(p2) {}
-    This& fireEvent() { _fireEvent(dispatcher); return *this; }
+    This& fireEvent() { Base::_fireEvent(dispatcher); return *this; }
 
 private:
     FireObjectEvent2(const This&);
@@ -173,7 +176,7 @@ private:
         This* p = (This*)data;
         typename EventType::Handler handler;
 
-        cast(handler, hd);
+        Base::cast(handler, hd);
         return Break::call(obj, handler, &p->param1, &p->param2);
     }
 };

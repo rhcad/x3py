@@ -27,7 +27,7 @@ inline std::string w2a(const wchar_t* s, int codepage = 0)
 
     if (wlen > 0)
     {
-        long len = WideCharToMultiByte(codepage, 0, s, wlen, NULL, 0, NULL, NULL);
+        int len = WideCharToMultiByte(codepage, 0, s, wlen, NULL, 0, NULL, NULL);
         str.resize(len);
         WideCharToMultiByte(codepage, 0, s, wlen,
             const_cast<char*>(str.data()), len, NULL, NULL);
