@@ -124,7 +124,7 @@ def makeproj(prjname, pkgname, srcprj, srcpkg, noswig):
 if __name__=="__main__":
     def inputparam(index, prompt, default=''):
         if len(sys.argv) > index: ret = sys.argv[index]
-        else: ret = input(prompt)
+        else: ret = raw_input(prompt)
         if ret == '': ret = default
         return ret
     
@@ -135,4 +135,4 @@ if __name__=="__main__":
     useswig = inputparam(5, 'Need swig (y/n) ? (default: n): ', 'n')
     
     makeproj(prjname, pkgname, srcprj, srcpkg, 'n' in useswig)
-    if len(sys.argv) < 3: input("Press <ENTER> to end.")
+    if len(sys.argv) < 3: raw_input("Press <ENTER> to end.")
