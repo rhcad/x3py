@@ -18,18 +18,18 @@ template <class I> class Object
 {
 public:
     // if clsid is "" then the actual class id will be used just in the current plugin.
-    Object(const char* clsid) : _p(0)
+    Object(const char* clsid) : _p((I*)0)
     {
         createObject(clsid, I::getIID(), address());
     }
 
-    Object(const IObject* src) : _p(0)
+    Object(const IObject* src) : _p((I*)0)
     {
         operator=(src);
     }
 
 #if !defined(_MSC_VER) || _MSC_VER > 1200
-    Object(const Object<I>& src) : _p(0)
+    Object(const Object<I>& src) : _p((I*)0)
     {
         operator=(src.p());
     }
@@ -37,12 +37,12 @@ public:
 
     bool valid() const
     {
-        return this && _p;
+        return !!_p;
     }
 
     I* p() const
     {
-        return this ? _p : 0;
+        return _p;
     }
 
     I* operator->() const
@@ -54,12 +54,12 @@ public:
     }
 
 #ifndef SWIG    // SWIG always call operator->() so must create when constructing.
-    Object() : _p(0)
+    Object() : _p((I*)0)
     {
     }
 
     template <class I2>
-    Object(const Object<I2>& src) : _p(0)
+    Object(const Object<I2>& src) : _p((I*)0)
     {
         operator=(src.p());
     }
@@ -71,10 +71,9 @@ public:
 
     void release()
     {
-        if (this && _p)
-        {
+        if (_p) {
             _p->releaseObject();
-            _p = 0;
+            _p = (I*)0;
         }
     }
 
@@ -117,16 +116,13 @@ public:
 
     Object<I>& operator=(const IObject* src)
     {
-        if (_p != src)
-        {
+        if (_p != src) {
             release();
-            if (I::getIID() == IObject::getIID() && src)
-            {
+            if (I::getIID() == IObject::getIID() && src) {
                 src->retainObject();
                 _p = static_cast<I*>(const_cast<IObject*>(src));
             }
-            else if (src)
-            {
+            else if (src) {
                 src->queryObject(I::getIID(), address());
             }
         }
@@ -135,12 +131,12 @@ public:
 
     operator bool() const
     {
-        return this && _p;
+        return !!_p;
     }
 
     bool operator!() const
     {
-        return !(this && _p);
+        return !_p;
     }
 
     bool operator==(const Object<I>& src) const

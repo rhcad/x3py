@@ -1,8 +1,12 @@
 build
+*.tmp
 *.ncb
 *.opt
 *.suo
 *.user
+*.aps
+*.*sdf
+ipch
 *_wrap.cxx
 *_wrap.h
 *.o
@@ -12,3 +16,4 @@ build
 *~
 *.DS_Store
 ._*
+.idea/
