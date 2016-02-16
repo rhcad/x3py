@@ -23,6 +23,7 @@ ifdef QT4_INCLUDE
 INCLUDES += -I"$(QT4_INCLUDE)" \
             -I"$(QT4_INCLUDE)/QtCore" \
             -I"$(QT4_INCLUDE)/QtGui" \
+            -I"$(QT4_INCLUDE)/QtWidgets" \
             -I"$(QT4_INCLUDE)/qtmain" \
             -I"$(OBJDIR)" \
             -DQT_CORE_LIB -DQT_GUI_LIB
@@ -38,9 +39,17 @@ else
 QTLIB_EXT =$(LIBEND)
 endif
 
+ifdef IS_MACOSX
+LIBS     += -F$(QT4_LIB) \
+            -framework QtCore \
+            -framework QtGui \
+            -framework QtWidgets \
+            -Wl,-rpath,$(QT4_LIB)
+else
 LIBS     += $(LIBPATHFLAG)"$(QT4_LIB)" \
             $(LIBFLAG)QtCore$(QTLIB_EXT) \
             $(LIBFLAG)QtGui$(QTLIB_EXT)
+endif
 ifdef IS_WIN
 LIBS     += $(LIBFLAG)qtmain$(LIBEND)
 endif
