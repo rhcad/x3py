@@ -4,7 +4,7 @@
 
 #include "moduleitem.h"
 #include "iobject.h"
-
+#include <mutex>
 BEGIN_NAMESPACE_X3
 
 template <class Cls>
@@ -56,18 +56,13 @@ public:
     {
         if (!Instance())
         {
-            SingletonObject<Cls>* p = new SingletonObject<Cls>();
-
-            if (1 == InterlockedIncrement(&locker()))
+            std::lock_guard<std::mutex> lock(getMutex());            
+            if (!Instance())
             {
+                SingletonObject<Cls>* p = new SingletonObject<Cls>();
                 Instance() = p;
                 p->addModuleItem();
             }
-            else
-            {
-                delete p;   // created by another thread
-            }
-            InterlockedDecrement(&locker());
         }
 
         IObject* ret = NULL;
@@ -92,13 +87,11 @@ private:
         static SingletonObject<Cls>* obj = NULL;
         return obj;
     }
-
-    static long& locker()
+    static std::mutex& getMutex()
     {
-        static long count = 0;
-        return count;
+        static std::mutex obj;
+        return obj;
     }
 };
-
 END_NAMESPACE_X3
 #endif

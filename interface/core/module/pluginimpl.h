@@ -185,7 +185,7 @@ OUTAPI bool x3InitPlugin(HMODULE hmod, HMODULE hmanager)
 #define CREATEOBJECTIMPL
 LOCALAPI bool createObject(const char* clsid, long iid, IObject** p)
 {
-    if (!x3InternalCreate(clsid, iid, p) && *clsid && s_manager)
+    if (!x3InternalCreate(clsid, iid, p) && s_manager)
     {
         typedef bool (*F)(const char*, long, IObject**);
         F f = (F)GetProcAddress(s_manager, "x3CreateObject");
