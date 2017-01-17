@@ -56,13 +56,13 @@ public:
     {
         if (!Instance())
         {
-			std::lock_guard<std::mutex> lock(_mutex);			
-			if (!Instance())
-			{
-				SingletonObject<Cls>* p = new SingletonObject<Cls>();
-				Instance() = p;
-				p->addModuleItem();
-			}
+            std::lock_guard<std::mutex> lock(getMutex());            
+            if (!Instance())
+            {
+                SingletonObject<Cls>* p = new SingletonObject<Cls>();
+                Instance() = p;
+                p->addModuleItem();
+            }
         }
 
         IObject* ret = NULL;
@@ -87,8 +87,11 @@ private:
         static SingletonObject<Cls>* obj = NULL;
         return obj;
     }
-	static std::mutex _mutex;
+    static std::mutex& getMutex()
+    {
+        static std::mutex obj;
+        return obj;
+    }
 };
-template <class Cls> std::mutex SingletonObject<Cls>::_mutex;
 END_NAMESPACE_X3
 #endif
