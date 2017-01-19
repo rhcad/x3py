@@ -12,6 +12,7 @@
 #include "plugins.h"
 #include "workpath.h"
 
+
 BEGIN_NAMESPACE_X3
 
 class CManager : public CPlugins, public CWorkPath

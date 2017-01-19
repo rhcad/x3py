@@ -5,6 +5,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 #define OUTAPI      extern "C" __attribute__((visibility("default")))
 #if defined(__APPLE__)
@@ -23,8 +24,8 @@ typedef void* HWND;
 typedef void* PROC;
 typedef unsigned char BYTE;
 typedef unsigned short WORD;
-typedef unsigned long DWORD;
-typedef DWORD ULONG;
+typedef uint32_t DWORD;
+typedef unsigned long ULONG;
 
 long InterlockedIncrement(long* p);
 long InterlockedDecrement(long* p);

@@ -8,14 +8,8 @@
 #include <utilfunc/lockrw.h>
 #include <utilfunc/vecfunc.h>
 
-#if defined(_MSC_VER) && _MSC_VER > 1200    // VC8/9
-    #include <hash_map>
-    using stdext::hash_multimap;
-    using stdext::hash_map;
-#else                                       // VC6, GCC or others
-    #define hash_multimap std::multimap
-    #define hash_map std::map
-#endif
+#include <unordered_map>    
+using std::unordered_multimap;
 
 BEGIN_NAMESPACE_X3
 
@@ -27,7 +21,7 @@ class IRegister : public IObject
 {
     X3DEFINE_IID(IRegister);
     virtual bool registerPlugin(Creator creator, HMODULE hmod, const char** clsids) = 0;
-    virtual void unregisterPlugin(Creator creator) = 0;
+    virtual void unregisterPlugin(Creator creator) = 0;    
     virtual bool createFromOthers(const char* clsid, long iid, IObject** p) = 0;
     virtual HMODULE findModuleByFileName(const char* filename) = 0;
 
@@ -70,7 +64,7 @@ private:
 private:
     typedef std::pair<Creator, HMODULE> Plugin;
     LockRW_<std::vector<Plugin> >               _plugins;
-    LockRW_<hash_map<std::string, Creator> >    _clsmap;
+    LockRW_<std::unordered_map<std::string, Creator> >    _clsmap;
 
     struct ObserverItem {
         Creator         creator;
@@ -80,7 +74,7 @@ private:
 
         ObserverItem() : creator(NULL), handler(NULL), obj(NULL), objhandler(NULL) {}
     };
-    typedef hash_multimap<std::string, ObserverItem> ObserverMap;
+    typedef unordered_multimap<std::string, ObserverItem> ObserverMap;
     typedef std::pair<std::string, ObserverItem> ObserverPair;
     typedef ObserverMap::iterator               MAP_IT;
 

@@ -76,7 +76,7 @@ void CPlugins::unregisterPlugin(Creator creator)
     LockRW lockcls(_clsmap.locker, true);
     if (lockcls.canWrite())
     {
-        hash_map<std::string, Creator>::iterator it = _clsmap.begin();
+        std::unordered_map<std::string, Creator>::iterator it = _clsmap.begin();
         while (it != _clsmap.end())
         {
             if (it->second == creator)
@@ -154,7 +154,7 @@ Creator CPlugins::findPluginByClassID(const char* clsid) const
 
     if (locker.canRead())
     {
-        hash_map<std::string, Creator>::const_iterator it = _clsmap.find(clsid);
+        std::unordered_map<std::string, Creator>::const_iterator it = _clsmap.find(clsid);
         ret = (it != _clsmap.end()) ? it->second : NULL;
     }
 
@@ -164,7 +164,11 @@ Creator CPlugins::findPluginByClassID(const char* clsid) const
 bool CPlugins::createFromOthers(const char* clsid, long iid, IObject** p)
 {
     Creator creator = findPluginByClassID(clsid);
-    return creator && creator(clsid, iid, p);
+    if (creator && creator(clsid, iid, p))
+    {
+        return true;
+    }
+    return false;
 }
 
 bool CPlugins::registerObserver(const char* type, PROC handler, Creator creator)
