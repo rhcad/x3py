@@ -50,7 +50,7 @@ bool CPlugins::registerPlugin(Creator creator, HMODULE hmod, const char** clsids
         LockRW lockcls(_clsmap.locker, true);
         for (; *clsids && lockcls.canWrite(); clsids++)
         {
-            _clsmap[*clsids] = creator;
+            _clsmap.insert(CreatorPair(*clsids, creator));
         }
     }
 
@@ -76,7 +76,7 @@ void CPlugins::unregisterPlugin(Creator creator)
     LockRW lockcls(_clsmap.locker, true);
     if (lockcls.canWrite())
     {
-        std::unordered_map<std::string, Creator>::iterator it = _clsmap.begin();
+        CreatorMap::iterator it = _clsmap.begin();
         while (it != _clsmap.end())
         {
             if (it->second == creator)
@@ -154,7 +154,7 @@ Creator CPlugins::findPluginByClassID(const char* clsid) const
 
     if (locker.canRead())
     {
-        std::unordered_map<std::string, Creator>::const_iterator it = _clsmap.find(clsid);
+        CreatorMap::const_iterator it = _clsmap.find(clsid);
         ret = (it != _clsmap.end()) ? it->second : NULL;
     }
 

@@ -8,8 +8,17 @@
 #include <utilfunc/lockrw.h>
 #include <utilfunc/vecfunc.h>
 
-#include <unordered_map>    
-using std::unordered_multimap;
+#if !defined(_MSC_VER) || _MSC_VER >= 1700
+#include <unordered_map>
+#define hash_multimap std::unordered_multimap
+#else
+#if defined(_MSC_VER) && _MSC_VER > 1200    // VC8/9
+    #include <hash_map>
+    using stdext::hash_multimap;
+#else                                       // VC6, GCC or others
+    #define hash_multimap std::multimap
+#endif
+#endif
 
 BEGIN_NAMESPACE_X3
 
@@ -63,8 +72,10 @@ private:
 
 private:
     typedef std::pair<Creator, HMODULE> Plugin;
+    typedef hash_multimap<std::string, Creator> CreatorMap;
+    typedef std::pair<std::string, Creator> CreatorPair;
     LockRW_<std::vector<Plugin> >               _plugins;
-    LockRW_<std::unordered_map<std::string, Creator> >    _clsmap;
+    LockRW_<CreatorMap>                         _clsmap;
 
     struct ObserverItem {
         Creator         creator;
@@ -74,7 +85,7 @@ private:
 
         ObserverItem() : creator(NULL), handler(NULL), obj(NULL), objhandler(NULL) {}
     };
-    typedef unordered_multimap<std::string, ObserverItem> ObserverMap;
+    typedef hash_multimap<std::string, ObserverItem> ObserverMap;
     typedef std::pair<std::string, ObserverItem> ObserverPair;
     typedef ObserverMap::iterator               MAP_IT;
 
